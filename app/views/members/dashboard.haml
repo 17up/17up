@@ -1,0 +1,10 @@
+= render "shared/flash_message"
+%nav
+	.nav-item
+		%a.active{:href => setting_path}
+			%span.button.xs.glossy(data-icon=' ')
+				%i.icon-cog
+
+- content_for :footer do
+	:javascript
+		new Dashboard()

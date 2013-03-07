@@ -1,0 +1,11 @@
+= render "shared/flash_message"
+%nav
+	.nav-item
+		%a.active(href = "/members/sign_out" data-method="delete" rel="nofollow")
+			%span.button.xs.pink.glossy(data-icon=' ')
+				%i.icon-off
+				登出
+
+- content_for :footer do
+	:javascript
+		new Setting()

@@ -1,0 +1,103 @@
+@import "utils"
+
+@include font-face("Tallys","/font/Tallys/Tallys")
+@include font-face("Lobster","/font/Lobster/Lobster",400)
+@include font-face("Droid Sans","/font/Droid Sans/Droid Sans",700)
+@include font-face("Amienne","/font/Amienne/Amienne")
+
+body
+	font-family: "Droid Sans","Microsoft YaHei",Consolas,monospace, sans-serif
+	margin: 0
+
+.tallys
+	font-family: "Tallys", sans-serif
+	
+.amienne
+	font-family: "Amienne", sans-serif
+
+@import url(http://fonts.googleapis.com/css?family=Dancing+Script:700)
+
+.dancer
+	font-family: "Dancing Script", cursive
+
+a img, img
+	border: none
+	vertical-align: middle
+
+a
+	text-decoration: none
+	color: #5185bc
+	&:hover
+		color: #3e6a9a
+		text-decoration: none
+
+.text_center
+	text-align: center
+
+.text_right
+	text-align: right
+
+.left
+	float: left
+
+.right
+	float: right
+
+.as_link
+	cursor: pointer
+
+.disable_event
+	pointer-events: none
+	
+.hiddenfile
+	width: 0px
+	height: 0px
+	overflow: hidden
+	position: absolute
+	bottom: 0
+	left: 0
+
+#flash_message
+	.alert
+		padding: 8px 35px 8px 14px	
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+		background-color: #fcf8e3
+		border: 1px solid #fbeed5
+		color: #c09853
+		position: relative
+		z-index: 999
+		.close
+			position: absolute
+			top: 7px
+			right: 10px
+			line-height: 20px
+			font-size: 25px
+			cursor: pointer
+			&:hover
+				color: #ef7a7f
+	.alert-error
+		background-color: #f2dede
+		border-color: #eed3d7
+		color: #b94a48
+	.alert-info
+		background-color: #d9edf7
+		border-color: #bce8f1
+		color: #3a87ad
+	.alert-success
+		background-color: #dff0d8
+		border-color: #d6e9c6
+		color: #468847
+	.alert-right
+		width: 200px
+		float: right
+	.alert-left
+		width: 200px
+		float: left
+
+#footer
+	text-align: center
+	color: #171717
+	font-size: 16px
+	.tool
+		display: none
+		padding: 20px
