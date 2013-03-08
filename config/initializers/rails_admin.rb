@@ -31,7 +31,7 @@ RailsAdmin.config do |config|
   # config.default_items_per_page = 20
 
   # Exclude specific models (keep the others):
-  # config.excluded_models = ['Authorization', 'Member']
+  config.excluded_models = ['Text']
 
   # Include specific models (exclude the others):
   # config.included_models = ['Authorization', 'Member']
@@ -54,7 +54,7 @@ RailsAdmin.config do |config|
   # Now you probably need to tour the wiki a bit: https://github.com/sferik/rails_admin/wiki
   # Anyway, here is how RailsAdmin saw your application's models when you ran the initializer:
 
-
+  
 
   ###  Authorization  ###
 

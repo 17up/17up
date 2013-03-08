@@ -70,4 +70,14 @@ class Authorization
     end
   end
 
+  rails_admin do
+    field :provider do
+      pretty_value do
+        bindings[:view].link_to(value,bindings[:object].link)
+      end
+    end
+    field :uid 
+    field :member
+  end
+
 end

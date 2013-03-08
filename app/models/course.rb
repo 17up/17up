@@ -2,13 +2,11 @@ class Course
   include Mongoid::Document
   include Mongoid::Timestamps::Short
 
-  field :title, type: String
-  field :status, type: Integer
-  field :ctype, type: Integer
-  field :language, type: String
-  field :content, type: String
-  field :tags, type: Array
-
+  field :status, type: Integer, default: 3
+  
+  embeds_many :paragraphs
+  accepts_nested_attributes_for :paragraphs
+  # author
   belongs_to :member
 
   STATUS = {
@@ -23,18 +21,18 @@ class Course
     scope v.to_sym,where(:status => k.to_i)
   end
 
-  CTYPE = {
-    "1" => "pro",
-    "2" => "common"
-  }
-  # 1: 教师课程 限role=e/a
-  # 2: 个人课程 
-  CTYPE.each do |k,v|
-    scope v.to_sym,where(:ctype => k.to_i)
-  end
 
   def check(member,wids)
     
+  end
+
+  rails_admin do
+    field :status, :integer do
+      pretty_value do
+        STATUS[value.to_s]
+      end
+    end
+    field :member
   end
 
 end

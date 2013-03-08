@@ -43,7 +43,7 @@ class Member
   AVATAR_PATH = "#{Rails.root}/public"+AVATAR_URL
   AVATAR_SIZE_LIMIT = 3000*1000 #3m
   ## role 用户组别 
-  ROLE = %w{a u e}
+  ROLE = %w{a u t}
   # nil 三无用户，被清理对象
   scope :x, where(:role => nil)
   ROLE.each do |r|
@@ -121,5 +121,13 @@ class Member
   def clear_data
     `rm -rf #{AVATAR_PATH + _id}`
   end 
+
+  rails_admin do
+    field :uid
+    field :role
+    field :gem
+    field :c_at
+    field :authorizations
+  end
   
 end
