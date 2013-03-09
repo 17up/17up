@@ -16,7 +16,7 @@ set :scm, :git
 set :scm_username, "kkxlkkxllb@gmail.com"
 set :keep_releases, 3   # 留下多少个版本的源代码
 set :user, "www"
-set :deploy_to, "~/#{application}/"
+set :deploy_to, "/home/#{user}/#{application}/"
 set :runner, "ruby"
 set :use_sudo,  false
 set :deploy_via, :remote_cache
@@ -83,5 +83,5 @@ end
 task :mongoid_migrate_database, :roles => :web do
   run "cd #{deploy_to}/current/; RAILS_ENV=production bundle exec rake db:migrate"
 end
-after "deploy:finalize_update","deploy:create_symlink", :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
+after "deploy:finalize_update", :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
 after "deploy:restart", "deploy:cleanup"
