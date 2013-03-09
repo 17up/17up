@@ -123,6 +123,12 @@ class Member
   end 
 
   rails_admin do
+    field :email do
+      pretty_value do
+        bindings[:view].image_tag(bindings[:object].avatar)
+      end
+      column_width 55
+    end
     field :uid
     field :role
     field :gem

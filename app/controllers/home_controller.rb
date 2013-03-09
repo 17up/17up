@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-	caches_page :index
 
   def index
   	agent = request.user_agent.downcase
