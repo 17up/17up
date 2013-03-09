@@ -14,8 +14,6 @@ group :assets do
   gem 'bourbon'
   gem "rails-backbone"
   gem 'haml_coffee_assets'
-  #gem 'bootstrap-sass'
-  #gem 'compass'
 end
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails'
