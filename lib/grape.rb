@@ -1,9 +1,7 @@
 # image function
 module Grape
   class Base
-    def load_service
-      YAML.load_file(Rails.root.join("config", "service.yml")).fetch(Rails.env)
-    end
+    include Utils::Service
     
     def img_save(url,output,success = -> { },&error)
       begin

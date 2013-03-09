@@ -1,4 +1,15 @@
 GIT
+  remote: git@github.com:kkxlkkxllb/goodreads.git
+  revision: 07235f89d3b22fd3ec67d1a80f3155f8f2cb7f31
+  specs:
+    goodreads (0.2.1)
+      activesupport (~> 3)
+      hashie (~> 1.2)
+      i18n (~> 0.5)
+      oauth (~> 0.4)
+      rest-client (~> 1.6)
+
+GIT
   remote: git@github.com:kkxlkkxllb/omniauth-youtube.git
   revision: 6bbf6031858ce372dcfca3d78e807765e7331d1d
   specs:
@@ -95,12 +106,6 @@ GEM
       multi_json (~> 1.4)
       nokogiri (~> 1.5.2)
       oauth2
-    goodreads (0.2.1)
-      activesupport (~> 3)
-      hashie (~> 1.0)
-      i18n (~> 0.5)
-      oauth (~> 0.4)
-      rest-client (~> 1.6)
     google_drive (0.3.3)
       nokogiri (>= 1.4.4, != 1.5.2, != 1.5.1)
       oauth (>= 0.3.6)
@@ -384,7 +389,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   github_api
-  goodreads
+  goodreads!
   google_drive
   haml
   haml-rails

@@ -18,6 +18,10 @@ Veggie::Application.routes.draw do
   
   # members
   match "setting" => "members#edit",:as => :setting
+  namespace :members do
+    post "update"
+    post "upload_avatar"
+  end
   match ":role/:uid" => "members#show" 
   
   authenticated :member do

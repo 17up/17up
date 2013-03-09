@@ -5,7 +5,7 @@ class Greet
   end
   
   def deliver
-    veggie = Provider.where(["provider = ? AND user_id is not null",@provider.provider]).first
+    veggie = Authorization.official(@provider.provider)
     case @provider.provider
     when "weibo"  
       client = Weibo::Client.new(veggie.token,veggie.uid) 

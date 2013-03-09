@@ -1,5 +1,5 @@
 .hidden
-	= form_tag url,:remote => true,:multipart => true do
+	= form_tag url,:remote => true,:multipart => true,'data-type' => 'json' do
 		- if defined?(wid)
 			= hidden_field_tag :id,wid
 		.hiddenfile

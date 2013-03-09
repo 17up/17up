@@ -18,6 +18,14 @@ class ApplicationController < ActionController::Base
     @meta_description = desc
   end
 
+  def render_json(status,msg,data = {})
+    render :json => {
+              :status => status,
+              :msg => msg,
+              :data => data
+            }
+  end
+
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: lambda { |exception| render_error 500, exception }
     rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, Mongoid::Errors::DocumentNotFound, with: lambda { |exception| render_error 404, exception }

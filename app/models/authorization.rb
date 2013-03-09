@@ -16,6 +16,10 @@ class Authorization
 
   PROVIDERS = %w{twitter weibo github tumblr instagram youtube}
 
+  def self.official(provider)
+    Authorization.where(:provider => provider).first
+  end
+
   def avatar(style = :mudium)
     image = info['image'] || info['avatar']
     case style

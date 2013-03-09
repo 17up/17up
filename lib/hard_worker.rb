@@ -19,7 +19,7 @@ module HardWorker
   class UploadOlive < Base
     def perform(content,pic)
       begin
-        provider = Provider.find(38)
+        provider = Authorization.official("weibo")
         client = Weibo::Client.new(provider.token,provider.uid)
         data = client.statuses_upload(content,pic)
 				msg = data["error_code"] ? data.to_s : "#{data["id"]} published"
@@ -28,7 +28,7 @@ module HardWorker
         self.logger("#{content} [#{pic}] fail msg: #{ex.to_s}")
       end
       #twitter
-      veggie = Provider.find(35)
+      veggie = Authorization.official("twitter")
       client = Twitter::Client.new(
         :oauth_token => veggie.token,
         :oauth_token_secret => veggie.secret

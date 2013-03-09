@@ -8,6 +8,22 @@ class window.Utils
 	@loaded: ($item) ->
 		$item.stop(true).css "opacity",1
 		$item.removeClass 'disable_event'
+	# single uploader
+	@uploader: ($ele,$img) ->
+		$file = $("input[type='file']",$ele.prev())
+		$form = $file.closest('form')
+		$form.bind "ajax:success",(d,data) ->
+			if data.status is 0
+				Utils.flash(data.msg,'success')
+				$img.attr("src",data.data)
+			else
+				Utils.flash(data.msg,'error')
+		$file.change ->
+			$form.submit()
+		$ele.click ->
+			$file.trigger "click"
+			false
+		$form
 	@flash: (msg,type='',style='') ->
 		$flash = $("#flash_message")
 		$flash.prepend("<div class='alert text_center hide'><strong></strong></div>")

@@ -17,7 +17,8 @@ module Onion
     end   
   end
   
-  class FetchQuote
+  class Quote
+    include Utils::Service
     # tag : inspirational
     # author : 947.William_Shakespeare
     # author_id : 947
@@ -34,20 +35,43 @@ module Onion
       end
     end
     
-    def done
+    def fetch
       frame = Nokogiri::HTML(open(@url),nil)
       if frame
-        @quotes = frame.css(".quoteText").inject([]) do |a,x|  
-          x.css("a").each do |link|
+        frame.css(".quoteDetails").each do |x| 
+          quote = Quote.new
+          _text = x.css(".quoteText")[0]
+          quote.source = _text.css("i a")[0].text unless _text.css("i a").blank?       
+          quote.author = _text.css("a")[0].text
+          quote.content = _text.text.scan(/ “.+”/)[0]#scan(/&ldquo;.+&rdquo;/)
+
+          _text.css("a").each do |link|
             link["href"] = @base_url + link["href"]
             link["target"] = "blank" 
           end  
-          a << x.to_html
+          quote.html = _text.to_html
+
+          _foot = x.css(".quoteFooter .left")[0]
+          if _foot
+            tags = _foot.css("a").inject([]) do |a,e|
+              a << e.text
+            end
+          end
+          quote.tags = tags
+          quote.save
         end
       end
     end
+
+    def get_author(name)
+      key = load_service['goodreads']['app_key']
+      secret = load_service['goodreads']['app_secret']
+      client = Goodreads::Client.new(:api_key => key, :api_secret => secret)
+      author = client.author_by_name(name)
+    end
     
     private
+
     def spell_author(id)
       name = YAML.load_file(Rails.root.join("doc", "goodreads.yml")).fetch("author")[id]
       "#{id}.#{name}"

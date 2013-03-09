@@ -3,6 +3,12 @@ module Utils
   class Helper
     include ActionView::Helpers
   end
+
+  module Service
+    def load_service
+      YAML.load_file(Rails.root.join("config", "service.yml")).fetch(Rails.env)
+    end
+  end
   
   def self.parse_ip(ip,opts={})
     if opts[:taobao]

@@ -1,10 +1,30 @@
 = render "shared/flash_message"
-%nav
-	.nav-item
+%nav.clearfix
+	= render 'shared/uploader',:url => "/members/upload_avatar",:type => "image"
+	.avatar.left(title="点我更换头像")		
+		= image_tag current_member.avatar
+		%i.icon-upload-alt
+	.name.left
+		= current_member.name
+	.nav-item.right
+		.brand
+			17up
+		%a.active(href = "/")
+			%span.button.green.xs.glossy(data-icon=' ')
+				%i.icon-dashboard
 		%a.active(href = "/members/sign_out" data-method="delete" rel="nofollow")
-			%span.button.xs.pink.glossy(data-icon=' ')
+			%span.button.xs.glossy(data-icon=' ')
 				%i.icon-off
-				登出
+#container
+	%aside
+		%ul#side_nav
+			%li.active
+				绑定
+				%i
+			%li
+				成就
+				%i
+	%article			
 
 - content_for :footer do
 	:javascript
