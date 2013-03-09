@@ -378,7 +378,6 @@ PLATFORMS
 
 DEPENDENCIES
   amazon-ecs
-  bootstrap-sass
   bourbon
   capistrano
   coffee-rails (~> 3.2.1)
