@@ -67,7 +67,7 @@ class Member
   end
 
   def avatar_name
-    "#{Time.now.to_i}.jpg"
+    "#{_id}/#{c_at.to_i}.jpg"
   end
 
   def validate_upload_avatar(file,type)
