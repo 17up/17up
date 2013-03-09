@@ -303,6 +303,8 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.10.0)
     ruby-hmac (0.4.0)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     safe_yaml (0.8.4)
     sass (3.2.6)
     sass-rails (3.2.6)
@@ -411,6 +413,7 @@ DEPENDENCIES
   redis-rails
   remotipart (~> 1.0)
   rspec-rails (~> 2.10.0)
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   sidekiq
   sinatra

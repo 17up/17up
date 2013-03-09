@@ -1,10 +1,10 @@
 # coding: utf-8
+require "rvm/capistrano"
 require "bundler/capistrano"
 require "sidekiq/capistrano"
 
-require "rvm/capistrano"
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#set :whenever_command, "bundle exec whenever"
+#require "whenever/capistrano"
 default_run_options[:pty] = true
 set :rvm_ruby_string, 'ruby-2.0.0-p0'
 set :rvm_type, :user
@@ -62,13 +62,6 @@ namespace :faye do
   end
 end
 
-
-task :init_shared_path, :roles => :web do
-  run "mkdir -p #{deploy_to}/shared/log"
-  run "mkdir -p #{deploy_to}/shared/pids"
-  run "mkdir -p #{deploy_to}/shared/assets"
-end
-
 task :link_shared_files, :roles => :web do
   run "ln -sf #{deploy_to}/shared/config/*.yml #{deploy_to}/current/config/"
   run "ln -sf #{deploy_to}/shared/config/unicorn.rb #{deploy_to}/current/config/"
@@ -90,6 +83,5 @@ end
 task :mongoid_migrate_database, :roles => :web do
   run "cd #{deploy_to}/current/; RAILS_ENV=production bundle exec rake db:migrate"
 end
-
-after "deploy:finalize_update","deploy:symlink", :init_shared_path, :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
+after "deploy:finalize_update","deploy:create_symlink", :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
 after "deploy:restart", "deploy:cleanup"

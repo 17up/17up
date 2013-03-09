@@ -27,7 +27,7 @@ gem 'jbuilder'
 
 # Deploy with Capistrano
 gem 'capistrano'
-
+gem "rvm-capistrano"
 # To use debugger
 # gem 'debugger'
 gem 'nokogiri', '~>1.5.0'
