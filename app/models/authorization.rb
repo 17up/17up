@@ -17,7 +17,7 @@ class Authorization
   PROVIDERS = %w{twitter weibo github tumblr instagram youtube}
 
   def avatar(style = :mudium)
-    image = info[:image] || info[:avatar]
+    image = info['image'] || info['avatar']
     case style
     when :mudium
       image
@@ -45,28 +45,28 @@ class Authorization
 
   # @twitter @weibo
   def at_name
-    info[:nickname]
+    info['nickname']
   end
 
   def user_name
-    info[:name] || at_name
+    info['name'] || at_name
   end
 
   def link
     case provider
     when "weibo"
-      link = info[:urls][:Weibo]
+      link = info['urls']['Weibo']
       link.blank? ? "http://weibo.com/#{uid}" : link
     when "twitter"
-      info[:urls][:Twitter]
+      info['urls']['Twitter']
     when "tumblr"
-      info[:blogs][0][:url]
+      info['blogs'][0]['url']
     when "instagram"
       "http://instagram.com/#{at_name}"
     when "github"
-      info[:urls][:GitHub]
+      info['urls']['GitHub']
     when "youtube"
-      info[:channel_url]
+      info['channel_url']
     end
   end
 
