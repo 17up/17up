@@ -6,11 +6,10 @@ class window.Setting.AccountView extends Backbone.View
 	initialize: ->
 		@render()
 	render: ->
-		template = @template(providers: @model.toJSON()['providers'])
+		template = @template(providers: @model.get("providers"))
 		$(@el).html(template)
 		$wrap = $("#account")
-		unless $wrap.jmpress('initialized')
-			$wrap.jmpress()
+		$wrap.jmpress()
 		$wrap.show()
 		#Utils.active_tab $(".step.active").attr("id")
 		#$(".step",$wrap).on 'enterStep', (e) ->
