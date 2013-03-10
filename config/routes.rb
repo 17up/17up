@@ -17,10 +17,13 @@ Veggie::Application.routes.draw do
   match "o" => "olive#index", :as => :olive
   
   # members
-  match "setting" => "members#edit",:as => :setting
+  match "account" => "members#edit"
+  match "achieve" => "members#edit"
+  match "genius" => "members#edit"
   namespace :members do
     post "update"
     post "upload_avatar"
+    get "account"
   end
   match ":role/:uid" => "members#show" 
   

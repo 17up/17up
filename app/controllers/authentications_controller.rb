@@ -26,7 +26,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
           current_member.bind_service(omniauth, expires_time)
           flash[:success] = t('flash.notice.bind')         
         end
-        redirect_to setting_path + "#provider"
+        redirect_to "/account#/provider"
 			# 非登录状态下，注册/登录
       else
 				# 登录
@@ -40,7 +40,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
           new_user.bind_service(omniauth, expires_time)
           sign_in(new_user)
           flash[:notice] = t('flash.notice.welcome')
-          redirect_to setting_path + "#account"
+          redirect_to "/account"
         end
       end
     end

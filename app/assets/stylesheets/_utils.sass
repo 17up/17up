@@ -5,10 +5,15 @@
 	-webkit-border-radius: $dist
 	border-radius: $dist
 	
-@mixin shadow($x,$y,$r,$color,$inset : '')
-	-moz-box-shadow: $x $y $r $color $inset
-	-webkit-box-shadow: $x $y $r $color $inset
-	box-shadow: $x $y $r $color $inset
+@mixin shadow($x,$y,$r,$color,$inset : false)
+	@if $inset
+		-moz-box-shadow: $x $y $r $color $inset
+		-webkit-box-shadow: $x $y $r $color $inset
+		box-shadow: $x $y $r $color $inset
+	@else
+		-moz-box-shadow: $x $y $r $color 
+		-webkit-box-shadow: $x $y $r $color 
+		box-shadow: $x $y $r $color 
 
 @mixin glass
 	border: 1px solid rgba(0,0,0,0.5)

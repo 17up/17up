@@ -3,11 +3,23 @@ class MembersController < ApplicationController
   before_filter :require_member!,:only => :update
   
   def dashboard
-  	set_seo_meta(current_member.name)
+  	set_seo_meta(nil)
   end
 
   def edit
   	set_seo_meta(t("members.edit",:name => current_member.name))
+  end
+
+  # json
+  def account
+    @providers = Authorization::PROVIDERS.map do |p|
+      {
+        :provider => p,
+        :has_bind => current_member.has_provider?(p) ? true : false,
+        :omniauth_url => member_omniauth_authorize_path(p)
+      }
+    end
+    render_json 0,'ok',:providers => @providers
   end
 
   def show

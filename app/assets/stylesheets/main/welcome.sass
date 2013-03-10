@@ -19,7 +19,6 @@
 		opacity: 0.3
 
 body.welcome
-	height: 100%
 	@include radial-gradient(50% 50%,circle cover,#9dcce1,#52a2c8)
 
 .not-supported
@@ -74,20 +73,20 @@ body.welcome
 				border-right: 1px solid #ccc
 				border-left: 1px solid #fcfcfc
 				&:hover
-					color: #333
+					color: #29638a
 			i
 				position: absolute
-				top: -20px
+				top: 0px
 				margin-left: -10px
 				left: 50%
 				opacity: 0
 		li.active
-			border-top: 4px solid #333
+			border-top: 4px solid #2a658b
 			a
-				color: #000
+				color: #29638a
 			i 
 				opacity: 1
-				@include triangle(20px,#333,up)
+				@include triangle(20px,#2a658b,down)
 	#impress
 		display: none
 		.step
@@ -98,10 +97,6 @@ body.welcome
 			line-height: 1.5
 			text-align: center
 			@include text-shadow-inverse
-			span.icon-globe
-				position: absolute
-				top: -30px
-				left: 48%
 	#contact
 		font-size: 40px
 		img
@@ -154,5 +149,5 @@ body.welcome
 		.title
 			padding-bottom: 20px
 		.desc
-			@include text-shadow-inverse
 			font-size: 16px
+			color: #215075

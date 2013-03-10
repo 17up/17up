@@ -24,6 +24,8 @@ class window.Utils
 			$file.trigger "click"
 			false
 		$form
+	@active_tab: (id) ->
+		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
 	@flash: (msg,type='',style='') ->
 		$flash = $("#flash_message")
 		$flash.prepend("<div class='alert text_center hide'><strong></strong></div>")

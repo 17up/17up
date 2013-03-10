@@ -1,16 +1,15 @@
 /*!
- * jmpress.js v0.4.3
- * http://shama.github.com/jmpress.js
+ * jmpress.js v0.4.4
+ * http://jmpressjs.github.com/jmpress.js
  *
  * A jQuery plugin to build a website on the infinite canvas.
  *
- * Copyright 113 Kyle Robinson Young @shama & Tobias Koppers @sokra
+ * Copyright 2012 Kyle Robinson Young @shama & Tobias Koppers @sokra
  * Licensed MIT
  * http://www.opensource.org/licenses/mit-license.php
  *
  * Based on the foundation laid by Bartek Szopka @bartaz
- */
-/*!
+ *//*
  * core.js
  * The core of jmpress.js
  */
@@ -308,14 +307,6 @@
 				return false;
 			}
 
-			// Sometimes it's possible to trigger focus on first link with some keyboard action.
-			// Browser in such a case tries to scroll the page to make this element visible
-			// (even that body overflow is set to hidden) and it breaks our careful positioning.
-			//
-			// So, as a lousy (and lazy) workaround we will make the page scroll back to the top
-			// whenever slide is selected
-			//
-			// If you are reading this and know any better way to handle it, I'll be glad to hear about it!
 			scrollFix.call(this);
 
 			var step = $(el).data('stepData');
@@ -399,7 +390,7 @@
 		 * This should fix ANY kind of buggy scrolling
 		 */
 		function scrollFix() {
-			function fix() {
+			(function fix() {
 				if ($(container)[0].tagName === "BODY") {
 					try {
 						window.scrollTo(0, 0);
@@ -418,8 +409,7 @@
 				setTimeout(check, 100);
 				setTimeout(check, 200);
 				setTimeout(check, 400);
-			}
-			fix();
+			}());
 		}
 		/**
 		 * Alias for select
@@ -552,7 +542,7 @@
 		// CHECK FOR SUPPORT
 		if (checkSupport() === false) {
 			if (settings.notSupportedClass) {
-				jmpress.parents('body').addClass(settings.notSupportedClass);
+				jmpress.addClass(settings.notSupportedClass);
 			}
 			return;
 		} else {
@@ -787,7 +777,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * near.js
  * Find steps near each other
  */
@@ -864,7 +854,7 @@
 		return $(array);
 	};
 }(jQuery, document, window));
-/*!
+/*
  * transform.js
  * The engine that powers the transforms or falls back to other methods
  */
@@ -873,9 +863,6 @@
 	'use strict';
 
 	/* FUNCTIONS */
-	function randomString() {
-		return "" + Math.round(Math.random() * 100000, 0);
-	}
 	function toCssNumber(number) {
 		return (Math.round(10000*number)/10000)+"";
 	}
@@ -1170,7 +1157,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * active.js
  * Set the active classes on steps
  */
@@ -1217,7 +1204,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * circular.js
  * Repeat from start after end
  */
@@ -1265,7 +1252,7 @@
 		return prevOrNext(this, step, eventData);
 	});
 }(jQuery, document, window));
-/*!
+/*
  * start.js
  * Set the first step to start on
  */
@@ -1279,7 +1266,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * ways.js
  * Control the flow of the steps
  */
@@ -1289,9 +1276,6 @@
 	var $jmpress = $.jmpress;
 
 	/* FUNCTIONS */
-	function randomString() {
-		return "" + Math.round(Math.random() * 100000, 0);
-	}
 	function routeFunc( jmpress, route, type ) {
 		for(var i = 0; i < route.length - 1; i++) {
 			var from = route[i];
@@ -1342,7 +1326,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * ajax.js
  * Load steps via ajax
  */
@@ -1421,7 +1405,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * hash.js
  * Detect and set the URL hash
  */
@@ -1529,7 +1513,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * keyboard.js
  * Keyboard event mapping and default keyboard actions
  */
@@ -1620,7 +1604,7 @@
 		});
 		// KEYDOWN EVENT
 		$(settings.fullscreen ? document : jmpress)
-			.bind("keyup"+current.keyboardNamespace, function( event ) {
+			.bind("keydown"+current.keyboardNamespace, function( event ) {
 			var eventTarget = $(event.target);
 
 			if ( !settings.fullscreen && !eventTarget.closest(jmpress).length || !keyboardSettings.use ) {
@@ -1692,7 +1676,7 @@
 
 
 }(jQuery, document, window));
-/*!
+/*
  * viewport.js
  * Scale to fit a given viewport
  */
@@ -1886,7 +1870,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * mouse.js
  * Clicking to select a step
  */
@@ -1938,7 +1922,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * mobile.js
  * Adds support for swipe on touch supported browsers
  */
@@ -1989,7 +1973,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * templates.js
  * The amazing template engine
  */
@@ -2004,9 +1988,6 @@
 	var templates = {};
 
 	/* FUNCTIONS */
-	function randomString() {
-		return "" + Math.round(Math.random() * 100000, 0);
-	}
 	function addUndefined( target, values, prefix ) {
 		for( var name in values ) {
 			var targetName = name;
@@ -2125,7 +2106,7 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * jqevents.js
  * Fires jQuery events
  */
@@ -2148,17 +2129,13 @@
 	});
 
 }(jQuery, document, window));
-/*!
+/*
  * animation.js
  * Apply custom animations to steps
  */
 (function( $, document, window, undefined ) {
 
 	'use strict';
-
-	function randomString() {
-		return "" + Math.round(Math.random() * 100000, 0);
-	}
 
 	function parseSubstepInfo(str) {
 		var arr = str.split(" ");
@@ -2188,6 +2165,7 @@
 					config.delay = value;
 				} else {
 					config.after = Array.prototype.slice.call(arr, i).join(" ");
+					i = arr.length;
 				}
 			}
 		}
@@ -2243,10 +2221,10 @@
 					other = listOfSubsteps[idx-1];
 				} else {
 					var index = find(listOfSubsteps, other, 0, idx - 1);
-					if(index === -1) {
+					if(index === undefined) {
 						index = find(listOfSubsteps, other);
 					}
-					other = (index === -1 || index === idx) ? listOfSubsteps[idx-1] : listOfSubsteps[index];
+					other = (index === undefined || index === idx) ? listOfSubsteps[idx-1] : listOfSubsteps[index];
 				}
 			} else {
 				other = listOfSubsteps[idx-1];
@@ -2391,303 +2369,4 @@
 		}
 	});
 
-}(jQuery, document, window));
-/*!
- * jmpress.toggle plugin
- * For binding a key to toggle de/initialization of jmpress.js.
- */
-(function( $, document, window, undefined ) {
-	'use strict';
-	$.jmpress("register", "toggle", function( key, config, initial ) {
-		var jmpress = this;
-		$(document).bind("keyup", function( event ) {
-			if ( event.keyCode === key ) {
-				if ($(jmpress).jmpress("initialized")) {
-					$(jmpress).jmpress("deinit");
-				} else {
-					$(jmpress).jmpress(config);
-				}
-			}
-		});
-		if ( initial ) {
-			$(jmpress).jmpress(config);
-		}
-	});
-}(jQuery, document, window));
-
-/*!
- * jmpress.secondary plugin
- * Apply a secondary animation when step is selected.
- */
-(function( $, document, window, undefined ) {
-	'use strict';
-	$.jmpress("initStep", function( step, eventData ) {
-		for(var name in eventData.data) {
-			if(name.indexOf("secondary") === 0) {
-				eventData.stepData[name] = eventData.data[name];
-			}
-		}
-	});
-	function exchangeIf(childStepData, condition, step) {
-		if(childStepData.secondary &&
-			childStepData.secondary.split(" ").indexOf(condition) !== -1) {
-			for(var name in childStepData) {
-				if(name.length > 9 && name.indexOf("secondary") === 0) {
-					var tmp = childStepData[name];
-					var normal = name.substr(9);
-					normal = normal.substr(0, 1).toLowerCase() + normal.substr(1);
-					childStepData[name] = childStepData[normal];
-					childStepData[normal] = tmp;
-				}
-			}
-			$(this).jmpress("reapply", $(step));
-		}
-	}
-	$.jmpress("beforeActive", function( step, eventData ) {
-		exchangeIf.call(eventData.jmpress, $(step).data("stepData"), "self", step);
-		var parent = $(step).parent();
-		$(parent)
-			.children(eventData.settings.stepSelector)
-			.each(function(idx, child) {
-				var childStepData = $(child).data("stepData");
-				exchangeIf.call(eventData.jmpress, childStepData, "siblings", child);
-			});
-		function grandchildrenFunc(idx, child) {
-			var childStepData = $(child).data("stepData");
-			exchangeIf.call(eventData.jmpress, childStepData, "grandchildren", child);
-		}
-		for(var i = 1; i < eventData.parents.length; i++) {
-			$(eventData.parents[i])
-				.children(eventData.settings.stepSelector)
-				.each();
-		}
-	});
-	$.jmpress("setInactive", function( step, eventData ) {
-		exchangeIf.call(eventData.jmpress, $(step).data("stepData"), "self", step);
-		var parent = $(step).parent();
-		$(parent)
-			.children(eventData.settings.stepSelector)
-			.each(function(idx, child) {
-				var childStepData = $(child).data("stepData");
-				exchangeIf.call(eventData.jmpress, childStepData, "siblings", child);
-			});
-		function grandchildrenFunc(idx, child) {
-			var childStepData = $(child).data("stepData");
-			exchangeIf.call(eventData.jmpress, childStepData, "grandchildren", child);
-		}
-		for(var i = 1; i < eventData.parents.length; i++) {
-			$(eventData.parents[i])
-				.children(eventData.settings.stepSelector)
-				.each(grandchildrenFunc);
-		}
-	});
-}(jQuery, document, window));
-
-/*!
- * jmpress.duration plugin
- * For auto advancing steps after a given duration and optionally displaying a
- * progress bar.
- */
-(function( $, document, window, undefined ) {
-	'use strict';
-
-	$.jmpress("defaults").duration = {
-		defaultValue: -1
-		,defaultAction: "next"
-		,barSelector: undefined
-		,barProperty: "width"
-		,barPropertyStart: "0"
-		,barPropertyEnd: "100%"
-	};
-	$.jmpress("initStep", function( step, eventData ) {
-		eventData.stepData.duration = eventData.data.duration && parseInt(eventData.data.duration, 10);
-		eventData.stepData.durationAction = eventData.data.durationAction;
-	});
-	$.jmpress("setInactive", function( step, eventData ) {
-		var settings = eventData.settings,
-			durationSettings = settings.duration,
-			current = eventData.current;
-		var dur = eventData.stepData.duration || durationSettings.defaultValue;
-		if( dur && dur > 0 ) {
-			if( durationSettings.barSelector ) {
-				var css = {
-					transitionProperty: durationSettings.barProperty
-					,transitionDuration: '0'
-					,transitionDelay: '0'
-					,transitionTimingFunction: 'linear'
-				};
-				css[durationSettings.barProperty] = durationSettings.barPropertyStart;
-				var bars = $(durationSettings.barSelector);
-				$.jmpress("css", bars, css);
-				bars.each(function(idx, element) {
-					var next = $(element).next();
-					var parent = $(element).parent();
-					$(element).detach();
-					if(next.length) {
-						next.insertBefore(element);
-					} else {
-						parent.append(element);
-					}
-				});
-			}
-			if(current.durationTimeout) {
-				clearTimeout(current.durationTimeout);
-				current.durationTimeout = undefined;
-			}
-		}
-	});
-	$.jmpress("setActive", function( step, eventData ) {
-		var settings = eventData.settings,
-			durationSettings = settings.duration,
-			current = eventData.current;
-		var dur = eventData.stepData.duration || durationSettings.defaultValue;
-		if( dur && dur > 0 ) {
-			if( durationSettings.barSelector ) {
-				var css = {
-					transitionProperty: durationSettings.barProperty
-					,transitionDuration: (dur-settings.transitionDuration*2/3-100)+"ms"
-					,transitionDelay: (settings.transitionDuration*2/3)+'ms'
-					,transitionTimingFunction: 'linear'
-				};
-				css[durationSettings.barProperty] = durationSettings.barPropertyEnd;
-				$.jmpress("css", $(durationSettings.barSelector), css);
-			}
-			var jmpress = this;
-			if(current.durationTimeout) {
-				clearTimeout(current.durationTimeout);
-				current.durationTimeout = undefined;
-			}
-			current.durationTimeout = setTimeout(function() {
-				var action = eventData.stepData.durationAction || durationSettings.defaultAction;
-				$(jmpress).jmpress(action);
-			}, dur);
-		}
-	});
-}(jQuery, document, window));
-
-/*!
- * jmpress.presentation-mode plugin
- * Display a window for the presenter with notes and a control and view of the
- * presentation
- */
-(function( $, document, window, undefined ) {
-
-	'use strict';
-	var $jmpress = $.jmpress;
-
-	/* FUNCTIONS */
-	function randomString() {
-		return "" + Math.round(Math.random() * 100000, 0);
-	}
-
-	/* DEFAULTS */
-	$jmpress("defaults").presentationMode = {
-		use: true,
-		url: "presentation-screen.html",
-		notesUrl: false,
-		transferredValues: ["userZoom", "userTranslateX", "userTranslateY"]
-	};
-	$jmpress("defaults").keyboard.keys[80] = "presentationPopup"; // p key
-
-	/* HOOKS */
-	$jmpress("afterInit", function( nil, eventData) {
-		var current = eventData.current;
-
-		current.selectMessageListeners = [];
-
-		if(eventData.settings.presentationMode.use) {
-
-			window.addEventListener("message", function(event) {
-				// We do not test orgin, because we want to accept messages
-				// from all orgins
-				try {
-					var json = JSON.parse(event.data);
-					switch(json.type) {
-					case "select":
-						// TODO SECURITY filter targetId
-						$.each(eventData.settings.presentationMode.transferredValues, function(idx, name) {
-							eventData.current[name] = json[name];
-						});
-						$(eventData.jmpress).jmpress("select", {step: "#"+json.targetId, substep: json.substep}, json.reason);
-						break;
-					case "listen":
-						current.selectMessageListeners.push(event.source);
-						break;
-					case "ok":
-						clearTimeout(current.presentationPopupTimeout);
-						break;
-					case "read":
-						try {
-							event.source.postMessage(JSON.stringify({type: "url", url: window.location.href, notesUrl: eventData.settings.presentationMode.notesUrl}), "*");
-						} catch(e) {
-							$.error("Cannot post message to source: " + e);
-						}
-						break;
-					default:
-						throw "Unknown message type: " + json.type;
-					}
-				} catch(e) {
-					$.error("Recieved message is malformed: " + e);
-				}
-			});
-			try {
-				if(window.parent && window.parent !== window) {
-					window.parent.postMessage(JSON.stringify({
-						"type": "afterInit"
-					}), "*");
-				}
-			} catch(e) {
-				$.error("Cannot post message to parent: " + e);
-			}
-		}
-	});
-	$jmpress("afterDeinit", function( nil, eventData) {
-		if(eventData.settings.presentationMode.use) {
-			try {
-				if(window.parent && window.parent !== window) {
-					window.parent.postMessage(JSON.stringify({
-						"type": "afterDeinit"
-					}), "*");
-				}
-			} catch(e) {
-				$.error("Cannot post message to parent: " + e);
-			}
-		}
-	});
-	$jmpress("setActive", function( step, eventData) {
-		var stepId = $(eventData.delegatedFrom).attr("id"),
-			substep = eventData.substep,
-			reason = eventData.reason;
-		$.each(eventData.current.selectMessageListeners, function(idx, listener) {
-			try {
-				var msg = {
-					"type": "select",
-					"targetId": stepId,
-					"substep": substep,
-					"reason": reason
-				};
-				$.each(eventData.settings.presentationMode.transferredValues, function(idx, name) {
-					msg[name] = eventData.current[name];
-				});
-				listener.postMessage(JSON.stringify(msg), "*");
-			} catch(e) {
-				$.error("Cannot post message to listener: " + e);
-			}
-		});
-	});
-	$jmpress("register", "presentationPopup", function() {
-		function trySend() {
-			jmpress.jmpress("current").presentationPopupTimeout = setTimeout(trySend, 100);
-			try {
-				popup.postMessage(JSON.stringify({type: "url", url: window.location.href, notesUrl: jmpress.jmpress("settings").presentationMode.notesUrl}), "*");
-			} catch(e) {
-			}
-		}
-		var jmpress = $(this),
-			popup;
-		if(jmpress.jmpress("settings").presentationMode.use) {
-			popup = window.open($(this).jmpress("settings").presentationMode.url);
-			jmpress.jmpress("current").presentationPopupTimeout = setTimeout(trySend, 100);
-		}
-	});
 }(jQuery, document, window));

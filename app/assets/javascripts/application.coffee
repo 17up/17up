@@ -2,6 +2,7 @@
 #= require jquery_ujs
 #= require turbolinks
 #= require jquery.remotipart
+#= require hamlcoffee
 #= require underscore
 #= require backbone
 #= require backbone_rails_sync

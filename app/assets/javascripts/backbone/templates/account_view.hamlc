@@ -1,0 +1,12 @@
+#account
+	#provider.step(data-x="0" data-y="1800" data-z="3000" data-scale="1")
+		.providers.clearfix
+			- for p in @providers	
+				- if p.has_bind
+					.item.pull-left.binded
+						%img{:src => "/assets/icon/#{p.provider}_big.png",:title => p.provider}
+				- else
+					.item.pull-left
+						%a{:href => p.omniauth_url}
+							%img{:src => "/assets/icon/#{p.provider}_big.png",:title => p.provider}
+	#member.step(data-x="1000" data-y="1800" data-z="3000" data-scale="1")

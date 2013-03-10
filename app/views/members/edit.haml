@@ -6,9 +6,9 @@
 		%i.icon-upload-alt
 	.name.left
 		= current_member.name
+	.brand.dancer
+		17up
 	.nav-item.right
-		.brand
-			17up
 		%a.active(href = "/")
 			%span.button.green.xs.glossy(data-icon=' ')
 				%i.icon-dashboard
@@ -18,14 +18,23 @@
 #container
 	%aside
 		%ul#side_nav
-			%li.active
-				绑定
+			%li(rel = 'account')
+				%span.icon-link
+				%div
+					帐户
 				%i
-			%li
-				成就
+			%li(rel = "achieve")
+				%span.icon-trophy
+				%div
+					成就
+				%i
+			%li(rel = "genius")
+				%span.icon-heart
+				%div
+					喜好
 				%i
 	%article			
-
+		
 - content_for :footer do
 	:javascript
 		new Setting()
