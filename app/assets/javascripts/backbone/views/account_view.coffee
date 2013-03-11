@@ -1,11 +1,11 @@
-#= require ./setting_view
+#= require ./veggie_view
 #= require ../models/account
 #= require ../templates/account_view
 
-class window.Setting.AccountView extends Setting.View	
+class window.Veggie.AccountView extends Veggie.View	
 	id: "account"
 	template: JST['backbone/templates/account_view']
-	model: new Setting.Account()
+	model: new Veggie.Account()
 	render: ->
 		console.log @model.get("providers")
 		template = @template(providers: @model.get("providers"))

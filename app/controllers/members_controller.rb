@@ -6,10 +6,6 @@ class MembersController < ApplicationController
   	set_seo_meta(nil)
   end
 
-  def edit
-  	set_seo_meta(t("members.edit",:name => current_member.name))
-  end
-
   # json
   def account
     @providers = Authorization::PROVIDERS.map do |p|

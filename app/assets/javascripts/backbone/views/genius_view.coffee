@@ -1,11 +1,11 @@
-#= require ./setting_view
+#= require ./veggie_view
 #= require ../models/genius
 #= require ../templates/genius_view
 
-class window.Setting.GeniusView extends Setting.View
+class window.Veggie.GeniusView extends Veggie.View
 	id: "genius"
 	template: JST['backbone/templates/genius_view']
-	model: new Setting.Genius()
+	model: new Veggie.Genius()
 	render: ->
 		template = @template(tags: @model.get("tags"))
 		$(@el).append(template)

@@ -1,11 +1,11 @@
 #= require_self
-#= require ./routers/setting_router
+#= require ./routers/veggie_router
 
-class window.Setting
+class window.Veggie
 	constructor: ->
-		$("body").addClass 'setting'
+		$("body").addClass 'veggie'
 		Utils.uploader($(".avatar"),$(".avatar img"))
-		route = new Setting.Router()
+		route = new Veggie.Router()
 		Backbone.history.stop()
 		Backbone.history.start
 			pushState: true
@@ -14,9 +14,9 @@ class window.Setting
 				when 32
 
 					if $("nav").is(":visible")
-						Setting.hide_nav()
+						Veggie.hide_nav()
 					else
-						Setting.show_nav()
+						Veggie.show_nav()
 					false
 	@hide_nav: ->
 		$("nav").animate 
@@ -32,6 +32,9 @@ class window.Setting
 	@show_nav: ->
 		$("nav").show().animate 
 			"top": "0px"
+			500
+			->
+				$(@).css 'top':'auto'
 		$("aside").show().animate 
 			"left":"0px"
 

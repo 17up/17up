@@ -1,4 +1,4 @@
-class window.Setting.View extends Backbone.View
+class window.Veggie.View extends Backbone.View
 	el: "article"
 	initialize: ->
 		self = this

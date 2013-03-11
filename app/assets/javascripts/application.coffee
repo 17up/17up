@@ -8,8 +8,7 @@
 #= require backbone_datalink
 #= require_tree ./lib
 #= require backbone/welcome
-#= require backbone/dashboard
-#= require backbone/setting
+#= require backbone/veggie
 
 $ ->
 	$("span.close").click ->

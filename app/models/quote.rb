@@ -6,15 +6,15 @@ class Quote < Text
 
   validates :content, :uniqueness => true
 
-  rails_admin do
-  	field :language
+  rails_admin do 	
   	field :author
-  	field :content
-  	field :source
+  	field :content	
   	field :tags do
-  		pretty_value do
-  			value.join("/")
-  		end
-  	end
+      pretty_value do
+        value.blank? ? '-' : value.join(" / ")
+      end
+    end
+    field :source
+    field :language
   end
 end

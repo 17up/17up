@@ -1,15 +1,14 @@
 @import "utils"
 
 $nav_height: 86px
-body.setting
-	background: url(/assets/img/bg/bg_home.png) #c3e2ee
+body.veggie
+	background: url(/assets/img/bg/bg_home.png) #DBEED5
 	nav
 		@include fibre
 		position: fixed
 		z-index: 999
 		@include shadow(0,2px,6px,#1d1d1d)
 		width: 100%
-		top: 0
 		.avatar		
 			cursor: pointer
 			@include box-shadow(0 0px 10px rgba(255,255,255, 0.8))	
@@ -68,6 +67,7 @@ body.setting
 			ul#side_nav
 				margin: $nav_height 0 0 0
 				padding: 0
+
 				li 
 					list-style-type: none
 					margin: 0
