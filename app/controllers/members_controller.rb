@@ -27,7 +27,8 @@ class MembersController < ApplicationController
   end
 
   def genius
-    render_json 0,'ok'
+    @tags = Quote.all.collect(&:tags).flatten.compact.uniq
+    render_json 0,'ok',:tags => @tags
   end
 
   def show

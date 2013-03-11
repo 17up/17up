@@ -12,10 +12,12 @@ class window.Setting
 		$(document).bind "keyup.nav",(e) ->
 			switch e.keyCode
 				when 32
+
 					if $("nav").is(":visible")
 						Setting.hide_nav()
 					else
 						Setting.show_nav()
+					false
 	@hide_nav: ->
 		$("nav").animate 
 			"top": "-86px"

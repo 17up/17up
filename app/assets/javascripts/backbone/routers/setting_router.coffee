@@ -8,7 +8,7 @@ class Setting.Router extends Backbone.Router
 		self = this
 		$("#side_nav li").click ->
 			href = $(@).attr 'rel'
-			self.navigate(href,trigger: true)
+			self.navigate(href,true)
 	routes:
 		"account": "account"
 		"achieve": "achieve"

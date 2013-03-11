@@ -1,1 +1,5 @@
-#genius
+#genius.hide
+	.active.clearfix
+		- for tag in @tags[0..20]
+			.tag.button.xs.pink(data-icon=' ')
+				= tag

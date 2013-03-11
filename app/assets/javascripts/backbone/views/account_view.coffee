@@ -7,11 +7,12 @@ class window.Setting.AccountView extends Setting.View
 	template: JST['backbone/templates/account_view']
 	model: new Setting.Account()
 	render: ->
+		console.log @model.get("providers")
 		template = @template(providers: @model.get("providers"))
 		$(@el).append(template)
 		$("#" + @id).jmpress
-			hash:
-				use: false
+			#hash:
+			#	use: false
 			mouse:
 				clickSelects: false
 			keyboard:

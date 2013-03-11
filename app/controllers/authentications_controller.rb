@@ -41,7 +41,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
           new_user.bind_service(omniauth, expires_time)
           sign_in(new_user)
           flash[:notice] = t('flash.notice.welcome')
-          redirect_to "/account"
+          redirect_to "/genius"
         end
       end
     end

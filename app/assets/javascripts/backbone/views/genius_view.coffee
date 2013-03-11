@@ -7,7 +7,7 @@ class window.Setting.GeniusView extends Setting.View
 	template: JST['backbone/templates/genius_view']
 	model: new Setting.Genius()
 	render: ->
-		template = @template(model: @model)
+		template = @template(tags: @model.get("tags"))
 		$(@el).append(template)
 		@active()
 		this
