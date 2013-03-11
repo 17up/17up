@@ -24,6 +24,8 @@ Veggie::Application.routes.draw do
     post "update"
     post "upload_avatar"
     get "account"
+    get "genius"
+    get "achieve"
   end
   match ":role/:uid" => "members#show" 
   

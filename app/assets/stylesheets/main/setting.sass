@@ -9,6 +9,7 @@ body.setting
 		z-index: 999
 		@include shadow(0,2px,6px,#1d1d1d)
 		width: 100%
+		top: 0
 		.avatar		
 			cursor: pointer
 			@include box-shadow(0 0px 10px rgba(255,255,255, 0.8))	
@@ -61,7 +62,7 @@ body.setting
 			left: 0
 			width: $nav_height
 			height: 100%
-			color: white
+			color: #DDD
 			z-index: 99
 			@include fibre
 			ul#side_nav
@@ -80,6 +81,8 @@ body.setting
 						margin-top: -10px
 						right: 0
 						opacity: 0
+					&:hover
+						color: white
 				li.active
 					@include text-shine
 					i 
@@ -90,15 +93,16 @@ body.setting
 			position: relative
 			height: 100%
 			#account
-				display: none
 				.step
 					position: relative
 					width: 700px
 					@include box-sizing(border-box)
 					font-size: 22px
 					line-height: 1.2
-					text-align: center
 					@include text-shadow-inverse
+				.title
+					font-size: 16px
+					padding: 10px
 				#provider
 					.providers
 						padding: 10px 0

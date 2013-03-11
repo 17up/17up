@@ -347,8 +347,6 @@ GEM
       faraday_middleware (>= 0.8)
       json
       oauth
-    turbolinks (1.0.0)
-      coffee-rails
     twitter (4.5.0)
       faraday (~> 0.8, < 0.10)
       multi_json (~> 1.0)
@@ -421,7 +419,6 @@ DEPENDENCIES
   sqlite3
   therubyracer
   tumblr_client (>= 0.6.7)
-  turbolinks
   twitter
   uglifier (>= 1.0.3)
   unicorn

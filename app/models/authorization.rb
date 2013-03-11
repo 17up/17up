@@ -3,7 +3,7 @@ class Authorization
   include Mongoid::Timestamps::Short
 
   field :provider
-  field :uid
+  field :uid, :type => String
   field :token
   field :secret
   field :expired_at, :type => Time

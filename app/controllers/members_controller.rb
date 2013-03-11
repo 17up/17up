@@ -22,6 +22,14 @@ class MembersController < ApplicationController
     render_json 0,'ok',:providers => @providers
   end
 
+  def achieve
+    render_json 0,'ok'
+  end
+
+  def genius
+    render_json 0,'ok'
+  end
+
   def show
   	role_ok = Member::ROLE.include?(params[:role])  
     if role_ok and @user = Member.send(params[:role]).find_by_uid(params[:uid])

@@ -1,6 +1,5 @@
 #= require jquery
 #= require jquery_ujs
-#= require turbolinks
 #= require jquery.remotipart
 #= require hamlcoffee
 #= require underscore
@@ -16,3 +15,7 @@ $ ->
 	$("span.close").click ->
 		$(@).parent().slideUp ->
 			$(@).remove()
+	$init = $("footer #init")
+	if $init.length is 1
+		js_class = $("footer #init").data().js
+		new window[js_class]

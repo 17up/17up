@@ -17,7 +17,8 @@ group :assets do
 end
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails'
-gem 'turbolinks'
+# gem 'turbolinks'
+# gem 'jquery-turbolinks'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

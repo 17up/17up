@@ -1,5 +1,7 @@
-#account
+#account.hide
 	#provider.step(data-x="0" data-y="1800" data-z="3000" data-scale="1")
+		.title
+			点击绑定更多第三方帐户
 		.providers.clearfix
 			- for p in @providers	
 				- if p.has_bind
