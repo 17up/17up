@@ -8,7 +8,7 @@ zh-cn:
   title: 17up
   subtitle: Imagine English
   keywords: "在线教育,语言教育,智能学习,17up,language,education,imagine,academy,knowledge,peace,future"
-  describe: "这里是 17up 学会,爱知识,爱生活,爱同伴,开拓未来,见证奇迹,希望从这里开始。第一章：imagine english"
+  describe: "这里是 17up 学会,爱知识,爱生活,爱同伴,认识自我,迎接内心的变革,开拓未来,见证奇迹,希望从这里开始。第一章：imagine english,以修心的方式学英语"
   flash:
     notice:
       welcome: "欢迎来到 17up 学会，我是您的智能助手 小7"
@@ -24,10 +24,6 @@ zh-cn:
       image: "图片最大 2M 限制"
 
   members:
-    edit: "%{name} 设定"
-    sidenav:
-      profile: "基本资料"
-      provider: "关联身份"
-      account: "公民育成"
+    edit: "%{name} 档案"
   greet:
     new_user: "@%{name} 欢迎来到 17up 学会，希望从这一刻开始。"

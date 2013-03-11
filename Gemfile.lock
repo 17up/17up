@@ -95,6 +95,12 @@ GEM
       multi_json (~> 1.4)
       nokogiri (~> 1.5.2)
       oauth2
+    goodreads_17up (0.2.1)
+      activesupport (~> 3)
+      hashie (~> 1.2)
+      i18n (~> 0.5)
+      oauth (~> 0.4)
+      rest-client (~> 1.6)
     google_drive (0.3.3)
       nokogiri (>= 1.4.4, != 1.5.2, != 1.5.1)
       oauth (>= 0.3.6)
@@ -378,6 +384,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   github_api
+  goodreads_17up
   google_drive
   haml
   haml-rails
