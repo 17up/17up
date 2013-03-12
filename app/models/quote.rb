@@ -6,6 +6,10 @@ class Quote < Text
 
   validates :content, :uniqueness => true
 
+  def self.tag_by tag
+    Quote.any_in(:tags => [tag])
+  end
+
   rails_admin do 	
   	field :author
   	field :content	

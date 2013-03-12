@@ -9,6 +9,7 @@
 #= require_tree ./lib
 #= require backbone/welcome
 #= require backbone/veggie
+#= require backbone/olive
 
 $ ->
 	$("span.close").click ->

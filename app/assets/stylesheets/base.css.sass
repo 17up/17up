@@ -54,6 +54,10 @@ a
 	@include clearfix
 .disable_event
 	pointer-events: none
+.mask
+	pointer-events: none
+	opacity: 0.3
+	overflow: hidden
 	
 .hiddenfile
 	width: 0px
@@ -64,42 +68,67 @@ a
 	left: 0
 
 #flash_message
-	.alert
-		padding: 8px 35px 8px 14px	
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
-		background-color: #fcf8e3
-		border: 1px solid #fbeed5
-		color: #c09853
-		position: relative
-		z-index: 999
-		.close
-			position: absolute
-			top: 7px
-			right: 10px
-			line-height: 20px
-			font-size: 25px
-			cursor: pointer
-			&:hover
-				color: #ef7a7f
-	.alert-error
-		background-color: #f2dede
-		border-color: #eed3d7
-		color: #b94a48
-	.alert-info
-		background-color: #d9edf7
-		border-color: #bce8f1
-		color: #3a87ad
-	.alert-success
-		background-color: #dff0d8
-		border-color: #d6e9c6
-		color: #468847
-	.alert-right
-		width: 200px
-		float: right
-	.alert-left
-		width: 200px
-		float: left
-
+	width: 100%
+	z-index: 999
+	.confirm
+		margin-top: 10px
+		.btn.yes
+			@include button
+		.btn.no 
+			@include button(simple,#b6b6bb)
+.alert
+	padding: 8px 35px 8px 14px	
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+	background-color: #fcf8e3
+	border: 1px solid #fbeed5
+	color: #c09853
+	position: relative
+	z-index: 999
+	.close
+		position: absolute
+		top: 7px
+		right: 10px
+		line-height: 20px
+		font-size: 25px
+		cursor: pointer
+		&:hover
+			color: #ef7a7f
+.alert-error
+	background-color: #f2dede
+	border-color: #eed3d7
+	color: #b94a48
+.alert-info
+	background-color: #d9edf7
+	border-color: #bce8f1
+	color: #3a87ad
+.alert-success
+	background-color: #dff0d8
+	border-color: #d6e9c6
+	color: #468847
+.alert-right
+	width: 200px
+	float: right
+.alert-left
+	width: 200px
+	float: left
+.label
+	display: inline-block
+	padding: 2px 4px
+	font-size: 16px
+	font-weight: bold
+	line-height: 20px
+	color: #ffffff
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+	white-space: nowrap
+	vertical-align: baseline
+	background-color: #3a87ad
+	margin: 2px
+	@include round(3px)
+	i 
+		background-color: #b94a48
+		padding: 0 4px
+		margin-right: 3px
+		@include round(5px)
 #footer
 	text-align: center
 	color: #333

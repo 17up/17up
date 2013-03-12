@@ -6,13 +6,11 @@ class window.Veggie
 		$("body").addClass 'veggie'
 		Utils.uploader($(".avatar"),$(".avatar img"))
 		route = new Veggie.Router()
-		Backbone.history.stop()
 		Backbone.history.start
 			pushState: true
 		$(document).bind "keyup.nav",(e) ->
 			switch e.keyCode
 				when 32
-
 					if $("nav").is(":visible")
 						Veggie.hide_nav()
 					else

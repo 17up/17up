@@ -1,2 +1,13 @@
-%h1 Olive#index
-%p Find me in app/views/olive/index.html.haml
+= render "shared/flash_message"
+#container
+	%aside
+		%ul#side_nav
+			%li(rel = '')
+				%span.icon-quote-left
+				%div
+					Quote
+				%i
+	%article			
+		
+- content_for :footer do
+	#init.hide(data-js="Olive")

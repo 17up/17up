@@ -1,0 +1,21 @@
+#quotes
+	.tag_list
+		.alert.alert-info
+			%span.icon-tags
+			点击删除标签
+		- for tag in @tags		
+			%span.label
+				%i.num
+					= tag[1]
+				%span.as_link
+					= tag[0]
+		
+	- for q in @quotes
+		.quote{qid: q._id }
+			.alert.alert-success
+				= q.content
+			- if q.tags
+				.tags
+					- for tag in q.tags
+						%i.label
+							= tag

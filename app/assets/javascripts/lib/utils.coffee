@@ -1,3 +1,5 @@
+#= require_tree ./templates
+
 class window.Utils
 	@loading: ($item) ->
 		$item.addClass 'disable_event'
@@ -28,7 +30,7 @@ class window.Utils
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
 	@flash: (msg,type='',style='') ->
 		$flash = $("#flash_message")
-		$flash.prepend("<div class='alert text_center hide'><strong></strong></div>")
+		$flash.prepend JST['lib/templates/flash']
 		$alert = $(".alert",$flash)
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
@@ -41,4 +43,16 @@ class window.Utils
 				$(@).remove()
 		setTimeout fuc,5000
 		false
-				
+	@confirm: (msg,yesCallback) ->
+		$flash = $("#flash_message").css 'position':"fixed"
+		$flash.html	JST['lib/templates/confirm']
+		$alert = $(".alert",$flash)	
+		$("strong",$alert).text(msg)
+		$("#container").addClass 'mask'
+		$alert.show()
+		$(".btn",$flash).click ->
+			if $(@).data().confirm is true
+				yesCallback()	
+			$alert.remove()	
+			$("#container").removeClass 'mask'
+		false

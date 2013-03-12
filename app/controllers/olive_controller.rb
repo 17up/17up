@@ -5,6 +5,27 @@ class OliveController < ApplicationController
 		set_seo_meta("Olive",t('keywords'),t('describe'))
 	end
 
+	def quotes
+		@quotes = Quote.all
+		tags = @quotes.collect(&:tags).flatten.compact
+		@tags = tags.uniq.map{ |x| [x,tags.grep(x).length] }
+		data = {
+			:quotes => @quotes.as_json(:only => [:_id,:content,:tags]),
+			:tags => @tags
+		}
+		render_json 0,'ok',data
+	end
+
+
+	def destroy_tag
+		@quotes = Quote.tag_by params[:tag]
+		@quotes.each do |q|
+			q.tags = q.tags - [params[:tag]]
+			q.save
+		end
+		render_json 0,'ok'
+	end
+
 	private
   	def authenticate_admin
     	unless current_member and current_member.admin?

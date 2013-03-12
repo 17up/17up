@@ -1,0 +1,56 @@
+@import "utils"
+
+body.olive
+	background: url(/assets/img/bg/bg_home.png) #DBEED5
+	#container
+		position: relative
+		height: 100%
+		min-height: 400px
+		aside
+			position: fixed
+			left: 0
+			width: 86px
+			height: 100%
+			color: #DDD
+			z-index: 99
+			overflow: hidden
+			@include fibre
+			ul#side_nav
+				margin: 0
+				padding: 0
+				
+				li 
+					list-style-type: none
+					margin: 0
+					padding: 24px 5px
+					text-align: center
+					position: relative
+					cursor: pointer
+					i
+						position: absolute
+						top: 50%
+						margin-top: -10px
+						right: 0
+						opacity: 0
+					&:hover
+						color: #fff
+				li.active
+					@include text-shine
+					i 
+						opacity: 1
+						@include triangle(20px,#eee,left)
+		article
+			margin-left: 86px
+			position: relative
+			height: 100%
+			#quotes
+				.quote
+					padding: 10px
+					border-bottom: 3px solid #333
+				.tag_list
+					padding: 10px
+					border-bottom: 3px solid #333
+					.alert
+						margin-bottom: 10px
+				.tags 
+					margin-top: 10px

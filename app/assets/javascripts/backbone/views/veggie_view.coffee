@@ -5,7 +5,11 @@ class window.Veggie.View extends Backbone.View
 		@model.fetch
 			success: ->
 				self.render()
-	active: ->
+	close: ->
 		$("article > div").hide()
+	active: (callback = {}) ->
+		@close()	
 		$("#side_nav li[rel='" + @id + "']").addClass('active').siblings().removeClass("active")
 		$("#" + @id).show()
+		if typeof callback is 'function'
+			callback()

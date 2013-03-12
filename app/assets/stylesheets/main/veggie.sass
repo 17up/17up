@@ -57,17 +57,18 @@ body.veggie
 		height: 100%
 		min-height: 400px
 		aside
-			position: absolute
+			position: fixed
 			left: 0
 			width: $nav_height
 			height: 100%
 			color: #DDD
 			z-index: 99
 			@include fibre
+			overflow: hidden
 			ul#side_nav
 				margin: $nav_height 0 0 0
 				padding: 0
-
+				
 				li 
 					list-style-type: none
 					margin: 0

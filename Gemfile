@@ -51,6 +51,8 @@ gem "goodreads_17up"
 gem "github_api"
 gem "amazon-ecs"
 gem "google_drive"
+# NLP
+
 
 gem 'haml'
 gem 'rails_autolink'
