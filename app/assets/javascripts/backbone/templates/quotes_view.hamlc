@@ -1,4 +1,15 @@
 #quotes
+	%nav
+		%ul
+			%li.active
+				标签管理
+				%i
+			%li
+				浏览
+				%i
+			%li
+				生成
+				%i
 	.tag_list
 		.alert.alert-info
 			%span.icon-tags

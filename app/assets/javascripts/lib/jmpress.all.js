@@ -249,6 +249,10 @@
 			callCallback.call(this, 'afterDeinit', $(this), {});
 
 			$(jmpress).data("jmpressmethods", false);
+
+			if(current.idleTimeout) {
+        		clearTimeout(current.idleTimeout);
+		    }
 		}
 		/**
 		 * Call a callback

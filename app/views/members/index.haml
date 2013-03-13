@@ -1,14 +1,14 @@
 = render "shared/flash_message"
-%nav.clearfix
+%nav
 	= render 'shared/uploader',:url => "/members/upload_avatar",:type => "image"
-	.avatar.left(title="点我更换头像")		
+	.avatar(title="点我更换头像")		
 		= image_tag current_member.avatar
 		%i.icon-upload-alt
-	.name.left
+	.name
 		= current_member.name
 	.brand.dancer
 		17up
-	.nav-item.right
+	.nav-item
 		%a.active(href = "/members/sign_out" data-method="delete" rel="nofollow")
 			%span.button.xs.glossy(data-icon=' ')
 				%i.icon-off
