@@ -5,16 +5,25 @@
 class window.Veggie.AccountView extends Veggie.View	
 	id: "account"
 	template: JST['backbone/templates/account_view']
-	model: new Veggie.Account()
+	model: new Veggie.Account()	
 	close: ->
-		Veggie.View.prototype.close.apply(this, arguments)
 		if $("#" + @id).jmpress("initialized")
 			$("#" + @id).jmpress "deinit"
+		super()
+		# invoke super close method
+	active: ->
+		# 调用父类的active方法 
+		# 等同于 Veggie.View.prototype.active.apply(this, arguments)
+		super() 
+		@init_jmpress()
 	init_jmpress: ($ele = $("#" + @id)) ->
 		#Utils.active_tab $(".step.active").attr("id")
 		#$(".step",$wrap).on 'enterStep', (e) ->
 		#	Utils.active_tab $(e.target).attr("id")
 		$ele.jmpress
+			transitionDuration: 0
+			hash:
+				use: true
 			mouse:
 				clickSelects: false
 			keyboard:
@@ -26,6 +35,5 @@ class window.Veggie.AccountView extends Veggie.View
 	render: ->
 		template = @template(providers: @model.get("providers"))
 		$(@el).append(template)		
-		@active()
-		@init_jmpress()
+		@active()		
 		this

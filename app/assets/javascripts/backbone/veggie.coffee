@@ -5,7 +5,7 @@ class window.Veggie
 	constructor: ->
 		$("body").addClass 'veggie'
 		Utils.uploader($(".avatar"),$(".avatar img"))
-		route = new Veggie.Router()
+		window.route = new Veggie.Router()
 		Backbone.history.start
 			pushState: true
 		$(document).bind "keyup.nav",(e) ->

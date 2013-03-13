@@ -2,35 +2,45 @@
 #= require ../views/account_view
 #= require ../views/achieve_view
 #= require ../views/genius_view
-#= require ../views/home_view
+#= require ../views/dashboard_view
 
 class Veggie.Router extends Backbone.Router  
 	initialize: ->
 		self = this
 		$("#side_nav li").click ->
 			href = $(@).attr 'rel'
+			$(@).addClass('active')
+			if href is 'dashboard'
+				href = ''
 			self.navigate(href,true)
 	routes:
 		"": "home"
 		"account": "account"
 		"achieve": "achieve"
 		"genius": "genius"
+	before_change: ->
+		if window.route.active_view
+			window.route.active_view.close()
 	home: ->
-		if @home_view
-			@home_view.active()
+		@before_change()
+		if @dashboard_view
+			@dashboard_view.active()
 		else
-			@home_view = new Veggie.HomeView()
+			@dashboard_view = new Veggie.DashboardView()
 	account: ->
+		@before_change()
 		if @account_view
 			@account_view.active()	
 		else
 			@account_view = new Veggie.AccountView()
 	achieve: ->
+		@before_change()
 		if @achieve_view
 			@achieve_view.active()
 		else
 			@achieve_view = new Veggie.AchieveView()
 	genius: ->
+		@before_change()
 		if @genius_view
 			@genius_view.active()
 		else

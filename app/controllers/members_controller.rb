@@ -2,11 +2,17 @@ class MembersController < ApplicationController
   before_filter :authenticate_member!,:except => :show
   before_filter :require_member!,:only => :update
   
-  def dashboard
+  # page
+  def index
   	set_seo_meta(nil)
   end
 
-  # json
+  # api get
+  def dashboard
+    render_json 0,'ok'
+  end
+
+  # api get
   def account
     @providers = Authorization::PROVIDERS.map do |p|
       {
@@ -18,15 +24,18 @@ class MembersController < ApplicationController
     render_json 0,'ok',:providers => @providers
   end
 
+  # api get
   def achieve
     render_json 0,'ok'
   end
 
+  # api get
   def genius
     @tags = Quote.all.collect(&:tags).flatten.compact.uniq
     render_json 0,'ok',:tags => @tags
   end
 
+  # page
   def show
   	role_ok = Member::ROLE.include?(params[:role])  
     if role_ok and @user = Member.send(params[:role]).find_by_uid(params[:uid])
@@ -38,11 +47,12 @@ class MembersController < ApplicationController
 
   # 会员入口
   # 付费成功后回调
+  # post
   def apply_uid
     current_member.update_attribute(:role,"u")
   end
 
-  # response with js.haml
+  # post
   def upload_avatar
     file = params[:image].tempfile.path 
     type = params[:image].content_type 
@@ -57,6 +67,7 @@ class MembersController < ApplicationController
   end
 
   # set uid
+  # post
   def update  
     if params[:uid].blank?
       flash[:error] = t('flash.error.blank')

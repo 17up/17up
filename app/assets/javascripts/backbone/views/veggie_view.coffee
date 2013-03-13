@@ -1,15 +1,20 @@
 class window.Veggie.View extends Backbone.View
 	el: "article"
-	initialize: ->
-		self = this
+	initialize: (self = this) ->
+		$("#side_nav li[rel='" + @id + "']").addClass('active')
+		Utils.loading $("nav .brand")	
 		@model.fetch
 			success: ->
-				self.render()
+				self.render()	
+				Utils.loaded $("nav .brand")
+				#setTimeout(->
+				#	func	
+				#,5000)	
 	close: ->
-		$("article > div").hide()
+		$("#" + @id).hide()
+		$("#side_nav li[rel='" + @id + "']").removeClass('active')
 	active: (callback = {}) ->
-		@close()	
-		$("#side_nav li[rel='" + @id + "']").addClass('active').siblings().removeClass("active")
 		$("#" + @id).show()
+		window.route.active_view = this
 		if typeof callback is 'function'
 			callback()

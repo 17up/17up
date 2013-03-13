@@ -21,12 +21,13 @@ Veggie::Application.routes.draw do
   end
   
   # members
-  match "account" => "members#dashboard"
-  match "achieve" => "members#dashboard"
-  match "genius" => "members#dashboard"
+  match "account" => "members#index"
+  match "achieve" => "members#index"
+  match "genius" => "members#index"
   namespace :members do
     post "update"
     post "upload_avatar"
+    get "dashboard"
     get "account"
     get "genius"
     get "achieve"
@@ -34,7 +35,7 @@ Veggie::Application.routes.draw do
   match ":role/:uid" => "members#show" 
   
   authenticated :member do
-    root :to => "members#dashboard"
+    root :to => "members#index"
   end
   root :to => 'home#index'
 
