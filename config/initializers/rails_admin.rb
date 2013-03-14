@@ -10,7 +10,7 @@ RailsAdmin.config do |config|
   config.main_app_name = ['Veggie', 'Admin']
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
-
+  config.total_columns_width = 1000
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_member } # auto-generated
   config.authorize_with do

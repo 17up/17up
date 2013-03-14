@@ -39,17 +39,17 @@ module Onion
       frame = Nokogiri::HTML(open(@url),nil)
       if frame
         frame.css(".quoteDetails").each do |x| 
-          quote = Quote.new
+          quote = ::Quote.new
           _text = x.css(".quoteText")[0]
-          quote.source = _text.css("i a")[0].text unless _text.css("i a").blank?       
-          quote.author = _text.css("a")[0].text
+          unless _text.css("i a").blank? 
+            source_name = _text.css("i a")[0].text 
+            source_link = _text.css("i a")[0]["href"]
+            quote.source = {:name => source_name,:link => source_link}
+          end      
+          author_name = _text.css("a")[0].text
+          author_link = _text.css("a")[0]["href"]
+          quote.author = {:name => author_name,:link => author_link}
           quote.content = _text.text.scan(/ “.+”/)[0]#scan(/&ldquo;.+&rdquo;/)
-
-          _text.css("a").each do |link|
-            link["href"] = @base_url + link["href"]
-            link["target"] = "blank" 
-          end  
-          quote.html = _text.to_html
 
           _foot = x.css(".quoteFooter .left")[0]
           if _foot
