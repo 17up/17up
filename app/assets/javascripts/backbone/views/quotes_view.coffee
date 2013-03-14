@@ -14,7 +14,7 @@ class window.Olive.QuotesView extends Backbone.View
 	active: ->
 		$("#side_nav li[rel='" + @id + "']").addClass('active').siblings().removeClass("active")
 	destroy_tag: ->
-		$(".tag_list .as_link").click ->
+		$("#tag_list .as_link").click ->
 			tag_name = $.trim $(@).text()
 			$ele = $(@).parent()
 			Utils.confirm "确认删除？", ->

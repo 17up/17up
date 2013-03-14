@@ -16,7 +16,6 @@ class OliveController < ApplicationController
 		render_json 0,'ok',data
 	end
 
-
 	def destroy_tag
 		@quotes = Quote.tag_by params[:tag]
 		@quotes.each do |q|

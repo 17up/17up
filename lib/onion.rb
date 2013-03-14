@@ -18,21 +18,21 @@ module Onion
   end
   
   class Quote
+    require 'goodreads'
     include Utils::Service
     # tag : inspirational
     # author : 947.William_Shakespeare
     # author_id : 947
     def initialize(opt={})
-      @base_url = "http://www.goodreads.com"
-      if opt[:author_id]
-        @url = @base_url + "/author/quotes/" + spell_author(opt[:author_id])
-      elsif opt[:author]
-        @url = @base_url + "/author/quotes/" + opt[:author]
+      if opt[:author]       
+        @info = "/author/quotes/" + opt[:author]
       elsif opt[:tag]
-        @url = @base_url + "/quotes/tag/" + opt[:tag]
+        @info = "/quotes/tag/" + opt[:tag]
       else
-        @url = @base_url + "/quotes"
+        @info = "/quotes"
       end
+      @url = ::Quote::BASE_URL + @info
+      @count = ::Quote.count
     end
     
     def fetch
@@ -60,6 +60,10 @@ module Onion
           quote.tags = tags
           quote.save
         end
+
+        "#{::Quote.count - @count} new quotes"
+      else
+        "error: page not found"
       end
     end
 
@@ -68,13 +72,7 @@ module Onion
       secret = load_service['goodreads']['app_secret']
       client = Goodreads::Client.new(:api_key => key, :api_secret => secret)
       author = client.author_by_name(name)
-    end
-    
-    private
-
-    def spell_author(id)
-      name = YAML.load_file(Rails.root.join("doc", "goodreads.yml")).fetch("author")[id]
-      "#{id}.#{name}"
+      author.id
     end
   end
 end

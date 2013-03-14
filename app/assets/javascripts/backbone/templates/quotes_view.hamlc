@@ -2,31 +2,43 @@
 	%nav
 		%ul
 			%li.active
-				标签管理
+				%a(href = "#tag_list")
+					标签管理
 				%i
 			%li
-				浏览
+				%a(href = "#create")
+					生成
 				%i
 			%li
-				生成
+				%a(href = "#quote_list")
+					浏览
 				%i
-	.tag_list
+	#tag_list.block
 		.alert.alert-info
 			%span.icon-tags
-			点击删除标签
+			Tags (点击删除标签)
 		- for tag in @tags		
 			%span.label
 				%i.num
 					= tag[1]
 				%span.as_link
 					= tag[0]
-		
-	- for q in @quotes
-		.quote{qid: q._id }
-			.alert.alert-success
-				= q.content
-			- if q.tags
-				.tags
-					- for tag in q.tags
-						%i.label
-							= tag
+	#create.block
+		.alert.alert-info
+			%span.icon-magic
+			Create
+
+	#quote_list.block
+		.alert.alert-info
+			%span.icon-th-list
+			List
+		- for q in @quotes
+			.quote
+				%a{:href => "/admin/quote/#{q._id}"}
+					.alert.alert-success
+						= q.content
+				- if q.tags
+					.tags
+						- for tag in q.tags
+							%i.label
+								= tag

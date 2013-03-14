@@ -68,11 +68,14 @@ body.olive
 							display: table-cell
 							width: 1%
 							text-align: center
-							position: relative
-							padding: 17px 0
+							position: relative				
 							color: white
 							border-right: 1px solid #000
 							border-left: 1px solid #777
+							a 
+								padding: 17px 0
+								color: white
+								display: block
 							i
 								position: absolute
 								bottom: 0px
@@ -83,14 +86,16 @@ body.olive
 							i 
 								opacity: 1
 								@include triangle(20px,#f5f5f5,up)
-				.quote
+				.alert
+					margin-bottom: 10px
+				.block
 					padding: 10px
-					border-bottom: 3px solid #333
-				.tag_list
+				#tag_list
 					margin-top: 60px
-					padding: 10px
-					border-bottom: 3px solid #333
-					.alert
-						margin-bottom: 10px
-				.tags 
-					margin-top: 10px
+					
+				#quote_list
+					.quote
+						padding: 10px 0
+						border-bottom: 3px solid #333				
+						.tags 
+							margin-top: 10px

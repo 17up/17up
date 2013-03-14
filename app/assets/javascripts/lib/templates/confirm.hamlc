@@ -4,4 +4,4 @@
 		%span.btn.yes(data-confirm = "true")
 			yes
 		%span.btn.no(dat-confirm = "false")
-			no
+			cancel
