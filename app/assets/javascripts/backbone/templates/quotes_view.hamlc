@@ -16,6 +16,7 @@
 	#tag_list.block
 		.alert.alert-info
 			%span.icon-tags
+			= @tags.length
 			Tags (点击删除标签)
 		- for tag in @tags		
 			%span.label
@@ -31,12 +32,13 @@
 	#quote_list.block
 		.alert.alert-info
 			%span.icon-th-list
+			= @quotes.length
 			List
 		- for q in @quotes
 			.quote
 				%a{:href => "/admin/quote/#{q._id}"}
 					.alert.alert-success
-						= q.content
+						!= q.content
 				- if q.tags
 					.tags
 						- for tag in q.tags

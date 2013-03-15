@@ -3,9 +3,9 @@ class Word
 
   field :title
   field :content
-  field :language
+  field :lang
 
-  scope :en,where(:language => nil)
+  scope :en,where(:lang => nil)
 
   validates :title, :presence => true, :uniqueness => true
   IMAGE_URL = "/system/images/word/"
@@ -39,6 +39,6 @@ class Word
   rails_admin do
     field :title
     field :content
-    field :language
+    field :lang
   end
 end

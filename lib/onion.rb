@@ -28,6 +28,8 @@ module Onion
         @info = "/author/quotes/" + opt[:author]
       elsif opt[:tag]
         @info = "/quotes/tag/" + opt[:tag]
+      elsif opt[:work]
+        @info = "/work/quotes/" + opt[:work]
       else
         @info = "/quotes"
       end
@@ -46,11 +48,13 @@ module Onion
             source_link = _text.css("i a")[0]["href"]
             quote.source = {:name => source_name,:link => source_link}
           end      
-          author_name = _text.css("a")[0].text
-          author_link = _text.css("a")[0]["href"]
-          quote.author = {:name => author_name,:link => author_link}
-          quote.content = _text.text.scan(/ “.+”/)[0]#scan(/&ldquo;.+&rdquo;/)
-
+          unless _text.css("a").blank?
+            author_name = _text.css("a")[0].text
+            author_link = _text.css("a")[0]["href"]
+            quote.author = {:name => author_name,:link => author_link}
+          end
+          #content = _text.text.scan(/“.+”/)[0]
+          quote.content = _text.to_html.scan(/&ldquo;(.+)&rdquo;/).map{$1}[0]
           _foot = x.css(".quoteFooter .left")[0]
           if _foot
             tags = _foot.css("a").inject([]) do |a,e|

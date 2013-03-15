@@ -31,7 +31,7 @@ class MembersController < ApplicationController
 
   # api get
   def genius
-    @tags = Quote.all.collect(&:tags).flatten.compact.uniq
+    @tags = Quote.tags.sample(20)
     render_json 0,'ok',:tags => @tags
   end
 

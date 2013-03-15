@@ -6,12 +6,9 @@ class OliveController < ApplicationController
 	end
 
 	def quotes
-		@quotes = Quote.all
-		tags = @quotes.collect(&:tags).flatten.compact
-		@tags = tags.uniq.map{ |x| [x,tags.grep(x).length] }.sort{|a,b| b[1] <=> a[1]}
 		data = {
-			:quotes => @quotes.as_json(:only => [:_id,:content,:tags]),
-			:tags => @tags
+			:quotes => Quote.no_tag.as_json(:only => [:_id,:content,:tags]),
+			:tags => Quote.tags_list.sample(77)
 		}
 		render_json 0,'ok',data
 	end

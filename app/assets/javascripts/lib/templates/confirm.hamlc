@@ -2,6 +2,6 @@
 	%strong
 	.confirm
 		%span.btn.yes(data-confirm = "true")
-			yes
+			%i.icon-ok
 		%span.btn.no(dat-confirm = "false")
-			cancel
+			%i.icon-remove

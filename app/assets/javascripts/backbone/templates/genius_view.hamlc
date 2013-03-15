@@ -1,5 +1,5 @@
 #genius
 	.active.clearfix
-		- for tag in @tags[0..20]
+		- for tag in @tags
 			.tag.button.xs.pink(data-icon=' ')
 				= tag

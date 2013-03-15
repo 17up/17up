@@ -11,6 +11,7 @@ capybara-*.html
 /db/*.sqlite3
 /db/schema.rb
 /db/dump.rdb
+/db/seeds.rb
 /public/system/*
 /coverage/
 /spec/tmp/*

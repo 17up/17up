@@ -1,10 +1,10 @@
 class Text
   include Mongoid::Document
 
-  field :language
+  field :lang
   field :content
   field :tags, type: Array
 
-  scope :en,where(:language => nil)
+  scope :en,where(:lang => nil)
 
 end
