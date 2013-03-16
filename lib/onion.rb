@@ -38,7 +38,7 @@ module Onion
     end
     
     def fetch
-      frame = Nokogiri::HTML(open(@url),nil)
+      frame = Nokogiri::HTML(open(@url),nil,'utf-8')
       if frame
         frame.css(".quoteDetails").each do |x| 
           quote = ::Quote.new
@@ -53,8 +53,10 @@ module Onion
             author_link = _text.css("a")[0]["href"]
             quote.author = {:name => author_name,:link => author_link}
           end
-          #content = _text.text.scan(/“.+”/)[0]
-          quote.content = _text.to_html.scan(/&ldquo;(.+)&rdquo;/).map{$1}[0]
+          #_text.content.scan(/“(.+)”/).map{$1}[0]
+          #.scan(/&ldquo;(.+)&rdquo;/).map{$1}[0]
+          quote.content = _text.to_html(:encoding => 'UTF-8').scan(/“(.+)”/).map{$1}[0]
+  
           _foot = x.css(".quoteFooter .left")[0]
           if _foot
             tags = _foot.css("a").inject([]) do |a,e|

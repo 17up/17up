@@ -12,7 +12,7 @@
 #= require backbone/olive
 
 $ ->
-	$("span.close").click ->
+	$('body').on 'click',"span.close", ->
 		$(@).parent().slideUp ->
 			$(@).remove()
 	$init = $("footer #init")

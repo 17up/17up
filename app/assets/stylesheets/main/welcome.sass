@@ -64,7 +64,7 @@ body.welcome
 			display: table-cell
 			width: 1%
 			text-align: center
-			position: relative		
+			position: relative	
 			a
 				display: block
 				padding: 20px 0
@@ -93,16 +93,23 @@ body.welcome
 			position: relative
 			width: 900px
 			@include box-sizing(border-box)
-			font-size: 48px
+			//font-size: 48px
 			line-height: 1.5
 			text-align: center
 			@include text-shadow-inverse
 	#contact
-		font-size: 40px
+		.title
+			padding: 20px 0
+			font-size: 20px
 		img
 			width: 64px
 			height: 64px	
 	#belief
+		font-size: 40px
+		.title
+			font-size: 16px
+			font-weight: bold
+			@include text-shadow-inverse
 		#love-map
 			margin: 50px auto
 			width: 180px
@@ -148,6 +155,13 @@ body.welcome
 			@include text-3d
 		.title
 			padding-bottom: 20px
+			font-size: 48px
 		.desc
 			font-size: 16px
-			color: #215075
+			font-weight: bold
+	#login
+		.title
+			font-size: 20px
+			padding: 10px 0
+			span.num
+				color: #e12e2a

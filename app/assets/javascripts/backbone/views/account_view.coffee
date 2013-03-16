@@ -18,8 +18,6 @@ class window.Veggie.AccountView extends Veggie.View
 		@init_jmpress()
 	init_jmpress: ($ele = $("#" + @id)) ->
 		#Utils.active_tab $(".step.active").attr("id")
-		#$(".step",$wrap).on 'enterStep', (e) ->
-		#	Utils.active_tab $(e.target).attr("id")
 		$ele.jmpress
 			transitionDuration: 0
 			hash:
@@ -31,7 +29,7 @@ class window.Veggie.AccountView extends Veggie.View
 					9: null
 					32: null
 		$(".step",$ele).on 'enterStep', (e) ->
-			#$(e.target)
+			#Utils.active_tab $(e.target).attr("id")
 	render: ->
 		template = @template(providers: @model.get("providers"))
 		$(@el).append(template)		

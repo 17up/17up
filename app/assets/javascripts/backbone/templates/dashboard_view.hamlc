@@ -1,3 +1,11 @@
-#dashboard
-	%h1.text_center
-		呼叫小柒
+#dashboard.common
+	.alert.asset
+		%span.icon-remove-circle.close
+		%img(src= "/assets/icon/7/7_sweet.png")
+		我是小柒，你的智能助手，感谢缘分让我们相遇，相信我，我会帮你学好英语的哦！
+	.quote.alert.alert-success
+		%span.icon-quote-left
+		!= @quote.content
+		%span.icon-quote-right
+		%span.author
+			= @quote.author.name

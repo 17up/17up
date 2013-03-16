@@ -22,11 +22,13 @@ class window.Veggie
 			500
 			 ->
 			 	$(@).hide()
+			 	$("article .common").animate 'top':0
 		$("aside").animate 
 			"left":"-86px"
 			500
 			->
 				$(@).hide()
+				$("article").animate 'margin-left':0
 	@show_nav: ->
 		$("nav").show().animate 
 			"top": "0px"
@@ -35,4 +37,5 @@ class window.Veggie
 				$(@).css 'top':'auto'
 		$("aside").show().animate 
 			"left":"0px"
-
+		$("article").animate 'margin-left':'86px'
+		$("article .common").animate 'top':'86px'

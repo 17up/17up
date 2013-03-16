@@ -30,7 +30,7 @@ Veggie::Application.routes.draw do
     get "dashboard"
     get "account"
     get "genius"
-    get "achieve"
+    get "friend"
   end
   match ":role/:uid" => "members#show" 
   

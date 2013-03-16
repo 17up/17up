@@ -4,15 +4,12 @@
 			%li.active
 				%a(href = "#tag_list")
 					标签管理
-				%i
 			%li
 				%a(href = "#create")
 					生成
-				%i
 			%li
 				%a(href = "#quote_list")
 					浏览
-				%i
 	#tag_list.block
 		.alert.alert-info
 			%span.icon-tags

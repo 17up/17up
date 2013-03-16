@@ -18,12 +18,22 @@
 					love
 				%span.moon
 					✈
+			.title
+				一切都在变化，只为一个不变的愿望：让你快乐
 			Love can change anything	
 		#login.step(data-x="0" data-y="-600" data-z="0" data-scale="1")
+			.title
+				还剩
+				%span.num
+					= @num
+				名体验名额
+
 			- Authorization::PROVIDERS.each do |x|
 				= link_to image_tag("icon/#{x}_big.png",:title => x),member_omniauth_authorize_path(x.to_sym)
 		
 		#contact.step.text_center(data-x="0" data-y="-1800" data-z="1500"  data-scale="1")
+			.title
+				一起共铸属于我们的学习社区吧
 			= mail_to $config[:email],image_tag("icon/gmail.png")
 			%p
 				= render 'shared/copyright'	
@@ -39,7 +49,7 @@
 				%i
 			%li
 				%a(href = "#login")
-					登录
+					体验
 				%i
 			%li
 				%a(href = "#contact")

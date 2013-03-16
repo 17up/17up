@@ -1,6 +1,6 @@
 #= require_self
 #= require ../views/account_view
-#= require ../views/achieve_view
+#= require ../views/friend_view
 #= require ../views/genius_view
 #= require ../views/dashboard_view
 
@@ -16,7 +16,7 @@ class Veggie.Router extends Backbone.Router
 	routes:
 		"": "home"
 		"account": "account"
-		"achieve": "achieve"
+		"friend": "friend"
 		"genius": "genius"
 	before_change: ->
 		if window.route.active_view
@@ -33,12 +33,12 @@ class Veggie.Router extends Backbone.Router
 			@account_view.active()	
 		else
 			@account_view = new Veggie.AccountView()
-	achieve: ->
+	friend: ->
 		@before_change()
-		if @achieve_view
-			@achieve_view.active()
+		if @friend_view
+			@friend_view.active()
 		else
-			@achieve_view = new Veggie.AchieveView()
+			@friend_view = new Veggie.FriendView()
 	genius: ->
 		@before_change()
 		if @genius_view

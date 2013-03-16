@@ -9,7 +9,11 @@ class MembersController < ApplicationController
 
   # api get
   def dashboard
-    render_json 0,'ok'
+    @quote = Quote.tag_by("love").first
+    data = {
+      :quote => @quote.as_json(:only => [:_id,:content,:author])
+    }
+    render_json 0,'ok',data
   end
 
   # api get
@@ -25,7 +29,7 @@ class MembersController < ApplicationController
   end
 
   # api get
-  def achieve
+  def friend
     render_json 0,'ok'
   end
 
