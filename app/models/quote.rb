@@ -4,6 +4,8 @@ class Quote < Text
   field :source, type: Hash
 
   validates :content, :uniqueness => true,:presence => true
+  validates :tags, :presence => true
+  validates :author, :presence => true
   BASE_URL = "http://www.goodreads.com"
 
   scope :no_tag, where(:tags => nil)
@@ -14,6 +16,10 @@ class Quote < Text
 
   def self.tag_by tag
     Quote.any_in(:tags => [tag])
+  end
+
+  def self.author_by author_name
+    Quote.where('author.name' => author_name)
   end
 
   # output array 947.William_Shakespeare

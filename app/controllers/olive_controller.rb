@@ -7,8 +7,8 @@ class OliveController < ApplicationController
 
 	def quotes
 		data = {
-			:quotes => Quote.no_tag.as_json(:only => [:_id,:content,:tags]),
-			:tags => Quote.tags_list.sample(77)
+			:tags => Quote.tags_list.sample(77),
+			:quotes => []
 		}
 		render_json 0,'ok',data
 	end

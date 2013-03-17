@@ -57,13 +57,13 @@ module Onion
           #.scan(/&ldquo;(.+)&rdquo;/).map{$1}[0]
           quote.content = _text.to_html(:encoding => 'UTF-8').scan(/“(.+)”/).map{$1}[0]
   
-          _foot = x.css(".quoteFooter .left")[0]
-          if _foot
+          if _foot = x.css(".quoteFooter .left")[0]
             tags = _foot.css("a").inject([]) do |a,e|
               a << e.text
             end
+            quote.tags = tags
           end
-          quote.tags = tags
+          # filter quotes without tags         
           quote.save
         end
 

@@ -44,15 +44,15 @@ class window.Utils
 		setTimeout fuc,5000
 		false
 	@confirm: (msg,yesCallback) ->
-		$flash = $("#flash_message").css 'position':"fixed"
-		$flash.html	JST['lib/templates/confirm']
-		$alert = $(".alert",$flash)	
-		$("strong",$alert).text(msg)
+		$("body").prepend JST['lib/templates/confirm']
+		$confirm = $("#confirm_dialog")
+		$alert = $(".alert",$confirm)	
+		$("strong",$confirm).text(msg)
 		$("#container").addClass 'mask'
-		$alert.show()
-		$(".btn",$flash).click ->
+		$alert.fadeIn()
+		$(".btn",$confirm).click ->
 			if $(@).data().confirm is true
 				yesCallback()	
-			$alert.remove()	
+			$confirm.remove()	
 			$("#container").removeClass 'mask'
 		false

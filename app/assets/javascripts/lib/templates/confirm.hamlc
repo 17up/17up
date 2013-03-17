@@ -1,7 +1,8 @@
-.alert.alert-error.text_center.hide
-	%strong
-	.confirm
-		%span.btn.yes(data-confirm = "true")
-			%i.icon-ok
-		%span.btn.no(dat-confirm = "false")
-			%i.icon-remove
+#confirm_dialog
+	.alert.alert-error.text_center.hide
+		%strong
+		.confirm
+			%span.btn.yes(data-confirm = "true")
+				%i.icon-ok
+			%span.btn.no(dat-confirm = "false")
+				%i.icon-remove

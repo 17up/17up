@@ -48,7 +48,7 @@ body.welcome
 			.name
 				line-height: 3
 #welcome_wrap
-	height: 300px
+	min-height: 350px
 	position: relative	
 	ul.tab
 		position: fixed
@@ -93,10 +93,13 @@ body.welcome
 			position: relative
 			width: 900px
 			@include box-sizing(border-box)
-			//font-size: 48px
+			opacity: 0
 			line-height: 1.5
 			text-align: center
 			@include text-shadow-inverse
+			@include transition(0.8s)
+		.step.active
+			opacity: 1
 	#contact
 		.title
 			padding: 20px 0
@@ -150,7 +153,7 @@ body.welcome
 			@include transform(rotate(45deg))
 			font-size: 160px
 			display: inline-block
-			line-height: 0.7
+			line-height: 1
 			padding-top: 30px
 			@include text-3d
 		.title

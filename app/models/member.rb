@@ -63,7 +63,7 @@ class Member
   end
 
   def avatar
-    File.exist?(AVATAR_PATH + avatar_name) ? (AVATAR_URL + avatar_name) : "icon/avatar.png"
+    File.exist?(AVATAR_PATH + avatar_name) ? (AVATAR_URL + avatar_name) : "icon/avatar.jpg"
   end
 
   def avatar_name

@@ -17,6 +17,7 @@ class window.Veggie
 						Veggie.show_nav()
 					false
 	@hide_nav: ->
+		$("#flash_message .alert").remove()
 		$("nav").animate 
 			"top": "-86px"
 			500

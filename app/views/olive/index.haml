@@ -1,4 +1,3 @@
-= render "shared/flash_message"
 #container
 	%aside
 		%a.brand.dancer(href="/")
@@ -10,6 +9,6 @@
 					Quote
 				%i
 	%article	
-		
+		= render "shared/flash_message"
 - content_for :footer do
 	#init.hide(data-js="Olive")
