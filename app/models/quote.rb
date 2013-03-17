@@ -7,6 +7,7 @@ class Quote < Text
   validates :tags, :presence => true
   validates :author, :presence => true
   BASE_URL = "http://www.goodreads.com"
+  TAG_KEY = "quote_tags"
 
   scope :no_tag, where(:tags => nil)
   scope :empty_tag, where(:tags.with_size => 0)
@@ -14,8 +15,12 @@ class Quote < Text
   scope :with_author, where(:author.exists => true)
   scope :without_author, where(:author => nil)
 
-  def self.tag_by tag
-    Quote.any_in(:tags => [tag])
+  def self.tag_by(tag_list,match_any = true)
+    if match_any
+      Quote.any_in(:tags => tag_list.split(","))
+    else
+      Quote.all_in(:tags => tag_list.split(","))
+    end
   end
 
   def self.author_by author_name
@@ -34,10 +39,22 @@ class Quote < Text
   end
 
   # 2th array [tag,num]
-  def self.tags_list
-    Rails.cache.fetch("quote_tags") do
+  # 条件：出现过2次以上的tag
+  def self.tags_list(conditions = {})
+    if conditions[:clear]
+      Rails.cache.clear(TAG_KEY)
+    end
+    list = Rails.cache.fetch(TAG_KEY) do
       tags = Quote.pluck(:tags).flatten
       Quote.tags.map{ |x| [x,tags.grep(x).length] }.sort{|a,b| b[1] <=> a[1]}
+    end
+    if conditions[:up]
+      list.select{|x| x[1] > conditions[:up]}
+    elsif conditions[:pop]
+      list.delete list.select{|x| x[0] == conditions[:pop]}[0]
+      Rails.cache.write(TAG_KEY,list)
+    else
+      list
     end
   end
 
@@ -65,4 +82,7 @@ class Quote < Text
       end
     end
   end
+
+  index({"author.name" => 1})
+  index({ tags: 1})
 end

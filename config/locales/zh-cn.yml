@@ -11,8 +11,7 @@ zh-cn:
   describe: "这里是 17up 学会,爱知识,爱生活,爱同伴,认识自我,迎接内心的变革,开拓未来,见证奇迹,希望从这里开始。第一章：imagine english,以修心的方式学英语"
   flash:
     notice:
-      welcome: "欢迎来到 17up 学会，我是您的智能助手 小柒"
-      back: "欢迎回来！学习，任何时候开始都不晚。"
+      welcome: "欢迎 %{name} 来到 17up 学会~~"
       avatar: "您的新头像好帅！"
       bind: "绑定成功啦!"
       uid: "ID 登记成功，你已正式成为 17up 的一员。"

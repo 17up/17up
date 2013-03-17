@@ -135,5 +135,7 @@ class Member
     field :c_at
     field :authorizations
   end
-  
+
+  #mongo index
+  index({role: 1,uid: 1},{ unique: true })
 end

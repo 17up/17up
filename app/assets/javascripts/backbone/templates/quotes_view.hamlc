@@ -2,14 +2,18 @@
 	#tag_list.block
 		.alert.alert-info
 			%span.icon-tags
-			= @tags.length
+			= @tags.count
 			Tags (点击删除标签)
-		- for tag in @tags		
+		- for tag in @tags.top	
 			%span.label
 				%i.num
 					= tag[1]
 				%span.as_link
 					= tag[0]
+		.form.alert.alert-success
+			%input(name = 'tag' placeholder = "输入标签名")
+			%span.btn
+				删除
 	#create.block
 		.alert.alert-info
 			%span.icon-magic

@@ -84,4 +84,6 @@ class Authorization
     field :member
   end
 
+  index({ provider: 1,uid: 1},{ unique: true })
+
 end

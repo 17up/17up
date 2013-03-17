@@ -7,19 +7,27 @@ class OliveController < ApplicationController
 
 	def quotes
 		data = {
-			:tags => Quote.tags_list.sample(77),
+			:tags => {
+				:count => Quote.tags.count,
+				:top => Quote.tags_list.reverse[0..19]
+			},
 			:quotes => []
 		}
 		render_json 0,'ok',data
 	end
 
+	# single tag
 	def destroy_tag
-		@quotes = Quote.tag_by params[:tag]
-		@quotes.each do |q|
-			q.tags = q.tags - [params[:tag]]
-			q.save
+		@quotes = Quote.where(:tags => params[:tag]) 
+		count = @quotes.count
+		if count != 0
+			@quotes.each do |q|
+				q.tags.delete params[:tag]
+				q.save
+			end
+			Quote.tags_list(:pop => params[:tag])
 		end
-		render_json 0,'ok'
+		render_json 0,'ok',count
 	end
 
 	private

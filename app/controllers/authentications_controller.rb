@@ -31,18 +31,16 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
       else
 				# 登录
         if provider
-          reset_token_secret(provider, omniauth, expires_time)  
-          flash[:success] = t('flash.notice.back')
+          reset_token_secret(provider, omniauth, expires_time) 
           sign_in(provider.member)
-          redirect_to root_path
 				# 注册
         else
           new_user = Member.generate
           new_user.bind_service(omniauth, expires_time)
           sign_in(new_user)
-          flash[:notice] = t('flash.notice.welcome')
-          redirect_to "/genius"
+          flash[:success] = t('flash.notice.welcome',:name => new_user.name)      
         end
+        redirect_to "/"
       end
     end
 
