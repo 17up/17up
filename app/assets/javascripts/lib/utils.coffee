@@ -1,5 +1,3 @@
-#= require_tree ./templates
-
 class window.Utils
 	@loading: ($item) ->
 		$item.addClass 'disable_event'
@@ -26,11 +24,16 @@ class window.Utils
 			$file.trigger "click"
 			false
 		$form
+	@tag_input: ->
+		$("input.tags").tagsInput
+			'height':'auto'
+			'width':'500px'
+			'defaultText':'添加标签'
 	@active_tab: (id) ->
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
 	@flash: (msg,type='',style='') ->
 		$flash = $("#flash_message")
-		$flash.prepend JST['lib/templates/flash']
+		$flash.prepend JST['flash']
 		$alert = $(".alert",$flash)
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
@@ -44,7 +47,7 @@ class window.Utils
 		setTimeout fuc,5000
 		false
 	@confirm: (msg,yesCallback) ->
-		$("body").prepend JST['lib/templates/confirm']
+		$("body").prepend JST['confirm']
 		$confirm = $("#confirm_dialog")
 		$alert = $(".alert",$confirm)	
 		$("strong",$confirm).text(msg)

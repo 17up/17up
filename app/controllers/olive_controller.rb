@@ -5,18 +5,45 @@ class OliveController < ApplicationController
 		set_seo_meta("Olive",t('keywords'),t('describe'))
 	end
 
-	def quotes
+	def persons
+		@persons = Person.all.as_json(:only => [:name])
 		data = {
-			:tags => {
-				:count => Quote.tags.count,
-				:top => Quote.tags_list.reverse[0..19]
-			},
-			:quotes => []
+			:persons => @persons
 		}
 		render_json 0,'ok',data
 	end
 
-	# single tag
+	# get
+	def quotes
+		if params[:author]
+			@quotes = Quote.author_by params[:author]
+			data = {
+				:quotes => @quotes.as_json(:only => [:_id,:content,:tags])
+			}
+		else
+			data = {
+				:tags => {
+					:count => Quote.tags.count,
+					:top => Quote.tags_list(:down => 2)[0..19]
+				}
+			}
+		end
+		render_json 0,'ok',data
+	end
+
+	# post
+	def create_quote
+		if author = Onion::Quote.new.get_author(params[:author])
+			Person.create(name: params[:author])
+			msg = Onion::Quote.new(:author => author).fetch
+			Quote.tags_list(:clear => true)
+		else
+			msg = "no author"
+		end
+		render_json 0,msg	
+	end
+
+	# single tag delete
 	def destroy_tag
 		@quotes = Quote.where(:tags => params[:tag]) 
 		count = @quotes.count

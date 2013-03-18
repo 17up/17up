@@ -3,12 +3,17 @@
 		%a.brand.dancer(href="/")
 			17up
 		%ul#side_nav
-			%li(rel = '')
+			%li(rel = 'quotes')
 				%span.icon-quote-left
 				%div
 					Quote
 				%i
+			%li(rel = 'persons')
+				%span.icon-user
+				%div
+					Person
 	%article	
 		= render "shared/flash_message"
+
 - content_for :footer do
 	#init.hide(data-js="Olive")

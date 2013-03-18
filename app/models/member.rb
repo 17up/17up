@@ -26,7 +26,7 @@ class Member
 
   field :role 
   field :uid
-  field :gem, :type => Integer
+  field :gem, :type => Integer, :default => 0
 
 
   has_many :authorizations,:dependent => :destroy

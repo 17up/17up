@@ -34,6 +34,27 @@ a
 		color: #3e6a9a
 		text-decoration: none
 
+#{$all-text-inputs}
+	background-color: #ffffff
+	border: 2px solid #ccc
+	height: 20px 
+	padding: 4px 6px
+	line-height: 20px 
+	font-size: 14px
+	color: #555
+
+#{$all-text-inputs-focus},textarea:focus
+	outline: none
+	border-color: #40a701
+
+textarea
+	min-width: 500px
+	height: 50px
+	border: 2px solid #cccccc
+	padding: 5px
+	resize: none
+	font-size: 14px
+
 .text_center
 	text-align: center
 
@@ -135,6 +156,9 @@ a
 		padding: 0 4px
 		margin-right: 3px
 		@include round(5px)
+.gem
+	background-color: #40a701
+
 #footer
 	text-align: center
 	color: #333

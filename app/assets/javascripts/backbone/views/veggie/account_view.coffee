@@ -1,10 +1,6 @@
-#= require ./veggie_view
-#= require ../models/account
-#= require ../templates/account_view
-
 class window.Veggie.AccountView extends Veggie.View	
 	id: "account"
-	template: JST['backbone/templates/account_view']
+	template: JST['account_view']
 	model: new Veggie.Account()	
 	close: ->
 		if $("#" + @id).jmpress("initialized")

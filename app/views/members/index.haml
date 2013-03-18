@@ -4,8 +4,11 @@
 	.avatar(title="点我更换头像")		
 		= image_tag current_member.avatar
 		%i.icon-upload-alt
-	.name
-		= current_member.name
+	.info
+		.name
+			= current_member.name
+		.gem.label
+			= current_member.gem
 	.brand.dancer
 		17up
 	.nav-item

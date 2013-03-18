@@ -1,8 +1,6 @@
 #= require_self
-#= require ../views/account_view
-#= require ../views/friend_view
-#= require ../views/genius_view
-#= require ../views/dashboard_view
+#= require_tree ../models/veggie
+#= require_tree ../views/veggie
 
 class Veggie.Router extends Backbone.Router  
 	initialize: ->

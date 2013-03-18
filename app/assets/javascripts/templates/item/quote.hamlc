@@ -1,0 +1,10 @@
+.quote
+	.alert.alert-success
+		!= @q.content
+	- if @q.tags
+		.tags
+			%a.label{:href => "/admin/quote/#{@q._id}"}
+				%span.icon-link
+			- for tag in @q.tags
+				%i.label
+					= tag

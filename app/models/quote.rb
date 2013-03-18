@@ -46,10 +46,12 @@ class Quote < Text
     end
     list = Rails.cache.fetch(TAG_KEY) do
       tags = Quote.pluck(:tags).flatten
-      Quote.tags.map{ |x| [x,tags.grep(x).length] }.sort{|a,b| b[1] <=> a[1]}
+      Quote.tags.map{ |x| [x,tags.grep(x).length] }
     end
     if conditions[:up]
       list.select{|x| x[1] > conditions[:up]}
+    elsif conditions[:down]
+      list.select{|x| x[1] < conditions[:down]}
     elsif conditions[:pop]
       list.delete list.select{|x| x[0] == conditions[:pop]}[0]
       Rails.cache.write(TAG_KEY,list)

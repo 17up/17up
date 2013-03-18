@@ -16,6 +16,10 @@ module Onion
       end    
     end   
   end
+
+  class Paragraph
+
+  end
   
   class Quote
     require 'goodreads'
