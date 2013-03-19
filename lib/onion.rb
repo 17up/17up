@@ -1,19 +1,24 @@
 # coding: utf-8 
 module Onion
   # 查单词
-  class FetchWord  
+  class Word  
     def initialize(word)
-      url = $dict_source[:english]+word
-      page = Mechanize.new.get(url)
-      target = page.parser.xpath("//div[@class='simple_content']")
-      @word = word
-      @comment = target.text.gsub("\r\n","").strip      
+      c_url = $dict_source[:english] + word
+      e_url = "http://www.vocabulary.com/dictionary/" + word
+
+      c_page = Mechanize.new.get(c_url)
+      e_page = Mechanize.new.get(e_url)
+
+      content = {
+        "zh-cn" => c_page.parser.xpath("//div[@class='simple_content']").text.gsub("\r\n","").strip,
+        "en" => e_page.parser.xpath("//div[@id='definition']//p[@class='short']").text
+      }
+      @word = ::Word.new(:title => word) 
+      @word.content_translations = content
     end
   
     def insert    
-      if !@comment.blank?
-        Word.create(:title => @word,:content => @comment)
-      end    
+      @word.save       
     end   
   end
 

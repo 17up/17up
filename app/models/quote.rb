@@ -38,6 +38,27 @@ class Quote < Text
     quotes.pluck(:tags).flatten.uniq
   end
 
+  # map reduce for tags
+  def self.rebuild_tags
+    map = %Q{
+      function() { 
+        this.tags.forEach(function(t){ 
+          emit(t, 1); 
+        }); 
+      }
+    }
+    reduce = %Q{
+      function(key,values) { 
+        var count = 0; 
+        values.forEach(function(v){
+          count += v; 
+        }); 
+        return count; 
+      }
+    }
+    Quote.map_reduce(map,reduce).out(replace: "tags")
+  end
+
   # 2th array [tag,num]
   # 条件：出现过2次以上的tag
   def self.tags_list(conditions = {})
@@ -45,8 +66,7 @@ class Quote < Text
       Rails.cache.clear(TAG_KEY)
     end
     list = Rails.cache.fetch(TAG_KEY) do
-      tags = Quote.pluck(:tags).flatten
-      Quote.tags.map{ |x| [x,tags.grep(x).length] }
+      Quote.rebuild_tags.map{|x| [x['_id'],x['value'].to_i]}
     end
     if conditions[:up]
       list.select{|x| x[1] > conditions[:up]}

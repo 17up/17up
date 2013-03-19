@@ -2,12 +2,16 @@ class Course
   include Mongoid::Document
   include Mongoid::Timestamps::Short
 
+  field :title
+  field :lang
   field :status, type: Integer, default: 3
+  field :tags, type: Array
   
-  embeds_many :paragraphs
-  accepts_nested_attributes_for :paragraphs
+  
   # author
   belongs_to :member
+
+  scope :en,where(:lang => nil)
 
   STATUS = {
     "1" => "open",
@@ -26,12 +30,21 @@ class Course
     
   end
 
+  def as_json
+    ext = {
+      "author" => member.name,
+      "status" => STATUS[status.to_s]
+    }
+    super(:only => [:title]).merge(ext)
+  end
+
   rails_admin do
     field :status, :integer do
       pretty_value do
         STATUS[value.to_s]
       end
     end
+    field :title
     field :member
   end
 

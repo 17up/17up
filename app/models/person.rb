@@ -2,6 +2,7 @@ class Person
   include Mongoid::Document
   field :name, type: String
   field :tags, type: Array
+  field :area
 
   validates :name, :presence => true,:uniqueness => true
  

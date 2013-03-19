@@ -1,5 +1,2 @@
 #genius.common
-	.active.clearfix
-		- for tag in @tags
-			.tag.button.xs.pink(data-icon=' ')
-				= tag
+	

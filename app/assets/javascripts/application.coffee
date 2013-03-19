@@ -16,6 +16,7 @@ $ ->
 	$('body').on 'click',"span.close", ->
 		$(@).parent().slideUp ->
 			$(@).remove()
+
 	$init = $("footer #init")
 	if $init.length is 1
 		js_class = $("footer #init").data().js

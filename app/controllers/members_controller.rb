@@ -35,9 +35,7 @@ class MembersController < ApplicationController
 
   # api get
   def genius
-    # 出现10次以上的tag
-    @tags = Quote.tags_list(:up => 10).map{|x| x[0]}.sample(20)
-    render_json 0,'ok',:tags => @tags
+    render_json 0,'ok'
   end
 
   # page

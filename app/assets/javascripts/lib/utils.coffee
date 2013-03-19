@@ -24,11 +24,17 @@ class window.Utils
 			$file.trigger "click"
 			false
 		$form
+	
 	@tag_input: ->
 		$("input.tags").tagsInput
 			'height':'auto'
-			'width':'500px'
+			'width':'auto'
 			'defaultText':'添加标签'
+	@rich_textarea: ->
+		$('.editable .menu_bar').on 'click', '.clean', ->
+	        $textarea = $(@).closest(".editable").find(".textarea")
+	        $textarea.html $textarea.text()
+	        
 	@active_tab: (id) ->
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
 	@flash: (msg,type='',style='') ->

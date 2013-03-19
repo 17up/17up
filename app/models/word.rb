@@ -2,7 +2,7 @@ class Word
   include Mongoid::Document
 
   field :title
-  field :content
+  field :content,localize: true
   field :lang
 
   scope :en,where(:lang => nil)
@@ -38,7 +38,10 @@ class Word
 
   rails_admin do
     field :title
-    field :content
-    field :lang
+    field :content do
+      pretty_value do
+        value["#{I18n.locale.to_s}"] 
+      end
+    end
   end
 end

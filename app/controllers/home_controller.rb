@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     #else
     	set_seo_meta(nil,t('keywords'),t('describe'))
     #end
-    @num = 5000 - Member.count
+    @num = 1700 - Member.count
   end
 
 end

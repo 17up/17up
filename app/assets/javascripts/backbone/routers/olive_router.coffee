@@ -10,12 +10,19 @@ class Olive.Router extends Backbone.Router
 			$(@).addClass('active')
 			self.navigate(href,true)
 	routes:
-		'':'quotes'
+		'':'courses'
+		'courses': 'courses'
 		'quotes': 'quotes'
 		'persons': 'persons'
 	before_change: ->
 		if window.route.active_view
 			window.route.active_view.close()
+	courses: ->
+		@before_change()
+		if @courses_view
+			@courses_view.active()
+		else
+			@courses_view = new Olive.CoursesView()
 	quotes: ->
 		@before_change()
 		if @quotes_view

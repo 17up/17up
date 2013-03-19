@@ -1,6 +1,5 @@
 class Paragraph < Text
+	validates :content, :presence => true
 
-  	field :happen_at, type: Time
 
-  	embedded_in :course
 end

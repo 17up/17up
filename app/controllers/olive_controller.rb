@@ -4,7 +4,24 @@ class OliveController < ApplicationController
 	def index
 		set_seo_meta("Olive",t('keywords'),t('describe'))
 	end
+	# get
+	def courses
+		@courses = Course.all.as_json
+		data = {
+			:courses => @courses
+		}
+		render_json 0,"ok",data
+	end
 
+	def create_course
+		@course = Course.new(:title => params[:title])
+		if @course.save!
+			render_json 0,"ok"
+		else
+			render_json -1,"fail"
+		end
+	end
+	# get
 	def persons
 		@persons = Person.all.as_json(:only => [:name])
 		data = {
@@ -24,7 +41,7 @@ class OliveController < ApplicationController
 			data = {
 				:tags => {
 					:count => Quote.tags.count,
-					:top => Quote.tags_list(:down => 2)[0..19]
+					:top => Quote.tags_list(:down => 2)[0..199]
 				}
 			}
 		end

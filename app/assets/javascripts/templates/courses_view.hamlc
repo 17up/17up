@@ -1,0 +1,11 @@
+#courses
+	#create.block
+		.alert.alert-info
+			%span.icon-plus
+			新建课程
+		.form.alert-success
+			%form(action="/olive/create_course" method="post" data-remote="true")
+				%input.center_input(name="title" placeholder = "输入标题" type="text" required="required")
+				%input.tags(name="tags")
+				!= JST['form/rich_editor'](ele: 'paragraph')
+				%input.btn(type = "submit" value = "创建")

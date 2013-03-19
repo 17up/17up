@@ -1,0 +1,6 @@
+%textarea.hide{:name => @ele}
+.editable
+	.menu_bar
+		.label.clean
+			%span.icon-font
+	.textarea{:class => @ele}(contenteditable="true")

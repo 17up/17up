@@ -16,8 +16,10 @@ Veggie::Application.routes.draw do
   # olive
   match "o" => "olive#index", :as => :olive
   namespace :olive do
+    get 'courses'
     get 'quotes'
     get 'persons'
+    post 'create_course'
     post 'create_quote'
     post 'destroy_tag'
   end
