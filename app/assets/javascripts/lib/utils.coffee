@@ -30,11 +30,50 @@ class window.Utils
 			'height':'auto'
 			'width':'auto'
 			'defaultText':'添加标签'
+			'placeholderColor': '#888'
 	@rich_textarea: ->
-		$('.editable .menu_bar').on 'click', '.clean', ->
-	        $textarea = $(@).closest(".editable").find(".textarea")
-	        $textarea.html $textarea.text()
-	        
+		$textarea = $('.editable .textarea')
+		$('.editable .menu_bar').on 'click', '.btn',(e) ->
+			$this = $(@)
+			switch $this.data().action
+				# when "clean"
+				# 	$textarea = $this.closest(".editable").find(".textarea")
+				# 	$textarea.html $textarea.text()
+				when "phrase"
+					Utils.getSelection('Italic')
+				when "word"
+					Utils.getSelection('bold')
+			e.preventDefault()
+		$textarea.bind 'dblclick', ->		
+			selection = Utils.getSelection()
+
+		$textarea.bind 'blur', ->
+			$textarea = $(@).closest("form").find("textarea")
+			$textarea.val $(@).html()
+		$textarea.focus()
+		$("body").on "paste",".textarea",(e) ->
+			$ele = $(@)
+			setTimeout(->
+				html = "<p>"+$ele.html()+"</p>"
+				text = $(html).contents().filter ->
+					this.nodeType is 3
+				text = _.map text,(t) ->
+					"<p>" + t.data + "</p>"
+				$ele.html text.join(" ")
+				$ele.focus()
+			,100)	
+	@getSelection: (command = 'bold') ->
+		if window.getSelection
+			select = window.getSelection()
+			if select.rangeCount
+				range = select.getRangeAt(0)
+				document.designMode = "on"
+				select.removeAllRanges()
+				select.addRange(range)
+				document.execCommand(command, null, false)
+				document.designMode = "off"
+				$.trim(new String(select).replace(/^\s+|\s+$/g,''))
+
 	@active_tab: (id) ->
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
 	@flash: (msg,type='',style='') ->

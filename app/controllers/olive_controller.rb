@@ -6,21 +6,13 @@ class OliveController < ApplicationController
 	end
 	# get
 	def courses
-		@courses = Course.all.as_json
+		@courses = Course.all.as_json(:only => [:_id,:title,:u_at])
 		data = {
 			:courses => @courses
 		}
 		render_json 0,"ok",data
 	end
 
-	def create_course
-		@course = Course.new(:title => params[:title])
-		if @course.save!
-			render_json 0,"ok"
-		else
-			render_json -1,"fail"
-		end
-	end
 	# get
 	def persons
 		@persons = Person.all.as_json(:only => [:name])

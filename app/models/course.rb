@@ -6,10 +6,12 @@ class Course
   field :lang
   field :status, type: Integer, default: 3
   field :tags, type: Array
-  
+  field :content
   
   # author
   belongs_to :member
+
+  validates :title, :presence => true, :uniqueness => {:scope => :member}
 
   scope :en,where(:lang => nil)
 
@@ -30,12 +32,12 @@ class Course
     
   end
 
-  def as_json
+  def as_full_json
     ext = {
       "author" => member.name,
       "status" => STATUS[status.to_s]
     }
-    super(:only => [:title]).merge(ext)
+    as_json(:only => [:_id,:title,:content,:tags]).merge(ext)
   end
 
   rails_admin do
@@ -47,5 +49,8 @@ class Course
     field :title
     field :member
   end
+
+  index({ title: 1})
+  index({ tags: 1})
 
 end

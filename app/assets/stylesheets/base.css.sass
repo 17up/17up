@@ -50,8 +50,8 @@ input.center_input
 	width: 100%
 	text-align: center
 	border: none
-	background: transparent
-	padding: 0
+	background: rgba(255,255,255,0.5)
+	padding: 10px 0
 	margin: 10px 0
 
 textarea
@@ -64,14 +64,24 @@ textarea
 .editable
 	margin: 10px 0
 	.menu_bar
-		.label
-			cursor: pointer
+		margin-bottom: 5px
+		.pink
+			@include button(simple,#ff6c58)
 	.textarea
 		border: 2px solid #cccccc
 		padding: 5px
+		min-height: 100px
+		background-color: rgba(255,255,255,0.5)
 		&:focus
 			outline: none
 			border-color: #40a701
+		b 
+			color: #ff2f4f
+		i
+			color: #3f94ff
+div.tagsinput
+	border: none
+	background-color: rgba(255,255,255,0.5)
 
 .text_center
 	text-align: center

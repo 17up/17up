@@ -1,5 +1,7 @@
 Veggie::Application.routes.draw do
 
+  get "courses/show"
+
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   require 'sidekiq/web'
@@ -19,9 +21,15 @@ Veggie::Application.routes.draw do
     get 'courses'
     get 'quotes'
     get 'persons'
-    post 'create_course'
+    
     post 'create_quote'
     post 'destroy_tag'
+  end
+
+  namespace :courses do
+    get 'show'
+    post 'sync'
+    post 'draft'
   end
   
   # members

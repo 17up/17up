@@ -4,8 +4,21 @@
 			%span.icon-plus
 			新建课程
 		.form.alert-success
-			%form(action="/olive/create_course" method="post" data-remote="true")
-				%input.center_input(name="title" placeholder = "输入标题" type="text" required="required")
-				%input.tags(name="tags")
-				!= JST['form/rich_editor'](ele: 'paragraph')
-				%input.btn(type = "submit" value = "创建")
+	#course_list.block
+		.alert.alert-info
+			%span.icon-list
+			课程列表
+		.form.alert-success
+			%ul
+				- for c in @courses
+					%li{"data-cid": c._id}
+						.title
+							= c.title
+						.u_at
+							最后同步时间：
+							= (new Date(c.u_at)).format("yyyy-MM-dd hh:mm:ss")
+						.action
+							%span.btn.edit(title="编辑")
+								%i.icon-edit
+							%span.btn.sync(title="同步")
+								%i.icon-refresh
