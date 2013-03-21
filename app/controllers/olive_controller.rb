@@ -6,7 +6,7 @@ class OliveController < ApplicationController
 	end
 	# get
 	def courses
-		@courses = Course.all.as_json(:only => [:_id,:title,:u_at])
+		@courses = Course.all.as_json
 		data = {
 			:courses => @courses
 		}

@@ -1,5 +1,5 @@
 #= require_self
-#= require_tree ../models/veggie
+#= require_tree ../collections/veggie
 #= require_tree ../views/veggie
 
 class Veggie.Router extends Backbone.Router  

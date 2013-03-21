@@ -65,8 +65,6 @@ textarea
 	margin: 10px 0
 	.menu_bar
 		margin-bottom: 5px
-		.pink
-			@include button(simple,#ff6c58)
 	.textarea
 		border: 2px solid #cccccc
 		padding: 5px
@@ -106,6 +104,8 @@ div.tagsinput
 
 .btn
 	@include button
+.btn.pink
+	@include button(simple,#ff6c58)
 .mask
 	pointer-events: none
 	opacity: 0.3
@@ -148,7 +148,16 @@ div.tagsinput
 		cursor: pointer
 		&:hover
 			color: #ef7a7f
-.form
+	.next
+		position: absolute
+		top: 50%
+		font-size: 25px
+		right: 10px
+		margin-top: -15px
+		cursor: pointer
+		&:hover
+			color: #ef7a7f
+.form,.quote
 	padding: 8px 14px
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
 	
@@ -188,6 +197,9 @@ div.tagsinput
 		padding: 0 4px
 		margin-right: 3px
 		@include round(5px)
+.label-success
+	background-color: #468847
+
 .gem
 	background-color: #40a701
 

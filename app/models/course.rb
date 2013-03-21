@@ -32,12 +32,12 @@ class Course
     
   end
 
-  def as_full_json
+  def as_json
     ext = {
       "author" => member.name,
-      "status" => STATUS[status.to_s]
+      "tags" => tags.join(",")
     }
-    as_json(:only => [:_id,:title,:content,:tags]).merge(ext)
+    super(:only => [:_id,:title,:content,:u_at,:status]).merge(ext)
   end
 
   rails_admin do

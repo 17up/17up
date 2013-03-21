@@ -4,8 +4,7 @@ class window.Course extends Backbone.Model
 		"title": ''
 		"content": ''
 		"tags": ''
-	parse: (resp)->
-		if resp.status is 0
-			resp.data
+		"status": 3
+	url: "/courses/sync"
 
 	

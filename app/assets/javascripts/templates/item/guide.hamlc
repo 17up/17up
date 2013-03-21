@@ -1,0 +1,3 @@
+%img.emotion{:src => @emotion }
+= @text
+%span.next.icon-circle-arrow-right

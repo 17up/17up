@@ -25,15 +25,15 @@ class window.Utils
 			false
 		$form
 	
-	@tag_input: ->
-		$("input.tags").tagsInput
+	@tag_input: ($form) ->
+		$("input.tags",$form).tagsInput
 			'height':'auto'
 			'width':'auto'
 			'defaultText':'添加标签'
 			'placeholderColor': '#888'
-	@rich_textarea: ->
-		$textarea = $('.editable .textarea')
-		$('.editable .menu_bar').on 'click', '.btn',(e) ->
+	@rich_textarea: ($form) ->
+		$textarea = $('.editable .textarea',$form)
+		$('.editable .menu_bar',$form).on 'click', '.btn',(e) ->
 			$this = $(@)
 			switch $this.data().action
 				# when "clean"
@@ -51,7 +51,7 @@ class window.Utils
 			$textarea = $(@).closest("form").find("textarea")
 			$textarea.val $(@).html()
 		$textarea.focus()
-		$("body").on "paste",".textarea",(e) ->
+		$form.on "paste",".textarea",(e) ->
 			$ele = $(@)
 			setTimeout(->
 				html = "<p>"+$ele.html()+"</p>"

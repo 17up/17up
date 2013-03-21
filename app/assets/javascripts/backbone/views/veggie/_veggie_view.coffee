@@ -3,7 +3,7 @@ class window.Veggie.View extends Backbone.View
 	initialize: (self = this) ->
 		$("#side_nav li[rel='" + @id + "']").addClass('active')
 		Utils.loading $("nav .brand")	
-		@model.fetch
+		@collection.fetch
 			success: ->
 				self.render()	
 				Utils.loaded $("nav .brand")

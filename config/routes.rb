@@ -27,7 +27,6 @@ Veggie::Application.routes.draw do
   end
 
   namespace :courses do
-    get 'show'
     post 'sync'
     post 'draft'
   end

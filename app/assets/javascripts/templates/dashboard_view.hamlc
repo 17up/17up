@@ -1,9 +1,6 @@
 #dashboard.common
-	.alert.asset
-		%span.icon-remove-circle.close
-		%img.emotion{:src => @asset.emotion }
-		= @asset.greet
-	.quote.alert.alert-success
+	#assets
+	.quote.alert-success
 		%span.icon-quote-left
 		!= @quote.content
 		%span.icon-quote-right

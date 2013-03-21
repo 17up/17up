@@ -1,13 +1,8 @@
 class CoursesController < ApplicationController
 	before_filter :authenticate_member!
 
-  	def show
-  		@course = Course.find(params[:id])
-  		render_json 0,"ok",@course.as_full_json
-  	end
-
   	def sync
-		unless !params[:id].blank? and @course = Course.find(params[:id])
+		unless !params[:_id].blank? and @course = Course.find(params[:_id])
 			@course = current_member.courses.new
 		end
 		@course.title = params[:title]
@@ -23,7 +18,7 @@ class CoursesController < ApplicationController
 	end
 
 	def draft
-		@course = Course.find(params[:id])
+		@course = Course.find(params[:_id])
 		@course.status = 3
 		@course.save
 		render_json 0,"saved as draft"

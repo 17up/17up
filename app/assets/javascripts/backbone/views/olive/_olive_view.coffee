@@ -3,7 +3,7 @@ class window.Olive.View extends Backbone.View
 	initialize: (self = this) ->
 		$("#side_nav li[rel='" + @id + "']").addClass('active')
 		Utils.loading $("aside .brand")	
-		@model.fetch
+		@collection.fetch
 			success: ->
 				self.render()	
 				Utils.loaded $("aside .brand")

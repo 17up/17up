@@ -1,7 +1,7 @@
 class window.Olive.QuotesView extends Olive.View
 	id: 'quotes'
 	template: JST['quotes_view']
-	model: new Olive.Quote()
+	collection: new Olive.Quote()
 	destroy_tag: ->
 		$wrap = $("#tag_list",$("#" + @id))
 		$form = $("form",$wrap)	
@@ -40,7 +40,7 @@ class window.Olive.QuotesView extends Olive.View
 				$form[0].reset()
 				Utils.loaded $wrap
 	render: ->
-		template = @template(tags: @model.get('tags'))
+		template = @template(tags: @collection.get('tags'))
 		$(@el).append(template)			
 		@destroy_tag()
 		@active()

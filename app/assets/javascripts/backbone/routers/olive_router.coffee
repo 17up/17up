@@ -1,5 +1,5 @@
 #= require_self
-#= require_tree ../models/olive
+#= require_tree ../collections/olive
 #= require_tree ../views/olive
 
 class Olive.Router extends Backbone.Router  

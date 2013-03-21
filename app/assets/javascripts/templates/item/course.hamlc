@@ -1,0 +1,26 @@
+.headline
+	.title
+		- if @title
+			= @title
+		- else
+			This Is A New Course
+	.u_at
+		%span.icon-time
+		- if @u_at
+			= (new Date(@u_at)).format("yyyy-MM-dd hh:mm:ss")
+		- else
+			No Sync Record
+	.action
+		- if @status is 1
+			%span.label.label-success
+				已发布
+		- else
+			%span.btn.edit(title="编辑")
+				%i.icon-edit
+			- if @status is 3
+				%span.btn.sync(title="同步")
+					%i.icon-refresh
+			- else
+				%span.label
+					审核中
+.editor

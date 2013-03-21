@@ -8,6 +8,7 @@
 #= require backbone_datalink
 #= require_tree ./lib
 #= require_tree ./templates
+#= require_tree ./backbone/models
 #= require backbone/welcome
 #= require backbone/veggie
 #= require backbone/olive

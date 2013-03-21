@@ -1,6 +1,10 @@
-%form(action="#" method="post" data-remote="true")
-	%input{:value => @course._id}(type="hidden" name="id")
+%form(action="#" method="post")
+	%input{:value => @course._id}(type="hidden" name="_id")
 	%input.center_input{:value => @course.title}(name="title" placeholder = "输入课程标题" type="text" required="required" autocomplete="off")
 	%input.tags{:value => @course.tags}(name="tags")
 	!= JST['form/rich_editor'](ele: 'content',data: @course.content)
-	%input.btn(type = "submit" value = "存档")
+	%span.btn.save
+		存档
+	- if @course.status is 3
+		%span.btn.delete.pink
+			删除
