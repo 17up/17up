@@ -36,6 +36,14 @@ class Word
     return File.exist?(self.image_path) ? self.image_url : "/assets/icon/default.png"
   end
 
+  def as_json
+    ext = {
+      :audio => source_voice,
+      :image => image
+    }
+    super(:only => [:_id,:title,:content]).merge(ext)
+  end
+
   rails_admin do
     field :title
     field :content do
@@ -44,4 +52,6 @@ class Word
       end
     end
   end
+
+  index({ title: 1})
 end

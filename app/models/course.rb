@@ -32,6 +32,20 @@ class Course
     
   end
 
+  def words_in_content
+    content.scan(/<b>([^<\/]*)<\/b>/).flatten
+  end
+
+  def words
+    Word.where(:title.in => words_in_content)
+  end
+
+  def prepare_words
+    words_in_content.each do |w|
+      Onion::Word.new(w,:skip_exist => 1).insert
+    end
+  end
+
   def as_json
     ext = {
       "author" => member.name,

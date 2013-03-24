@@ -14,11 +14,11 @@ zh-cn:
       welcome: "欢迎 %{name} 来到 17up 学会~~"
       avatar: "您的新头像好帅！"
       bind: "绑定成功啦!"
-      uid: "ID 登记成功，你已正式成为 17up 的一员。"
     error:
       bind: "坏消息，您要绑定的帐号已被使用，如需帮助，请联系 %{email}"
       blank: "不能为空，请认真填写！"
       uid: "遗憾呐，您想要的 ID 已经被抢占了，换一个试试吧"
+      uid_format: "您的 ID 包含非法字符，是不允许的，请修改"
       avatar: "图片格式仅支持 png、jpg、gif，图片大小限制 3M"
       image: "图片最大 2M 限制"
   greet:

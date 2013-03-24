@@ -108,18 +108,31 @@ body.veggie
 				position: absolute
 				top: 86px
 				width: 100%
-			#dashboard				
-				.asset	
-					margin: 10px			
-					img
-						width: 40px
-						position: relative
-						top: -10px
-				.quote
+			#dashboard	
+				height: 100%
+				overflow: auto			
+				.form
 					margin: 10px
-					.author
-						display: block
-						text-align: right
+					.tip
+						line-height: 2
+				#course
+					margin: 10px
+					padding-bottom: 86px
+					#course_tips
+						b
+							color: #ff2f4f
+					.content
+						line-height: 1.5
+						b 
+							color: #ff2f4f
+							cursor: pointer
+							padding: 0 5px
+						i
+							color: #3f94ff
+						b.selected
+							background: #333
+							@include text-shadow-field
+							@include round(5px)
 			#account
 				.step
 					position: relative

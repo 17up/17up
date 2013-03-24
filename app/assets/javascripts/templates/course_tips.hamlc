@@ -1,0 +1,8 @@
+#course_tips.alert.text_center
+	%p
+		请尝试阅读以下段落，注意标注为
+		%b
+			红色
+		的单词是 推荐学习的生词，你也可以点击选中其中你想学的单词 
+	%span.btn.fetch_words
+		立即开始学习本课全部生词

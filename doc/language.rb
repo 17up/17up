@@ -1,10 +1,5 @@
 # coding: utf-8 
 module Language
-	class Chinese
-		token = %w{定 克 守 仁 文}
-
-
-	end
 
 	class English
 		"noun"

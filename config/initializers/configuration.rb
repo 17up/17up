@@ -1,5 +1,5 @@
 $dict_source = {}
-$dict_source[:english] = "http://dict.hjenglish.com/w/"
+$dict_source[:english] = "http://www.iciba.com/"
 $dict_source[:english_v] = "http://tts.yeshj.com/uk/s/"
 
 $pic_search = "http://www.bing.com/images/search?q="

@@ -1,8 +1,6 @@
 #dashboard.common
 	#assets
-	.quote.alert-success
-		%span.icon-quote-left
-		!= @quote.content
-		%span.icon-quote-right
-		%span.author
-			= @quote.author.name
+	#quote
+	#course
+	#words
+	

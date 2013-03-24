@@ -1,3 +1,9 @@
-%img.emotion{:src => @emotion }
-= @text
-%span.next.icon-circle-arrow-right
+.emotion
+	%img{:src => @emotion }
+!= @text
+- if @num is 3
+	!= JST['form/uid_form']()
+- else if @num is 4
+	%span.close.icon-remove-circle
+- else
+	%span.next.icon-circle-arrow-right

@@ -27,7 +27,7 @@ class OliveController < ApplicationController
 		if params[:author]
 			@quotes = Quote.author_by params[:author]
 			data = {
-				:quotes => @quotes.as_json(:only => [:_id,:content,:tags])
+				:quotes => @quotes.as_json(:only => [:_id,:content,:tags,:author])
 			}
 		else
 			data = {

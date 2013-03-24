@@ -15,6 +15,13 @@ module HardWorker
       Greet.new(provider,opts).deliver
     end
   end
+
+  class PrepareWordJob < Base
+    def perform(cid)
+      words_count = Course.find(cid).prepare_words.length
+      self.logger("#{words_count} words prepared")
+    end
+  end
   
   class UploadOlive < Base
     def perform(content,pic)

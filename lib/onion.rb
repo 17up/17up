@@ -2,7 +2,10 @@
 module Onion
   # 查单词
   class Word  
-    def initialize(word)
+    def initialize(word,opt={})
+      if opt[:skip_exist] && @word = ::Word.where(:title => word).first
+        return false
+      end
       c_url = $dict_source[:english] + word
       e_url = "http://www.vocabulary.com/dictionary/" + word
 
@@ -10,16 +13,35 @@ module Onion
       e_page = Mechanize.new.get(e_url)
 
       content = {
-        "zh-cn" => c_page.parser.xpath("//div[@class='simple_content']").text.gsub("\r\n","").strip,
+        "zh-cn" => c_page.parser.xpath("//div[@class='group_pos']").text.gsub(/\s/,"").strip,
         "en" => e_page.parser.xpath("//div[@id='definition']//p[@class='short']").text
       }
-      @word = ::Word.new(:title => word) 
+      unless @word = ::Word.where(:title => word).first
+      	@word = ::Word.new(:title => word) 
+      end
       @word.content_translations = content
     end
   
     def insert    
       @word.save       
-    end   
+    end  
+
+    # insert words form file
+    def self.form_file
+      # page = Nokogiri::HTML(open(Rails.root.join('public','v.html')))
+      # words = page.css("li.entry").inject([]) do |a,x|
+      # 	a << x.attr("word")
+      # end.uniq
+
+      # words.each do |w|
+      # 	if ::Word.where(:title => w).any?
+      # 		p "#{w} exist"
+      # 	else
+      # 		Word.new(w).insert
+      # 		p "new #{w}"
+      # 	end
+      # end
+    end 
   end
 
   class Paragraph

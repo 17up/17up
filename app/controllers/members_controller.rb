@@ -10,9 +10,16 @@ class MembersController < ApplicationController
   # api get
   def dashboard
     @quote = Quote.tag_by("love").first
+    @course = Course.open.first
     data = {
-      :quote => @quote.as_json(:only => [:_id,:content,:author])
+      :quote => @quote.as_json(:only => [:_id,:content,:author]),
+      :course => @course.as_json,
+      :words => @course.words.as_json
     }
+    unless current_member.is_member?
+      guides = YAML.load_file(Rails.root.join("doc","guide.yml")).fetch("guide")["member"]
+      data.merge!(:guides => guides)
+    end
     render_json 0,'ok',data
   end
 
@@ -73,20 +80,24 @@ class MembersController < ApplicationController
   # post
   def update  
     if params[:uid].blank?
-      flash[:error] = t('flash.error.blank')
+      render_json -1,t('flash.error.blank')
     else
-      if @user = Member.u.find_by_uid(params[:uid])
-        flash[:error] = t('flash.error.uid')
+      if @user = Member.u.where(:uid => params[:uid]).first
+        render_json -1,t('flash.error.uid')
       else
         data = {
           :uid => params[:uid],
+          :role => "u",
+          :gem => 10,
           :email => params[:uid] + "@" + $config[:domain]
         }
-        current_member.update_attributes(data)
-        flash[:notice] = t('flash.notice.uid')
+        if current_member.update_attributes(data)
+          render_json 0,"ok"
+        else
+          render_json -1,t('flash.error.uid_format')
+        end
       end
     end
-    redirect_to setting_path + "#account"
   end
 
   private

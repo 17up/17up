@@ -27,7 +27,6 @@ class window.Olive.QuotesView extends Olive.View
 				Utils.flash(data.msg)
 				$form[0].reset()
 				Utils.loaded $wrap
-
 	search: ->
 		$wrap = $("#search",$("#" + @id))
 		$form = $("form",$wrap)	

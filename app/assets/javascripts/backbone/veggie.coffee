@@ -10,7 +10,7 @@ class window.Veggie
 			pushState: true
 		$(document).bind "keyup.nav",(e) ->
 			switch e.keyCode
-				when 32
+				when 27
 					if $("nav").is(":visible")
 						Veggie.hide_nav()
 					else

@@ -8,19 +8,22 @@
 		%span.icon-time
 		- if @u_at
 			= (new Date(@u_at)).format("yyyy-MM-dd hh:mm:ss")
+			saved
 		- else
 			No Sync Record
 	.action
 		- if @status is 1
+			%span.btn.preview(title="预览")
+				%i.icon-eye-open
 			%span.label.label-success
 				已发布
 		- else
 			%span.btn.edit(title="编辑")
 				%i.icon-edit
 			- if @status is 3
-				%span.btn.sync(title="同步")
-					%i.icon-refresh
-			- else
+				%span.btn.publish(title="申请发布")
+					%i.icon-bell-alt
+			- else if @status is 2
 				%span.label
 					审核中
 .editor
