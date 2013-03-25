@@ -4,12 +4,16 @@ class window.Veggie.GuideView extends Backbone.View
 	template: JST['item/guide']
 	events:
 		"click .next": 'next'
+		"click .start": 'start'
 	next: ->
 		$next = @$el.next()
 		$next.fadeIn()		
-		switch @model.get("num")
-			when 3
-				window.route.active_view.addCourse()
+		@remove()
+	start: ->
+		collection = new Veggie.Courses()
+		collection.fetch
+			success: (data) ->
+				window.route.active_view.addAllCourses(data)
 		@remove()
 	render: ->
 		self = this

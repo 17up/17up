@@ -10,13 +10,16 @@ class window.Veggie.DashboardView extends Veggie.View
 		$("#words").append(view.render().el)
 	fetch_words: ->
 		self = this
-		words = _.map $("b.selected"),(w) ->
-			$(w).text()
-		
+		selected_words = _.map $("b.selected"),(w) ->
+			$(w).text()		
 		$("#words").siblings().hide()
-		collection = new Veggie.Words(@collection.get("words"))
-		for w in collection.models
-			self.addOneWord(w)
+		words = new Veggie.Words()
+		for w in words.models
+			if selected_words.length is 0
+				self.addOneWord(w)
+			else
+				if _.indexOf(selected_words, w.title) isnt -1
+					self.addOneWord(w)
 
 	active: ->
 		super()
@@ -35,16 +38,15 @@ class window.Veggie.DashboardView extends Veggie.View
 	addQuote: ->
 		view = JST['item/quote'](q: @collection.get("quote"))
 		$("#quote").html view
-	addCourse: ->
-		if course = @collection.get("course")
-			view = JST['item/master_course'](course)
-			$("#course").append view
-			$("#course").prepend JST['course_tips']()
-		else
-			@addQuote()
-		$("#course .content").on "click","b",->
-			$(@).toggleClass 'selected'
+	addOneCourse: (course) ->
+		view = new Veggie.CourseView
+			model: course
+		$("#courses").append(view.render().el)
+	addAllCourses: (collection) ->	
+		for c in collection.models
+			@addOneCourse(c)
 	render: ->
+		self = this
 		template = @template()
 		@$el.append(template)
 		@active()
@@ -52,7 +54,13 @@ class window.Veggie.DashboardView extends Veggie.View
 		if @collection.has("guides")
 			for g,i in @collection.get("guides")
 				@addOneGuide(Guide.generate(i+1,"sweet",g))
+		else if @collection.has("courses")
+			collection = new Veggie.Courses(@collection.get("courses"))
+			@addAllCourses(collection)
 		else
-			@addCourse()
+			collection = new Veggie.Courses()
+			collection.fetch
+				success: (data) ->
+					self.addAllCourses(data)
 	
 		this

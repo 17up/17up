@@ -4,6 +4,8 @@
 - if @num is 3
 	!= JST['form/uid_form']()
 - else if @num is 4
-	%span.close.icon-remove-circle
+	.form.alert-info.text_center
+		%span.btn.start
+			立即开始选课
 - else
 	%span.next.icon-circle-arrow-right

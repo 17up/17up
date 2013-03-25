@@ -4,5 +4,4 @@ class window.Veggie.WordView extends Backbone.View
 	template: JST['item/word']
 	render: ->
 		@$el.html @template(@model.toJSON())
-		@model.save()
 		this

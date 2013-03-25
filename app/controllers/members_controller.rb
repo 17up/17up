@@ -10,12 +10,13 @@ class MembersController < ApplicationController
   # api get
   def dashboard
     @quote = Quote.tag_by("love").first
-    @course = Course.open.first
     data = {
-      :quote => @quote.as_json(:only => [:_id,:content,:author]),
-      :course => @course.as_json,
-      :words => @course.words.as_json
+      :quote => @quote.as_json(:only => [:_id,:content,:author])    
     }
+    if current_member.course_grades.any?
+      data.merge!(:courses => current_member.course_list.as_json)
+    end
+
     unless current_member.is_member?
       guides = YAML.load_file(Rails.root.join("doc","guide.yml")).fetch("guide")["member"]
       data.merge!(:guides => guides)

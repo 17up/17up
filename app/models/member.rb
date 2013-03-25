@@ -28,9 +28,10 @@ class Member
   field :uid
   field :gem, :type => Integer, :default => 0
 
-
   has_many :authorizations,:dependent => :destroy
   has_many :courses
+  embeds_many :course_grades
+  accepts_nested_attributes_for :course_grades
 
   validates :uid, :uniqueness => true,
                   :allow_blank => true,
@@ -56,6 +57,11 @@ class Member
   
   def is_member?
     !role.blank?
+  end
+
+  def course_list
+    cids = course_grades.pluck(:course_id)
+    Course.where(:_id.in => cids)
   end
 
   def member_path

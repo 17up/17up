@@ -27,11 +27,6 @@ class Course
     scope v.to_sym,where(:status => k.to_i)
   end
 
-
-  def check(member,wids)
-    
-  end
-
   def words_in_content
     content.scan(/<b>([^<\/]*)<\/b>/).flatten
   end

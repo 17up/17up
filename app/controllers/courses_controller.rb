@@ -1,6 +1,23 @@
 class CoursesController < ApplicationController
 	before_filter :authenticate_member!
 
+	# 課程商店
+	def index
+		@courses = Course.all.as_json
+		render_json 0,"ok",@courses
+	end
+
+	# 登記學習
+	def checkin
+		if @course = Course.find(params[:_id])
+			current_member.course = @course
+			current_member.save
+			render_json 0,"ok"
+		else
+			render_json -1,"no course"
+		end
+	end
+
   	def update
 		unless !params[:_id].blank? and find_member_course
 			@course = current_member.courses.new
