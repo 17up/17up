@@ -1,6 +1,5 @@
-#dashboard.common
+- if @guides
 	#assets
-	#quote
-	#courses
-	#words
+#quote
+#words
 	

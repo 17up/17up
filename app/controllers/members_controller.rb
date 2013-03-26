@@ -1,6 +1,5 @@
 class MembersController < ApplicationController
   before_filter :authenticate_member!,:except => :show
-  before_filter :require_member!,:only => :update
   
   # page
   def index
@@ -33,7 +32,11 @@ class MembersController < ApplicationController
         :omniauth_url => member_omniauth_authorize_path(p)
       }
     end
-    render_json 0,'ok',:providers => @providers
+    data = {
+      :providers => @providers,
+      :uid => current_member.uid
+    }
+    render_json 0,'ok',data
   end
 
   # api get
@@ -56,11 +59,10 @@ class MembersController < ApplicationController
     end
   end
 
-  # 会员入口
-  # 付费成功后回调
+  # 充值
   # post
-  def apply_uid
-    current_member.update_attribute(:role,"u")
+  def add_gem
+    
   end
 
   # post
@@ -98,13 +100,6 @@ class MembersController < ApplicationController
           render_json -1,t('flash.error.uid_format')
         end
       end
-    end
-  end
-
-  private
-  def require_member!
-    unless current_member.is_member?
-      render :status => :unauthorized
     end
   end
 

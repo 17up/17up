@@ -44,7 +44,8 @@ class Course
   def as_json
     ext = {
       "author" => member.name,
-      "tags" => tags.join(",")
+      "tags" => tags.join(","),
+      "wl" => words_in_content.length
     }
     super(:only => [:_id,:title,:content,:u_at,:status]).merge(ext)
   end

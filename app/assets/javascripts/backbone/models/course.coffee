@@ -16,6 +16,12 @@ class window.Course extends Backbone.Model
 		super()
 		self = this
 		$.post '/courses/destroy',_id:self.get("_id")
+	checkin: ->
+		self = this
+		$.post "/courses/checkin",_id:self.get("_id"),(data) ->
+			if data.status is 0	
+				self.set 
+					has_checkin: true
 
 
 	

@@ -1,5 +1,6 @@
 .emotion
-	%img{:src => @emotion }
+	%a(href="http://weibo.com/17uporg" target="blank")
+		%img{:src => @emotion }
 != @text
 - if @num is 3
 	!= JST['form/uid_form']()

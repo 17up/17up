@@ -60,8 +60,12 @@ class Member
   end
 
   def course_list
-    cids = course_grades.pluck(:course_id)
+    cids = course_grades.collect(&:course_id)
     Course.where(:_id.in => cids)
+  end
+
+  def has_checkin?(course_id)
+    course_grades.where(:course_id => course_id).any?
   end
 
   def member_path

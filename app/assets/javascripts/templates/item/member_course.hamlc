@@ -1,2 +1,12 @@
 .title
 	= @title
+.info
+	= @wl
+	%span.icon-leaf
+.action
+	- if @has_checkin
+		%span.btn.green.study
+			开始学习
+	- else
+		%span.btn.checkin
+			登记选课

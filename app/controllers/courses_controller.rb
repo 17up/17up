@@ -3,15 +3,16 @@ class CoursesController < ApplicationController
 
 	# 課程商店
 	def index
-		@courses = Course.all.as_json
+		@courses = Course.all.as_json.map do |c|
+			c.merge!(:has_checkin => current_member.has_checkin?(c["_id"]))
+		end
 		render_json 0,"ok",@courses
 	end
 
-	# 登記學習
+	# 登記课程
 	def checkin
 		if @course = Course.find(params[:_id])
-			current_member.course = @course
-			current_member.save
+			current_member.course_grades << CourseGrade.new(:course_id => @course.id)
 			render_json 0,"ok"
 		else
 			render_json -1,"no course"

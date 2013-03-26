@@ -10,18 +10,14 @@ class window.Veggie.GuideView extends Backbone.View
 		$next.fadeIn()		
 		@remove()
 	start: ->
-		collection = new Veggie.Courses()
-		collection.fetch
-			success: (data) ->
-				window.route.active_view.addAllCourses(data)
+		new Veggie.CoursesShopView()
 		@remove()
 	render: ->
 		self = this
 		if @model.get("num") is 1
 			@$el.show()
 		@$el.html @template(@model.toJSON())
-		$form = $("#set_uid form",@$el)
-		$form.bind 'ajax:success', (d,data) ->
+		$("#set_uid form",@$el).bind 'ajax:success', (d,data) ->
 			if data.status is 0	
 				self.next()
 				$("nav .gem").text("10")

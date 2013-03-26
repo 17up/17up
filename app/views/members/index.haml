@@ -23,11 +23,12 @@
 				%div
 					学院
 				%i
-			%li(rel = 'account')
-				%span.icon-user
-				%div
-					会员
-				%i
+			- if current_member.is_member?
+				%li(rel = 'account')
+					%span.icon-user
+					%div
+						会员
+					%i
 			/ %li(rel = "friend")
 			/ 	%span.icon-globe
 			/ 	%div
