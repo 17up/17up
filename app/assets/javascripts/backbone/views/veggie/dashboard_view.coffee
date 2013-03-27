@@ -6,9 +6,26 @@ class window.Veggie.DashboardView extends Veggie.View
 	active: ->
 		super()
 		$(document).on('keyup', @keyup)
+		@init_imagine()
 	close: ->
 		super()
 		$(document).off('keyup', @keyup)
+		if $("#imagine").jmpress("initialized")
+			$("#imagine").jmpress "deinit"
+	init_imagine: ->
+		if $("#imagine").html() isnt ''
+			$("#imagine").jmpress
+				transitionDuration: 0
+				hash:
+					use: false
+				mouse:
+					clickSelects: false
+				keyboard:
+					keys:
+						9: null
+						32: null
+			#$("#imagine").jmpress("route", "#last", true)
+			$("#imagine").jmpress("route", "#ihome", true, true)
 	keyup: (event) ->
 		switch event.keyCode
 			when 39

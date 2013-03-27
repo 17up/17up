@@ -4,8 +4,8 @@ class window.Veggie.AccountView extends Veggie.View
 	template: JST['account_view']
 	collection: new Veggie.Account()	
 	close: ->
-		if $("#" + @id).jmpress("initialized")
-			$("#" + @id).jmpress "deinit"
+		if @$el.jmpress("initialized")
+			@$el.jmpress "deinit"
 		super()
 		# invoke super close method
 	active: ->
@@ -13,9 +13,9 @@ class window.Veggie.AccountView extends Veggie.View
 		# 等同于 Veggie.View.prototype.active.apply(this, arguments)
 		super() 
 		@init_jmpress()
-	init_jmpress: ($ele = $("#" + @id)) ->
+	init_jmpress: ->
 		#Utils.active_tab $(".step.active").attr("id")
-		$ele.jmpress
+		@$el.jmpress
 			transitionDuration: 0
 			hash:
 				use: true
@@ -25,7 +25,7 @@ class window.Veggie.AccountView extends Veggie.View
 				keys:
 					9: null
 					32: null
-		$(".step",$ele).on 'enterStep', (e) ->
+		$(".step",@$el).on 'enterStep', (e) ->
 			#Utils.active_tab $(e.target).attr("id")
 	render: ->
 		template = @template(@collection.toJSON())

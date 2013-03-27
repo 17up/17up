@@ -109,29 +109,22 @@ body.veggie
 				top: 86px
 				width: 100%
 			#dashboard	
-				height: 100%
-				overflow: auto	
-				.form
-					.tip
-						line-height: 2
-				#courses
-					margin: 10px
-					padding-bottom: 86px
-					#course_tips
-						b
-							color: #ff2f4f
-					.content
-						line-height: 1.5
-						b 
-							color: #ff2f4f
-							cursor: pointer
-							padding: 0 5px
-						i
-							color: #3f94ff
-						b.selected
-							background: #333
-							@include text-shadow-field
-							@include round(5px)
+				height: 100%	
+				#imagine
+					.step
+						position: relative
+						width: 700px
+						@include box-sizing(border-box)
+						font-size: 22px
+						line-height: 1.2
+						@include text-shadow-inverse
+						opacity: 0.5
+					.step.active
+						opacity: 1
+					#ihome
+						.title
+							line-height: 3
+							@include text-shadow-3d
 			#account
 				.step
 					position: relative

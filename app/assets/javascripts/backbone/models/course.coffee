@@ -5,6 +5,7 @@ class window.Course extends Backbone.Model
 		"content": ''
 		"tags": ''
 		"status": ''
+		"open": false
 	url: "/courses/update"
 	ready: ->
 		self = this
