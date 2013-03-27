@@ -28,7 +28,7 @@ class Course
   end
 
   def words_in_content
-    content.scan(/<b>([^<\/]*)<\/b>/).flatten
+    content.scan(/<b>([^<\/]*)<\/b>/).flatten.uniq
   end
 
   def words

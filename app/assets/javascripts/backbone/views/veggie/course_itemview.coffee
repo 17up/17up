@@ -25,7 +25,6 @@ class window.Veggie.CourseView extends Backbone.View
 	back_to_list: ->
 		@model.set 
 			open: false
-		Veggie.show_nav()
 		$(".headline").show()
 		
 	back_to_content: ->
@@ -46,10 +45,13 @@ class window.Veggie.CourseView extends Backbone.View
 		# $("#imagine").jmpress("canvas").append(new_step)
 		# $("#imagine").jmpress("init",new_step)
 	imagine_words: ->
-		self = this
-		
-		new_selected_words = _.map $("b.selected"),(w) ->
+		if $("b.selected",@$el).length is 0
+			$words = $("b",@$el)
+		else
+			$words = $("b.selected",@$el)			
+		new_selected_words = _.map $words,(w) ->
 			$(w).text()	
+
 		@selected_words = _.union(@selected_words,new_selected_words)
 		$('#imagine').prepend JST['item/imagine_home'](num: @selected_words.length)
 		@model.set
