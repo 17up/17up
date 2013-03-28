@@ -391,7 +391,6 @@ DEPENDENCIES
   haml_coffee_assets
   instagram (~> 0.8.5)
   jquery-rails
-  kaminari
   mechanize
   mini_magick
   mongoid

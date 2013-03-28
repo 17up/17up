@@ -33,7 +33,7 @@ gem "rvm-capistrano"
 # gem 'debugger'
 gem 'nokogiri', '~>1.5.0'
 gem 'mechanize'
-gem 'kaminari'
+#gem 'kaminari'
 gem "remotipart", '~> 1.0'
 gem 'rails_admin'
 
