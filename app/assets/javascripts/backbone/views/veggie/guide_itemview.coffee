@@ -19,10 +19,14 @@ class window.Veggie.GuideView extends Backbone.View
 	render: ->
 		self = this
 		@$el.html @template(@model.toJSON())
-		$("#set_uid form",@$el).bind 'ajax:success', (d,data) ->
+		$form = $("#set_uid form",@$el)
+		$form.bind 'ajax:before',(d) ->
+			Utils.loading $("nav .brand")
+		$form.bind 'ajax:success', (d,data) ->
 			if data.status is 0	
 				self.next()
 				$("nav .gem").text("10")
 			else
 				Utils.flash(data.msg,"error")
+			Utils.loaded $("nav .brand")
 		this

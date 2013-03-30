@@ -14,7 +14,7 @@ class window.Guide extends Backbone.Model
 			num: num
 	@courses: (sense) ->
 		guides = $.jStorage.get "guides_courses"
-		if guides[sense]
+		if guides and guides[sense]
 			Guide.generate guides[sense]
 		else
 			false
@@ -23,7 +23,7 @@ class window.Guide extends Backbone.Model
 
 	@imagine: (sense) ->
 		guides = $.jStorage.get "guides_imagine"
-		if guides[sense]
+		if guides and guides[sense]
 			Guide.generate guides[sense]
 		else
 			false

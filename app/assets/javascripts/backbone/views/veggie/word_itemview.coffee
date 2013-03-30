@@ -40,20 +40,20 @@ class window.Veggie.WordView extends Backbone.View
 		$(e.currentTarget).val('')
 	enterStep: (e) ->
 		self = this
-		@model.fetch()
 		max = $(".step").length - 1
 		percent = @model.get('num')*100/max
-		$ele = $(e.currentTarget)
 		$("#progress .current_bar").css "width": "#{percent}%"
-		# if document.createElement('input').webkitSpeech is undefined
-		# 	$(".speech input",$ele).remove()
-		setTimeout(->
-			$audio = $ele.find("audio")
-			if $audio.length is 1
-				unless $audio[0].src isnt ''
-					$audio[0].src = $audio.attr('data')
-				$audio[0].play()
-		,500)
+		@model.fetch ->				
+			$ele = $(e.currentTarget)		
+			# if document.createElement('input').webkitSpeech is undefined
+			# 	$(".speech input",$ele).remove()
+			setTimeout(->
+				$audio = $ele.find("audio")
+				if $audio.length is 1
+					unless $audio[0].src isnt ''
+						$audio[0].src = $audio.attr('data')
+					$audio[0].play()
+			,500)
 
 		
 		
