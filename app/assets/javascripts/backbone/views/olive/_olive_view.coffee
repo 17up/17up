@@ -1,17 +1,18 @@
 class window.Olive.View extends Backbone.View
-	el: "article"
 	initialize: (self = this) ->
 		$("#side_nav li[rel='" + @id + "']").addClass('active')
 		Utils.loading $("aside .brand")	
 		@collection.fetch
 			success: ->
-				self.render()	
+				$("article").append(self.render().el)
 				Utils.loaded $("aside .brand")
+				self.active()
+				self.extra()
 	close: ->
-		$("#" + @id).hide()
+		@$el.hide()
 		$("#side_nav li[rel='" + @id + "']").removeClass('active')
-	active: (callback = {}) ->
-		$("#" + @id).show()
+	active: ->
+		@$el.show()
 		window.route.active_view = this
-		if typeof callback is 'function'
-			callback()
+	extra: ->
+		this

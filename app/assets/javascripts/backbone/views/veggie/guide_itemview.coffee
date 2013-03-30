@@ -1,6 +1,10 @@
 class window.Veggie.GuideView extends Backbone.View
 	tagName: 'div'
-	className: 'asset alert hide'
+	className: ->
+		if @model.get("num") and @model.get("num") isnt 1
+			'asset alert hide'
+		else
+			'asset alert'
 	template: JST['item/guide']
 	events:
 		"click .next": 'next'
@@ -10,12 +14,10 @@ class window.Veggie.GuideView extends Backbone.View
 		$next.fadeIn()		
 		@remove()
 	start: ->
-		new Veggie.CoursesShopView()
+		$("#courses").fadeIn()
 		@remove()
 	render: ->
 		self = this
-		if @model.get("num") is 1
-			@$el.show()
 		@$el.html @template(@model.toJSON())
 		$("#set_uid form",@$el).bind 'ajax:success', (d,data) ->
 			if data.status is 0	

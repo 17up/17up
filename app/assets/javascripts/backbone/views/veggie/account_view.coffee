@@ -2,7 +2,7 @@ class window.Veggie.AccountView extends Veggie.View
 	id: "account"
 	className: "jmpress"
 	template: JST['account_view']
-	collection: new Veggie.Account()	
+	collection: new Veggie.Account()
 	close: ->
 		if @$el.jmpress("initialized")
 			@$el.jmpress "deinit"
@@ -25,8 +25,6 @@ class window.Veggie.AccountView extends Veggie.View
 				keys:
 					9: null
 					32: null
-		$(".step",@$el).on 'enterStep', (e) ->
-			#Utils.active_tab $(e.target).attr("id")
 	render: ->
 		template = @template(@collection.toJSON())
 		@$el.html(template)				

@@ -6,18 +6,16 @@ class window.Olive.CourseView extends Backbone.View
 		"click .edit": 'modify'
 		"click .publish": 'publish'
 		"click .preview": 'preview'
+		"click .close_preview": "close_preview"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
 		@listenTo(@model, 'destroy', @remove)
-	preview: (e) ->
-		$target = $(e.currentTarget)
-		$icon = $("i",$target)
-		if $icon.hasClass 'icon-eye-close'
-			@$el.find(".editor").html ''
-			$icon.removeClass "icon-eye-close"
-		else		
-			@$el.find(".editor").html JST['item/master_course'](@model.toJSON())
-			$icon.addClass "icon-eye-close"
+	close_preview: ->
+		@model.set 
+			preview: false
+	preview: ->	
+		@model.set 
+			preview: true
 	modify: ->
 		self = this
 		$headline = @$el.find(".headline").hide()

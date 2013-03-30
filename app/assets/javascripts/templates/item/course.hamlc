@@ -13,8 +13,12 @@
 			No Sync Record
 	.action
 		- if @status is 1
-			%span.btn.preview(title="预览")
-				%i.icon-eye-open
+			- if @preview
+				%span.btn.close_preview(title="关闭预览")
+					%i.icon-eye-close
+			- else
+				%span.btn.preview(title="预览")
+					%i.icon-eye-open
 			%span.label.label-success
 				已发布
 		- else
@@ -26,4 +30,11 @@
 			- else if @status is 2
 				%span.label
 					审核中
-.editor
+- if @preview
+	- if @tags
+		.tags
+			= @tags
+	.content
+		!= @content
+- else
+	.editor

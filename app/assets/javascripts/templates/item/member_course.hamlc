@@ -13,24 +13,19 @@
 				%i.icon-reply
 				返回
 		- else
-			%span.btn.imagine_words
-				%i.icon-bell-alt
-				学单词
+			- if @has_checkin
+				%span.btn.green.imagine_words
+					学单词
+			- else
+				%span.btn.orange.checkin
+					登记
 			%span.btn.back-to-list
 				%i.icon-reply
 				返回
 	- else
-		- if @has_checkin
-			%span.btn.green.study
-				进入课程
-		- else
-			%span.btn.checkin
-				登记选课
+		%span.btn.study
+			%i.icon-bell-alt
 - if @open
-	- if @tips
-		.tips.alert
-			%span.icon-remove-circle.close
-			= @tips
 	- unless @imagine
 		.content
 			!= @content

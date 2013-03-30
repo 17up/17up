@@ -1,5 +1,6 @@
 class window.Olive.CoursesView extends Olive.View
 	id: 'courses'
+	className: "block"
 	template: JST['courses_view']
 	collection: new Olive.Courses()
 	events:
@@ -10,11 +11,12 @@ class window.Olive.CoursesView extends Olive.View
 	addOne: (course) ->
 		view = new Olive.CourseView
 			model: course
-		$("#course_list").append(view.render().el)
+		@$el.append(view.render().el)
 	render: ->
 		template = @template()
-		$(@el).append(template)	
-		@active()
-		for c in @collection.models
-			@addOne(c)	
+		@$el.html(template)			
 		this
+	extra: ->
+		for c in @collection.models
+			@addOne(c)
+		super()

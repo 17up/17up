@@ -2,23 +2,25 @@ class window.Olive.QuotesView extends Olive.View
 	id: 'quotes'
 	template: JST['quotes_view']
 	collection: new Olive.Quote()
+	events: ->
+		"click .as_link": "remove_tag"
+	remove_tag: (e) ->
+		tag_name = $.trim $(e.currentTarget).text()
+		$ele = $(e.currentTarget).parent()
+		Utils.confirm "确认删除？", ->
+			$.post "/olive/destroy_tag",tag: tag_name, (d) ->
+				if d.status is 0
+					$ele.remove()
+					Utils.flash("#{d.data} removed")
 	destroy_tag: ->
-		$wrap = $("#tag_list",$("#" + @id))
+		$wrap = $("#tag_list",@$el)
 		$form = $("form",$wrap)	
 		$form.bind 'ajax:success', (d,data) ->
 			if data.status is 0
 				$form[0].reset()
 				Utils.flash("#{data.data} removed")
-		$wrap.on "click",".as_link", ->
-			tag_name = $.trim $(@).text()
-			$ele = $(@).parent()
-			Utils.confirm "确认删除？", ->
-				$.post "/olive/destroy_tag",tag: tag_name, (d) ->
-					if d.status is 0
-						$ele.remove()
-						Utils.flash("#{d.data} removed")
 	create: ->
-		$wrap = $("#create",$("#" + @id))
+		$wrap = $("#create",@$el)
 		$form = $("form",$wrap)	
 		$form.bind 'ajax:before',(d) ->
 			Utils.loading $wrap
@@ -28,7 +30,7 @@ class window.Olive.QuotesView extends Olive.View
 				$form[0].reset()
 				Utils.loaded $wrap
 	search: ->
-		$wrap = $("#search",$("#" + @id))
+		$wrap = $("#search",@$el)
 		$form = $("form",$wrap)	
 		$form.bind 'ajax:before',(d) ->
 			Utils.loading $wrap
@@ -40,9 +42,9 @@ class window.Olive.QuotesView extends Olive.View
 				Utils.loaded $wrap
 	render: ->
 		template = @template(tags: @collection.get('tags'))
-		$(@el).append(template)			
+		@$el.html(template)				
+		this
+	extra: ->
 		@destroy_tag()
-		@active()
 		@create()
 		@search()
-		this

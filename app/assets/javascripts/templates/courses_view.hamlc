@@ -1,7 +1,5 @@
-#courses
-	#course_list.block
-		%nav.alert.alert-info
-			%span.icon-list
-			课程列表
-			%span.btn.new(title="新建")
-				%i.icon-plus
+%nav.alert.alert-info
+	%span.icon-list
+	课程列表
+	%span.btn.new(title="新建")
+		%i.icon-plus

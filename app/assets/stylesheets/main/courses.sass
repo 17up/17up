@@ -1,37 +1,88 @@
 @import "utils"
 
-#courses
-	margin: 10px
-	.form
-		margin-bottom: 10px
-		position: relative
-		.goshop
-			position: absolute
-			top: 2px
-			right: 15px
-	li 
-		list-style: none
+#dashboard 
+	#imagine
+		#ihome,#iend
+			.alert
+				font-size: 16px
+				margin: 10px
+		
+		.word.active
+			.title,.original,.speech
+				opacity: 1	
+		.word
+			text-align: center
+			z-index: 1
+			position: relative		
 		.title
-			font-size: 18px
-			line-height: 1.5
-		.info
-			font-size: 14px
-		.action
-			position: absolute
-			right: 15px
-			top: 13px
-		.content
-			overflow: auto
-			line-height: 1.5
-			b 
-				color: #ff2f4f
+			@include transition(all,0.8s)
+			line-height: 2
+			opacity: 0.5
+			color: black
+			@include text-shadow-3d
+			font-size: 120px
+		.tip
+			line-height: 3
+			font-size: 30px
+		.original
+			@include transition(opacity,0.8s)
+			opacity: 0
+			font-size: 16px
+			padding: 8px
+			line-height: 1.4
+		.speech 
+			margin-top: 20px
+			opacity: 0
+			@include transition(0.8s)
+			input
 				cursor: pointer
-				padding: 0 5px
-			i
-				color: #3f94ff
-			b.selected
-				background: #333
-				@include text-shadow-field
-				@include round(5px)
-		.tips
-			margin-top: 10px
+				border: 0
+				font-size: 100px
+				width: 42px
+				padding: 10px
+				height: 42px
+				border-radius: 50%
+				@include shadow(0,0,10px,#777,inset)
+				&:focus
+					outline: none
+					border: none
+	#courses
+		margin: 10px
+		.form
+			margin-bottom: 10px
+			position: relative
+			.goshop
+				position: absolute
+				top: 2px
+				right: 15px
+		li.opacity
+			opacity: 0.5
+		li:hover
+			opacity: 1
+		li 
+			list-style: none
+			@include transition(opacity,0.8s)
+			.title
+				font-size: 18px
+				line-height: 1.5
+			.info
+				font-size: 14px
+			.action
+				position: absolute
+				right: 15px
+				top: 13px
+			.content
+				overflow: auto
+				line-height: 1.5
+				b 
+					color: #ff2f4f
+					cursor: pointer
+					padding: 0 5px
+				i
+					color: #3f94ff
+				b.selected
+					background: #333
+					@include text-shadow-field
+					@include round(5px)
+			.tips
+				margin-top: 10px

@@ -59,7 +59,7 @@ class Member
     !role.blank?
   end
 
-  def course_list
+  def checked_courses
     cids = course_grades.collect(&:course_id)
     Course.where(:_id.in => cids)
   end
@@ -131,6 +131,14 @@ class Member
   def clear_data
     `rm -rf #{AVATAR_PATH + _id}`
   end 
+
+  def as_json
+    ext = {
+      :member_path => member_path,
+      :grades => course_grades.length
+    }
+    super(:only => [:c_at,:role,:uid]).merge(ext)
+  end
 
   rails_admin do
     field :email do

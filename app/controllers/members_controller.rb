@@ -7,17 +7,14 @@ class MembersController < ApplicationController
   end
 
   # api get
-  def dashboard
-    @quote = Quote.tag_by("love").first
+  def dashboard  
     data = {
-      :quote => @quote.as_json(:only => [:_id,:content,:author])    
+      :quote => Eva::Quote.new(current_member).single,
+      :courses => Eva::Course.new(current_member).list
     }
-    if current_member.course_grades.any?
-      data.merge!(:courses => current_member.course_list.as_json)
-    end
 
     unless current_member.is_member?
-      guides = YAML.load_file(Rails.root.join("doc","guide.yml")).fetch("guide")["member"]
+      guides = YAML.load_file(Rails.root.join("doc","guide.yml")).fetch("guide")
       data.merge!(:guides => guides)
     end
     render_json 0,'ok',data
@@ -32,10 +29,7 @@ class MembersController < ApplicationController
         :omniauth_url => member_omniauth_authorize_path(p)
       }
     end
-    data = {
-      :providers => @providers,
-      :uid => current_member.uid
-    }
+    data = current_member.as_json.merge(:providers => @providers)
     render_json 0,'ok',data
   end
 
@@ -52,7 +46,7 @@ class MembersController < ApplicationController
   # page
   def show
   	role_ok = Member::ROLE.include?(params[:role])  
-    if role_ok and @user = Member.send(params[:role]).find_by_uid(params[:uid])
+    if role_ok and @user = Member.send(params[:role]).where(:uid => params[:uid]).first
       set_seo_meta(@user.name)     
     else
       redirect_to "/not_found"

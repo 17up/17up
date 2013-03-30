@@ -1,7 +1,16 @@
+#icontrol
+	#progress
+		.current_bar
+	.nav-left.nav
+		%i.icon-angle-left
+	.nav-right.nav
+		%i.icon-angle-right
+
 - if @guides
 	#assets
 #quote
 #imagine
+
 	
 
 

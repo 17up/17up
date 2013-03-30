@@ -1,6 +1,0 @@
-.headline.form.alert-info
-	%i.icon-book
-	课程商店
-	%span.btn.golist
-		%i.icon-list
-		我的课表

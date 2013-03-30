@@ -1,19 +1,18 @@
 class CoursesController < ApplicationController
 	before_filter :authenticate_member!
 
-	# 課程商店
-	def index
-		@courses = Course.all.as_json.map do |c|
-			c.merge!(:has_checkin => current_member.has_checkin?(c["_id"]))
-		end
-		render_json 0,"ok",@courses
-	end
-
 	# 登記课程
 	def checkin
 		if @course = Course.find(params[:_id])
-			current_member.course_grades << CourseGrade.new(:course_id => @course.id)
-			render_json 0,"ok"
+			gems = current_member.gem
+			if gems - 7 > 0
+				current_member.course_grades << CourseGrade.new(:course_id => @course.id)
+			 	current_member.gem = gems - 7
+			 	current_member.save
+			 	render_json 0,"ok",gems - 7
+			 else
+			 	render_json -2,"not enough gems"
+			 end		
 		else
 			render_json -1,"no course"
 		end
@@ -25,7 +24,7 @@ class CoursesController < ApplicationController
 		end
 		@course.title = params[:title]
 		@course.tags = params[:tags].split(",")
-		@course.content = params[:content]
+		@course.content = params[:content].strip
 		@course.status = 3
 		if @course.save!
 			HardWorker::PrepareWordJob.perform_async(@course._id)

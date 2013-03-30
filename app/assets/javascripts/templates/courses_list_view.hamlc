@@ -1,6 +1,0 @@
-.headline.form.alert-info
-	%span.icon-list
-	我的课表
-	%span.btn.goshop
-		%i.icon-book
-		选课

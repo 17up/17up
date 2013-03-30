@@ -5,8 +5,6 @@
 			Mark Word
 		%button.btn(data-action = 'phrase')
 			Mark Phrase
-		/ %button.btn(data-action = 'fullscreen')
-		/ 	%i.icon-fullscreen
 	.textarea{:class => @ele}(contenteditable="true")
 		- if @data
 			!= @data

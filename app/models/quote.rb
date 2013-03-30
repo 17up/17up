@@ -80,6 +80,10 @@ class Quote < Text
     end
   end
 
+  def as_short_json
+    as_json(:only => [:_id,:content,:author])
+  end
+
   rails_admin do 	
   	field :author do
       pretty_value do

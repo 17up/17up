@@ -3,7 +3,7 @@
 $nav_height: 86px
 body.veggie
 	background: url(/assets/img/bg/bg_home.png) #DBEED5
-	//overflow: hidden
+	overflow: auto
 	nav
 		height: $nav_height
 		@include fibre
@@ -110,6 +110,36 @@ body.veggie
 				width: 100%
 			#dashboard	
 				height: 100%	
+				#icontrol
+					opacity: 0
+					.nav 
+						position: absolute
+						font-size: 40px
+						color: #468847
+						font-weight: bold
+						display: none
+					.nav-left
+						left: 10px 
+						top: 50%
+						margin-top: -20px
+					.nav-right
+						right: 10px 
+						top: 50%
+						margin-top: -20px
+
+					#progress
+						position: absolute
+						top: 0
+						height: 4px
+						background: #fff
+						width: 100%
+						.current_bar
+							@include transition(width,0.8s)
+							background: #00bbff
+							height: 100%
+							width: 0
+				#icontrol.active
+					opacity: 1
 				#imagine
 					.step
 						position: relative
@@ -117,14 +147,7 @@ body.veggie
 						@include box-sizing(border-box)
 						font-size: 22px
 						line-height: 1.2
-						@include text-shadow-inverse
-						opacity: 0.5
-					.step.active
-						opacity: 1
-					#ihome
-						.title
-							line-height: 3
-							@include text-shadow-3d
+						
 			#account
 				.step
 					position: relative
@@ -133,10 +156,11 @@ body.veggie
 					font-size: 22px
 					line-height: 1.2
 					@include text-shadow-inverse
-				.title
-					font-size: 16px
-					padding: 10px
 				#provider
+					.profile
+						margin: 10px 0
+						a
+							color: white
 					.providers
 						padding: 10px 0
 						.item

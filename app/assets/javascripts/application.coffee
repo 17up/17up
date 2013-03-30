@@ -12,6 +12,7 @@
 #= require backbone/welcome
 #= require backbone/veggie
 #= require backbone/olive
+#= require backbone/user_show
 
 $ ->
 	$('body').on 'click',"span.close", ->

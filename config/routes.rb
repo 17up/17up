@@ -25,7 +25,6 @@ Veggie::Application.routes.draw do
   end
 
   namespace :courses do
-    get "index"
     post 'checkin'
     post 'update'
     post 'ready'

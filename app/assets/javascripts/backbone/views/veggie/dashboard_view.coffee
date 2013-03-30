@@ -4,12 +4,10 @@ class window.Veggie.DashboardView extends Veggie.View
 	template: JST['dashboard_view']
 	collection: new Veggie.Dashboard()	
 	active: ->
-		super()
-		$(document).on('keyup', @keyup)
+		super()		
 		@init_imagine()
 	close: ->
 		super()
-		$(document).off('keyup', @keyup)
 		if $("#imagine").jmpress("initialized")
 			$("#imagine").jmpress "deinit"
 	init_imagine: ->
@@ -24,7 +22,9 @@ class window.Veggie.DashboardView extends Veggie.View
 					keys:
 						9: null
 						32: null
-			#$("#imagine").jmpress("route", "#last", true)
+						37: null
+						39: null
+			$("#imagine").jmpress("route", "#iend", true)
 			$("#imagine").jmpress("route", "#ihome", true, true)
 	keyup: (event) ->
 		switch event.keyCode
@@ -42,12 +42,20 @@ class window.Veggie.DashboardView extends Veggie.View
 		@$el.html(template)
 		this
 	extra: ->
+		courses = new Veggie.Courses(@collection.get("courses"))
+		options = {}
 		if @collection.has("guides")
-			for g,i in @collection.get("guides")
-				@addOneGuide(Guide.generate(i+1,"sweet",g))			
-		else if @collection.has("courses")
-			collection = new Veggie.Courses(@collection.get("courses"))
-			window.courses_list_view = (new Veggie.CoursesView()).addAll(collection)
-		else
-			new Veggie.CoursesShopView()
+			guides = @collection.get("guides")
+			# localstorage guides if new member
+			$.jStorage.set "guides_courses",guides["courses"]
+			$.jStorage.set "guides_imagine",guides["imagine"]
+			for g,i in guides["member"]
+				@addOneGuide(Guide.generate(g,i+1))	
+			$(document).on('keyup', @keyup)
+			options =	
+				className: 'hide'
+		magic_courses_view = new Veggie.MagicCoursesView options
+		@$el.append magic_courses_view.render().el
+		magic_courses_view.addAll(courses)
+
 		super()

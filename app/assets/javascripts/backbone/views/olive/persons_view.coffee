@@ -4,6 +4,5 @@ class window.Olive.PersonsView extends Olive.View
 	collection: new Olive.Person()
 	render: ->
 		template = @template(persons: @collection.get("persons"))
-		$(@el).append(template)	
-		@active()
+		@$el.html(template)	
 		this

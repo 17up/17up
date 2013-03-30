@@ -2,11 +2,12 @@
 	%a(href="http://weibo.com/17uporg" target="blank")
 		%img{:src => @emotion }
 != @text
-- if @num is 3
-	!= JST['form/uid_form']()
-- else if @num is 4
-	.form.alert-info.text_center
-		%span.btn.start
-			立即开始选课
-- else
-	%span.next.icon-circle-arrow-right
+- if @num
+	- if @num is 3
+		!= JST['form/uid_form']()
+	- else if @num is 4
+		.form.text_center
+			%span.btn.start
+				展示课表
+	- else
+		%span.next.icon-circle-arrow-right

@@ -76,14 +76,12 @@ class window.Utils
 
 	@active_tab: (id) ->
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
-	@flash: (msg,type='',style='') ->
+	@flash: (msg,type='') ->
 		$flash = $("#flash_message")
 		$flash.prepend JST['flash']
 		$alert = $(".alert",$flash)
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
-		if style isnt ''
-			$alert.addClass "alert-#{style}"
 		$("strong",$alert).text(msg)
 		$alert.slideDown()
 		fuc = -> 

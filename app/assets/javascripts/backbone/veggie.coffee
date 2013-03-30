@@ -10,12 +10,20 @@ class window.Veggie
 			pushState: true
 		$(document).bind "keyup.nav",(e) ->
 			switch e.keyCode
-				when 27
+				when 27 # esc
 					if $("nav").is(":visible")
 						Veggie.hide_nav()
 					else
 						Veggie.show_nav()
 					false
+				when 70 # F
+					element = document.body
+					requestMethod = element.requestFullScreen ||
+							element.webkitRequestFullScreen ||
+							element.mozRequestFullScreen ||
+							element.msRequestFullScreen
+					if requestMethod
+						requestMethod.apply(element)
 	@hide_nav: ->
 		$("#flash_message .alert").remove()
 		$("nav").animate 
