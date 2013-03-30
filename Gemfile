@@ -14,7 +14,7 @@ group :assets do
   gem 'bourbon'
   gem "rails-backbone"
   gem 'haml_coffee_assets'
-  #gem 'turbo-sprockets-rails3'
+  gem 'turbo-sprockets-rails3'
 end
 gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails'
