@@ -46,22 +46,17 @@ class window.Utils
 			e.preventDefault()
 		$textarea.bind 'dblclick', ->		
 			selection = Utils.getSelection()
+		$(document).delegate '.editable .textarea',"keydown.textarea",(e) ->
+			switch e.keyCode
+				when 9 # tab
+					e.preventDefault()
 
 		$textarea.bind 'blur', ->
 			$textarea = $(@).closest("form").find("textarea")
 			$textarea.val $(@).html()
 		$textarea.focus()
 		$form.on "paste",".textarea",(e) ->
-			$ele = $(@)
-			setTimeout(->
-				html = "<p>"+$ele.html()+"</p>"
-				text = $(html).contents().filter ->
-					this.nodeType is 3
-				text = _.map text,(t) ->
-					"<p>" + t.data + "</p>"
-				$ele.html text.join(" ")
-				$ele.focus()
-			,100)	
+			Utils.flash("禁止粘贴内容哦")	
 	@getSelection: (command = 'bold') ->
 		if window.getSelection
 			select = window.getSelection()

@@ -141,6 +141,7 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.8.0)
     libv8 (3.11.8.13)
+    loggability (0.6.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -310,6 +311,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    sequel (3.45.0)
     sidekiq (2.8.0)
       celluloid (~> 0.12.0)
       connection_pool (~> 1.0)
@@ -372,6 +374,12 @@ GEM
     whenever (0.8.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
+    wordnet (1.0.0)
+      loggability (~> 0.5)
+      sequel (~> 3.38)
+    wordnet-defaultdb (1.0.1)
+      sqlite3 (~> 1.3)
+      wordnet (~> 1.0.0.pre)
 
 PLATFORMS
   ruby
@@ -425,3 +433,5 @@ DEPENDENCIES
   unicorn
   weibo_17up
   whenever
+  wordnet
+  wordnet-defaultdb

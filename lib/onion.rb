@@ -2,12 +2,20 @@
 module Onion
   # 查单词
   class Word  
+    require 'wordnet'
+
     def initialize(word,opt={})
       if opt[:skip_exist] && @word = ::Word.where(:title => word).first
         return false
-      end
-      c_url = $dict_source[:english] + word
-      e_url = "http://www.vocabulary.com/dictionary/" + word
+      end    
+      unless @word = ::Word.where(:title => word).first
+      	@word = ::Word.new(:title => word) 
+      end    
+    end
+
+    def from_web(title)
+      c_url = $dict_source[:english] + title
+      e_url = "http://www.vocabulary.com/dictionary/" + title
 
       c_page = Mechanize.new.get(c_url)
       e_page = Mechanize.new.get(e_url)
@@ -16,15 +24,29 @@ module Onion
         "zh-cn" => c_page.parser.xpath("//div[@class='group_pos']").text.gsub(/\s/,"").strip,
         "en" => e_page.parser.xpath("//div[@id='definition']//p[@class='short']").text
       }
-      unless @word = ::Word.where(:title => word).first
-      	@word = ::Word.new(:title => word) 
-      end
-      @word.content_translations = content
     end
   
-    def insert    
+    def insert  
+      @word.content_translations = from_web(@word.title)  
       @word.save       
     end  
+
+    def self.wordnet(title,sense = :word,rel = nil)
+      lex = WordNet::Lexicon.new
+      word = lex[title,rel]
+      case sense
+      when :word
+        word
+      when :sample
+        word.samples()
+      when :synset
+        lex.lookup_synsets(title).map{|x| x.words.map(&:lemma)}.flatten.uniq
+      when :hypernyms #上义
+        word.hypernyms
+      when :hyponyms #下义
+        word.hyponyms
+      end
+    end
 
     # insert words form file
     def self.form_file

@@ -53,7 +53,8 @@ gem "github_api"
 gem "amazon-ecs"
 gem "google_drive"
 # NLP
-
+gem "wordnet"
+gem "wordnet-defaultdb"
 
 gem 'haml'
 gem 'rails_autolink'
