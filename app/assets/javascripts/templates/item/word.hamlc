@@ -5,9 +5,9 @@
 		= @content
 	.speech
 		%input{:key => @title}(type="text" x-webkit-speech='x-webkit-speech' lang="en" x-webkit-grammar="builtin:translate" title="测试你的发音")
-	%audio{:data => "http://tts.yeshj.com/uk/s/" + @title}
+	%audio{:data => @audio }
 - if @tip
-	.tip
+	.tip.amienne
 		= @tip
 - if @sum
 	.info

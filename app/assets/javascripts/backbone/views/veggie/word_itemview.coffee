@@ -39,7 +39,6 @@ class window.Veggie.WordView extends Backbone.View
 		$(e.currentTarget).blur()
 		$(e.currentTarget).val('')
 	enterStep: (e) ->
-		self = this
 		max = $(".step").length - 1
 		percent = @model.get('num')*100/max
 		$("#progress .current_bar").css "width": "#{percent}%"
