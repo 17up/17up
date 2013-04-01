@@ -97,6 +97,8 @@ class window.Veggie.CourseView extends Backbone.View
 			window.route.active_view.init_imagine()
 		$("#icontrol").addClass 'active'
 		@$el.addClass 'opacity'
+		$(".mytip").tooltip()
+		
 	render: ->
 		@$el.html @template(@model.toJSON())
 		this

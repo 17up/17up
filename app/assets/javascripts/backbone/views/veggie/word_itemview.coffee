@@ -14,9 +14,12 @@ class window.Veggie.WordView extends Backbone.View
 		"webkitspeechchange .speech input": "speech"
 		"focus .speech input": "focus_speech"
 		"click .goFirst": "goFirst"
+		"click .title span": "show_spell"
+		"blur .title input": "blur_spell"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
 		@listenTo(@model, 'destroy', @remove)
+		
 	render: ->
 		@$el.html @template(@model.toJSON())	
 		this
@@ -39,22 +42,24 @@ class window.Veggie.WordView extends Backbone.View
 		$(e.currentTarget).blur()
 		$(e.currentTarget).val('')
 	enterStep: (e) ->
+		self = this
 		max = $(".step").length - 1
 		percent = @model.get('num')*100/max
 		$("#progress .current_bar").css "width": "#{percent}%"
-		@model.fetch ->				
-			$ele = $(e.currentTarget)		
+		$ele = $(e.currentTarget)
+		@model.fetch ->						
 			# if document.createElement('input').webkitSpeech is undefined
 			# 	$(".speech input",$ele).remove()
 			setTimeout(->
-				$audio = $ele.find("audio")
-				if $audio.length is 1
-					unless $audio[0].src isnt ''
-						$audio[0].src = $audio.attr('data')
-					$audio[0].play()
+				if $("audio",$ele).length is 1
+					self.play_audio $("audio",$ele)
 			,500)
 
-		
-		
+	show_spell: (e) ->
+		$ele = $(e.currentTarget)
+		$ele.hide().next().show().focus()
+	blur_spell: (e) ->
+		$ele = $(e.currentTarget)
+		$ele.hide().prev().show()
 
 		

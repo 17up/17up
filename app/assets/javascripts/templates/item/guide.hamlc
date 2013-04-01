@@ -1,4 +1,4 @@
-.emotion
+.emotion.mytip(title = "@17up小柒")
 	%a(href="http://weibo.com/17uporg" target="blank")
 		%img{:src => @emotion }
 != @text

@@ -23,7 +23,7 @@
 				%i.icon-reply
 				返回
 	- else
-		%span.btn.study
+		%span.btn.study(title = "进入课程")
 			%i.icon-bell-alt
 - if @open
 	- unless @imagine

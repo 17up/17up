@@ -17,13 +17,16 @@ class window.Veggie
 						Veggie.show_nav()
 					false
 				when 70 # F
-					element = document.body
-					requestMethod = element.requestFullScreen ||
-							element.webkitRequestFullScreen ||
-							element.mozRequestFullScreen ||
-							element.msRequestFullScreen
-					if requestMethod
-						requestMethod.apply(element)
+					if $("input:focus").length is 0
+						element = document.body
+						requestMethod = element.requestFullScreen ||
+								element.webkitRequestFullScreen ||
+								element.mozRequestFullScreen ||
+								element.msRequestFullScreen
+						if requestMethod
+							requestMethod.apply(element)
+					else
+						false
 	@hide_nav: ->
 		$("#flash_message .alert").remove()
 		$("nav").animate 

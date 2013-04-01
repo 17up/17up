@@ -13,5 +13,7 @@ class window.Word extends Backbone.Model
 				if data.status is 0
 					self.set data.data
 					callback()
+		else
+			callback()
 
 	

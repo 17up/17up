@@ -57,5 +57,4 @@ class window.Veggie.DashboardView extends Veggie.View
 		magic_courses_view = new Veggie.MagicCoursesView options
 		@$el.append magic_courses_view.render().el
 		magic_courses_view.addAll(courses)
-
 		super()

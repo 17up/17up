@@ -7,7 +7,9 @@ module Eva
 
 	class Course < Base
 		def list
-			recommands = ::Course.limit(10)
+			# 推荐课程，在已发布课程中做推荐筛选
+			recommands = ::Course.open.limit(10)
+			# 正在学习的课程，学完并通过考核的课程不显示
 			checked = @member.checked_courses
 			list = (checked + recommands).uniq
 			result = []
