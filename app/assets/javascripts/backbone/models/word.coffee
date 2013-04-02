@@ -5,6 +5,7 @@ class window.Word extends Backbone.Model
 		"content": ''
 		"audio": ''
 		"image": ''
+		"imagine": null
 	fetch: (callback) ->
 		self = this
 		title = self.get("title")
@@ -12,8 +13,16 @@ class window.Word extends Backbone.Model
 			$.post "/words/fetch",title: title, (data) ->
 				if data.status is 0
 					self.set data.data
-					callback()
+					callback() if callback
 		else
-			callback()
-
-	
+			callback() if callback
+	imagine: (callback) ->
+		self = this
+		title = self.get("title")
+		unless self.get("imagine")
+			$.post "/words/imagine",title: title, (data) ->
+				if data.status is 0
+					self.set 
+						imagine: data.data
+					callback() if callback
+		

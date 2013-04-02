@@ -2,13 +2,17 @@
 	.title.amienne
 		%span
 			= @title
-		%input.hide(type="text" placeholder="spell word")
 	.original.alert-success
 		= @content
 	.speech
-		%input{:key => @title}(type="text" x-webkit-speech='x-webkit-speech' lang="en" x-webkit-grammar="builtin:translate" title="测试你的发音")
+		%input{"data-key" => @title}(type="text" x-webkit-speech='x-webkit-speech' lang="en" x-webkit-grammar="builtin:translate" title="测试你的发音")
 	%audio{:data => @audio }
-	
+	- if @imagine
+		.imagine
+			- for i in @imagine
+				%li
+					= i
+			
 - if @tip
 	.tip.amienne
 		= @tip

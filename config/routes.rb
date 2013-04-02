@@ -34,6 +34,7 @@ Veggie::Application.routes.draw do
 
   namespace :words do
     post 'fetch'
+    post 'imagine'
   end
   
   # members
