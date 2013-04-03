@@ -8,6 +8,6 @@
 	- else if @num is 4
 		.form.text_center
 			%span.btn.start
-				展示课表
+				立即开始
 	- else
 		%span.next.icon-circle-arrow-right

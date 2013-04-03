@@ -49,12 +49,23 @@ class window.Utils
 		$(document).delegate '.editable .textarea',"keydown.textarea",(e) ->
 			switch e.keyCode
 				when 9 # tab
-					e.preventDefault()
+					e.preventDefault()			
+					if window.getSelection
+						sel = window.getSelection()
+						# 选中光标前面的单词
+						sel.modify('move','left','word')
+						sel.modify('extend','right','word')
+						#Utils.getSelection()
+						# setTimeout(->
+						# 	sel.modify('move','right','word')
+						# ,500)
 
 		$textarea.bind 'blur', ->
 			$textarea = $(@).closest("form").find("textarea")
-			$textarea.val $(@).html()
-		$textarea.focus()
+			$textarea.val $(@).html().replace("&nbsp;",'')
+		$textarea.focus ->
+			if $.trim($(@).text()) is ''
+				$(@).html("<div>&nbsp; </div>")
 		$form.on "paste",".textarea",(e) ->
 			Utils.flash("禁止粘贴内容哦")	
 	@getSelection: (command = 'bold') ->

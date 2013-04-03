@@ -2,7 +2,7 @@ class WordsController < ApplicationController
 	before_filter :authenticate_member!
 
 	def fetch
-		word = Word.where(:title => params[:title]).first
+		word = Onion::Word.new(params[:title]).insert(:skip_exist => 1)
 		render_json 0,"ok",word.as_json
 	end
 

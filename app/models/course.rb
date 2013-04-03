@@ -37,7 +37,7 @@ class Course
 
   def prepare_words
     words_in_content.each do |w|
-      Onion::Word.new(w,:skip_exist => 1).insert
+      Onion::Word.new(w).insert(:skip_exist => 1)
     end
   end
 

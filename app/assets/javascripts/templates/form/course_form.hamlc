@@ -5,6 +5,8 @@
 	!= JST['form/rich_editor'](ele: 'content',data: @course.content)
 	%span.btn.save
 		存档
+	%span.btn.back.orange
+		放弃
 	- if @course.status is 3
 		%span.btn.delete.pink
 			删除

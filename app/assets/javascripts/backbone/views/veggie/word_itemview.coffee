@@ -11,7 +11,6 @@ class window.Veggie.WordView extends Backbone.View
 	template: JST['item/word']
 	events: ->
 		"enterStep": "enterStep"
-		"leaveStep": "leaveStep"
 		"webkitspeechchange .speech input": "speech"
 		"focus .speech input": "focus_speech"
 		"click .goFirst": "goFirst"
@@ -57,12 +56,10 @@ class window.Veggie.WordView extends Backbone.View
 				if $("audio",$ele).length is 1
 					self.play_audio $("audio",$ele)
 			,500)
-		$(document).on "keyup.imagine", (event) ->
-			switch event.keyCode
-				when 39
-					self.model.imagine()
-	leaveStep: (e) ->
-		$(document).off "keyup.imagine"
+	# imagine: (e) ->
+	# 	@model.imagine()
+
+
 
 
 		

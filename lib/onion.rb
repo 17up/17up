@@ -4,10 +4,7 @@ module Onion
   class Word  
     require 'wordnet'
 
-    def initialize(word,opt={})
-      if opt[:skip_exist] && @word = ::Word.where(:title => word).first
-        return false
-      end    
+    def initialize(word)
       unless @word = ::Word.where(:title => word).first
       	@word = ::Word.new(:title => word) 
       end    
@@ -26,9 +23,12 @@ module Onion
       }
     end
   
-    def insert  
-      @word.content_translations = from_web(@word.title)  
-      @word.save       
+    def insert(opts = {})
+      unless opts[:skip_exist] && @word.content
+        @word.content_translations = from_web(@word.title)  
+        @word.save     
+      end 
+      @word 
     end  
 
     def self.wordnet(title,sense = :word,rel = nil)

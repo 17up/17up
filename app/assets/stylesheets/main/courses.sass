@@ -8,7 +8,7 @@
 				margin: 10px
 		
 		.word.active
-			.title,.original,.speech
+			> div
 				opacity: 1	
 		.word
 			text-align: center
@@ -51,6 +51,7 @@
 				&:focus
 					outline: none
 					border: none
+
 	#courses
 		margin: 10px
 		.form
@@ -79,17 +80,16 @@
 			.content
 				overflow: auto
 				line-height: 1.5
-				div
+				> div
 					margin: 10px 0
+					text-indent: 20px
 				b 
-					color: #ff2f4f
+					color: #666
 					cursor: pointer
-					padding: 0 5px
 				i
 					color: #3f94ff
 				b.selected
-					background: #333
-					@include text-shadow-field
-					@include round(5px)
+					color: #ff2f4f
+
 			.tips
 				margin-top: 10px

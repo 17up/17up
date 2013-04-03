@@ -22,8 +22,6 @@ class window.Veggie.DashboardView extends Veggie.View
 					keys:
 						9: null
 						32: null
-						37: null
-						39: null
 			$("#imagine").jmpress("route", "#iend", true)
 			$("#imagine").jmpress("route", "#ihome", true, true)
 	keyup: (event) ->

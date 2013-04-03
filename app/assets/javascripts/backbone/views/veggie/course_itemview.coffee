@@ -2,8 +2,9 @@ class window.Veggie.CourseView extends Backbone.View
 	tagName: 'li'
 	className: "form alert-success"
 	template: JST['item/member_course']
+	collection: new Veggie.Words()
 	events: ->
-		"click b": "select"
+		"click b": "toggleSelect"
 		"click .checkin": "checkin"
 		"click .study": "study"
 		"click .imagine_words": "imagine_words"
@@ -33,7 +34,16 @@ class window.Veggie.CourseView extends Backbone.View
 		Veggie.hide_nav()
 		@$el.siblings().hide()
 		unless @model.get("has_checkin")
-			@addCourseGuide("checkin")
+			@addCourseGuide("checkin")		
+		if @collection.length is 0
+			$words = $("b",@$el).addClass 'selected'
+			words = _.map $words,(w) ->
+				$(w).text()
+			for w,i in  _.uniq(words)
+				word = new Word
+					title: w
+					num: i + 1
+				@collection.push(word) 
 	back_to_list: ->
 		@model.set 
 			open: false
@@ -48,7 +58,7 @@ class window.Veggie.CourseView extends Backbone.View
 			$("#icontrol").removeClass 'active'
 			@$el.removeClass 'opacity'
 		@addCourseGuide("back_content")
-	select: (e) ->
+	toggleSelect: (e) ->
 		$(e.currentTarget).toggleClass 'selected'
 	addOneWord: (word,opts = {}) ->
 		options = _.extend
@@ -60,18 +70,12 @@ class window.Veggie.CourseView extends Backbone.View
 		# $("#imagine").jmpress("canvas").append(new_step)
 		# $("#imagine").jmpress("init",new_step)
 	imagine_words: ->
-		if $("b.selected",@$el).length is 0
-			$words = $("b",@$el)
-		else
-			$words = $("b.selected",@$el)			
-		new_selected_words = _.map $words,(w) ->
-			$(w).text()	
-		new_selected_words = _.uniq new_selected_words
+		self = this
 		# add front page
 		word = new Word
 			tip: "Start Imagine"
 			num: 0
-			sum: new_selected_words.length
+			sum: self.collection.length
 		@addOneWord word, id: "ihome"
 		# add ihome guide if exsit
 		@addImagineGuide("ihome")
@@ -80,15 +84,12 @@ class window.Veggie.CourseView extends Backbone.View
 			open: true
 			imagine: true
 		# add words piece			
-		for w,i in new_selected_words
-			word = new Word
-				title: w
-				num: i + 1
+		for word in @collection.models
 			@addOneWord(word)
 		# add end page
 		word = new Word
 			tip: "Imagine Never End"
-			num: new_selected_words.length + 1
+			num: self.collection.length + 1
 			end: "end"
 		@addOneWord word, id: "iend"
 		@addImagineGuide("iend")
