@@ -65,6 +65,7 @@ end
 task :link_shared_files, :roles => :web do
   run "ln -sf #{deploy_to}/shared/config/*.yml #{deploy_to}/current/config/"
   run "ln -sf #{deploy_to}/shared/config/unicorn.rb #{deploy_to}/current/config/"
+  run "ln -sf #{deploy_to}/shared/config/setup_mailer.rb #{deploy_to}/current/config/initializers/"
 end
 
 task :mongoid_create_indexes, :roles => :web do
