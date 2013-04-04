@@ -63,7 +63,7 @@ class Quote < Text
   # 条件：出现过2次以上的tag
   def self.tags_list(conditions = {})
     if conditions[:clear]
-      Rails.cache.clear(TAG_KEY)
+      Rails.cache.delete(TAG_KEY)
     end
     list = Rails.cache.fetch(TAG_KEY) do
       Quote.rebuild_tags.map{|x| [x['_id'],x['value'].to_i]}
