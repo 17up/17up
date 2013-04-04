@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -70,6 +70,7 @@ group :development, :test do
 	gem 'rspec-rails', '~> 2.10.0'
 	gem 'factory_girl_rails'
 	gem 'quiet_assets'
+  gem 'database_cleaner'
 end
 
 gem 'redis'
@@ -82,3 +83,5 @@ gem 'slim'
 gem 'sidekiq'
 
 gem "parallel"
+# API
+#gem 'grape', :github => 'intridea/grape', :branch => 'frontier'
