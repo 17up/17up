@@ -27,6 +27,7 @@ class window.Veggie.WordView extends Backbone.View
 		if $audio.length is 1
 			unless $audio[0].src isnt ''
 				$audio[0].src = $audio.attr('data')
+			$audio[0].load()
 			$audio[0].play()
 	focus_speech: (e) ->
 		$(e.currentTarget).blur()
@@ -50,14 +51,10 @@ class window.Veggie.WordView extends Backbone.View
 		$("#progress .current_bar").css "width": "#{percent}%"
 		$ele = $(e.currentTarget)
 		@model.fetch ->						
-			# if document.createElement('input').webkitSpeech is undefined
-			# 	$(".speech input",$ele).remove()
 			setTimeout(->
 				if $("audio",$ele).length is 1
 					self.play_audio $("audio",$ele)
 			,500)
-	# imagine: (e) ->
-	# 	@model.imagine()
 
 
 

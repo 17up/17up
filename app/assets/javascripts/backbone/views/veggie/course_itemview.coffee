@@ -22,11 +22,18 @@ class window.Veggie.CourseView extends Backbone.View
 			view = new Veggie.GuideView
 				model: model
 			$("#" + sense).append(view.render().el)
+			# destroy guide
 	checkin: ->
 		self = this
 		@model.checkin ->
 			self.addCourseGuide("content")
-			
+	select_words_from_collection: ->
+		words = @collection.where
+			exam: false
+		titles = _.map words, (w) ->
+			w.get("title")
+		for w in titles
+			$('b:contains("' + w + '")').addClass 'selected'
 	study: ->
 		@model.set 
 			open: true
@@ -35,71 +42,85 @@ class window.Veggie.CourseView extends Backbone.View
 		@$el.siblings().hide()
 		unless @model.get("has_checkin")
 			@addCourseGuide("checkin")		
-		if @collection.length is 0
+		if @collection.length is 0			
 			$words = $("b",@$el).addClass 'selected'
 			words = _.map $words,(w) ->
 				$(w).text()
-			for w,i in  _.uniq(words)
+			words = _.uniq(words)
+			@addHome(words.length)
+			for w,i in words
 				word = new Word
-					title: w
+					title: $.trim(w)
 					num: i + 1
 				@collection.push(word) 
+			@addEnd()
+		else
+			@select_words_from_collection()
 	back_to_list: ->
 		@model.set 
 			open: false
 		@$el.siblings().show()
+	save_step: ->
+		cid = @model.get("_id")
+		$.jStorage.set "course_#{cid}",$(".step.active").attr("id")
 	back_to_content: ->
+		@save_step()
 		@model.set 
 			open: true
 			imagine: false
 		if $("#imagine").jmpress("initialized")
 			$("#imagine").jmpress "deinit"
-			$('#imagine').html("")
+			$("#imagine").hide()
 			$("#icontrol").removeClass 'active'
 			@$el.removeClass 'opacity'
 		@addCourseGuide("back_content")
+		@select_words_from_collection()
+
 	toggleSelect: (e) ->
-		$(e.currentTarget).toggleClass 'selected'
-	addOneWord: (word,opts = {}) ->
-		options = _.extend
-			model: word
-			opts
-		view = new Veggie.WordView options			 
-		new_step = view.render().el
-		$("#imagine").append(new_step)
-		# $("#imagine").jmpress("canvas").append(new_step)
-		# $("#imagine").jmpress("init",new_step)
-	imagine_words: ->
-		self = this
-		# add front page
-		word = new Word
-			tip: "Start Imagine"
-			num: 0
-			sum: self.collection.length
-		@addOneWord word, id: "ihome"
-		# add ihome guide if exsit
-		@addImagineGuide("ihome")
-		# render
-		@model.set
-			open: true
-			imagine: true
-		# add words piece			
-		for word in @collection.models
-			@addOneWord(word)
+		$target = $(e.currentTarget)
+		word = @collection.where
+			title: $.trim($target.text())
+		if $target.hasClass 'selected'
+			$target.removeClass 'selected'
+			word[0].imagine()
+		else			
+			$target.addClass 'selected'
+			word[0].set 
+				exam: false
+	addEnd: ->
+		self = this	
 		# add end page
 		word = new Word
 			tip: "Imagine Never End"
 			num: self.collection.length + 1
 			end: "end"
-		@addOneWord word, id: "iend"
+		@collection.push word, id: "iend"
 		@addImagineGuide("iend")
+	addHome: (sum) ->
+		# add front page
+		word = new Word
+			tip: "Start Imagine"
+			num: 0
+			sum: sum
+		@collection.push word, id: "ihome"
+		# add ihome guide if exsit
+		@addImagineGuide("ihome")
+	imagine_words: ->		
+		# render
+		@model.set
+			open: true
+			imagine: true		
 		# init imagine
-		unless $("#imagine").jmpress("initialized")
+		unless $("#imagine").jmpress("initialized")			
 			window.route.active_view.init_imagine()
+			cid = @model.get("_id")
+			if step = $.jStorage.get "course_#{cid}"
+				$("#imagine").jmpress "goTo","#" + step
+			$("#imagine").show()
 		$("#icontrol").addClass 'active'
 		@$el.addClass 'opacity'
-		$(".mytip").tooltip()
-		
+		if document.createElement('input').webkitSpeech is undefined
+			Utils.flash("请使用最新版本的chrome浏览器达到最佳学习效果","error")
 	render: ->
 		@$el.html @template(@model.toJSON())
 		this

@@ -1,11 +1,21 @@
 - if @title
-	.title.amienne
-		%span
-			= @title
-	.original.alert-success
-		= @content
-	.speech
-		%input{"data-key" => @title}(type="text" x-webkit-speech='x-webkit-speech' lang="en" x-webkit-grammar="builtin:translate" title="测试你的发音")
+	- if @exam and @imagine
+		.imagine
+			i think you have remember this word
+			%br
+			then show you some synset of this word
+			%p
+				- for i in @imagine
+					%span.label.label-success
+						= i
+	- else
+		.title.amienne
+			%span
+				= @title
+		.original.alert-success
+			= @content
+		.speech
+			%input{"data-key" => @title}(type="text" x-webkit-speech='x-webkit-speech' lang="en" x-webkit-grammar="builtin:translate" title="测试你的发音")
 	%audio{:data => @audio }
 			
 - if @tip
