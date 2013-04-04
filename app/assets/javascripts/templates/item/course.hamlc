@@ -19,7 +19,7 @@
 			- else
 				%span.btn.preview(title="预览")
 					%i.icon-eye-open
-			%span.label.label-success
+			%span.btn.disabled
 				已发布
 		- else
 			%span.btn.edit(title="编辑")
@@ -28,7 +28,7 @@
 				%span.btn.publish(title="申请发布")
 					%i.icon-bell-alt
 			- else if @status is 2
-				%span.label
+				%span.btn.disabled
 					审核中
 - if @preview
 	- if @tags

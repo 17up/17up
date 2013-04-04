@@ -112,8 +112,9 @@ div.tagsinput
 	@include button(simple,#48a112)
 .btn.orange
 	@include button(simple,#faa732)
-.btn.active
-	opacity: 0.5
+.btn.disabled
+	@include button(simple,#dbe5ed)
+	pointer-events: none
 .mask
 	pointer-events: none
 	opacity: 0.3
