@@ -63,9 +63,9 @@ namespace :faye do
 end
 
 task :link_shared_files, :roles => :web do
-  run "ln -nsf #{deploy_to}shared/config/*.yml #{deploy_to}current/config/"
-  run "ln -nsf #{deploy_to}shared/config/unicorn.rb #{deploy_to}current/config/"
-  run "ln -nsf #{deploy_to}shared/config/setup_mailer.rb #{deploy_to}current/config/initializers/"
+  run "ln -nfs #{deploy_to}shared/config/*.yml #{release_path}/config/"
+  run "ln -nfs #{deploy_to}shared/config/unicorn.rb #{release_path}/config/"
+  run "ln -nfs #{deploy_to}shared/config/setup_mailer.rb #{release_path}/config/initializers/"
 end
 
 task :mongoid_create_indexes, :roles => :web do
@@ -73,7 +73,7 @@ task :mongoid_create_indexes, :roles => :web do
 end
 
 task :compile_assets, :roles => :web do
-  run "cd #{deploy_to}current/ && bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile"      
+  run "cd #{release_path} && bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets assets:clean assets:precompile"      
 end
 
 #task :sync_assets_to_cdn, :roles => :web do
@@ -83,5 +83,5 @@ end
 task :mongoid_migrate_database, :roles => :web do
   run "cd #{deploy_to}current/; RAILS_ENV=production bundle exec rake db:migrate"
 end
-after "deploy:finalize_update", :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
+after "deploy:update_code", :link_shared_files, :compile_assets#, :sync_assets_to_cdn, :mongoid_migrate_database
 after "deploy:restart", "deploy:cleanup"
