@@ -25,7 +25,21 @@ class window.Veggie.AccountView extends Veggie.View
 				keys:
 					9: null
 					32: null
+	addProviders: (providers) ->
+		for p,i in providers
+			provider = new Provider
+				provider: p.provider
+				num: i + 1
+			view = new Veggie.ProviderView
+				model: provider
+			@$el.append(view.render().el)
 	render: ->
 		template = @template(@collection.toJSON())
 		@$el.html(template)				
 		this
+	extra: ->
+		providers = _.filter @collection.get("providers"),(p) ->
+			p if p.has_bind
+		@addProviders providers
+
+		super()

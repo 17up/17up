@@ -110,7 +110,8 @@ class Member
       token: omniauth.credentials.token,
       secret: omniauth.credentials.secret,
       info: omniauth.info,
-      expired_at: expires_time
+      expired_at: expires_time,
+      refresh_token: omniauth.credentials.refresh_token
     )
   end
 

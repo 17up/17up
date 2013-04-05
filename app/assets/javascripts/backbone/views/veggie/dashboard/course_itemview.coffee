@@ -27,6 +27,7 @@ class window.Veggie.CourseView extends Backbone.View
 		self = this
 		@model.checkin ->
 			self.addCourseGuide("content")
+			self.select_words_from_collection()
 	select_words_from_collection: ->
 		words = @collection.where
 			exam: false

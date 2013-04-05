@@ -142,7 +142,7 @@ body.veggie
 					font-size: 22px
 					line-height: 1.2
 					@include text-shadow-inverse
-				#provider
+				#ahome
 					.profile
 						margin: 10px 0
 						a
@@ -158,5 +158,30 @@ body.veggie
 								height: 64px
 						.binded
 							border: 2px solid transparent
+				.provider.active
+					opacity: 1
+				.provider
+					position: relative
+					opacity: 0
+					@include transition(all,0.8s)
+					.bg_icon
+						position: absolute
+						left: -90px
+						img 
+							@include reflect
+					.headline
+						position: relative
+						img 
+							position: absolute
+							left: 5px
+							top: 5px
+							width: 50px
+							height: 50px
+						.name
+							padding-left: 60px
+							line-height: 2
+					.expire
+						font-size: 14px
+						margin: 10px 0
 			#genius
 				

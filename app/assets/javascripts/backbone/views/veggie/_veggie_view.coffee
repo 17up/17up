@@ -5,9 +5,9 @@ class window.Veggie.View extends Backbone.View
 		@collection.fetch
 			success: ->
 				$("article").append(self.render().el)
-				Utils.loaded $("nav .brand")
-				self.active()
+				Utils.loaded $("nav .brand")			
 				self.extra()
+				self.active()
 				#setTimeout(->
 				#	func	
 				#,5000)	

@@ -221,7 +221,7 @@ Devise.setup do |config|
   config.omniauth :github, SERVICES['github']['client_id'], SERVICES['github']['client_secret'],:scope => 'user,public_repo'
   config.omniauth :tumblr, SERVICES['tumblr']['app_key'], SERVICES['tumblr']['app_secret']
   config.omniauth :instagram, SERVICES['instagram']['client_id'], SERVICES['instagram']['client_secret']
-  config.omniauth :youtube, SERVICES['google']['app_id'], SERVICES['google']['app_secret'], { access_type: "offline", approval_prompt: "force" }
+  config.omniauth :youtube, SERVICES['google']['app_id'], SERVICES['google']['app_secret'], authorize_params: { access_type: "offline", approval_prompt: "force" }
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

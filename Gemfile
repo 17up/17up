@@ -50,6 +50,7 @@ gem "tumblr_client", ">= 0.6.7"
 gem "instagram", "~> 0.8.5"
 gem "goodreads_17up"
 gem "github_api"
+gem "youtube_it"
 gem "amazon-ecs"
 gem "google_drive"
 # NLP

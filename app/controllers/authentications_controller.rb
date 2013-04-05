@@ -26,7 +26,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
           current_member.bind_service(omniauth, expires_time)
           flash[:success] = t('flash.notice.bind')         
         end
-        redirect_to "/account#/provider"
+        redirect_to "/account#/ahome"
 			# 非登录状态下，注册/登录
       else
 				# 登录
@@ -52,6 +52,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
         provider.update_attributes(:token => omniauth.credentials.token,
                                    :secret => omniauth.credentials.secret,
                                    :info => omniauth.info,
-                                   :expired_at => expires_time)
+                                   :expired_at => expires_time,
+                                   :refresh_token => omniauth.credentials.refresh_token)
     end
 end

@@ -1,4 +1,4 @@
-#provider.step(data-x="0" data-y="1800" data-z="3000" data-scale="1")
+#ahome.step(data-x="0" data-y="0" data-z="0" data-scale="1")
 	.profile
 		.uid
 			%span.label
@@ -31,7 +31,8 @@
 		- for p in @providers	
 			- if p.has_bind
 				.item.pull-left.binded
-					%img{:src => "/assets/icon/#{p.provider}_big.png",:title => p.provider}
+					%a{:href => "#/" + p.provider}
+						%img{:src => "/assets/icon/#{p.provider}_big.png",:title => p.provider}
 			- else
 				.item.pull-left
 					%a{:href => p.omniauth_url}

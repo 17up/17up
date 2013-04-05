@@ -6,6 +6,7 @@ class Authorization
   field :uid, :type => String
   field :token
   field :secret
+  field :refresh_token
   field :expired_at, :type => Time
   field :info, :type => Hash
 
@@ -72,6 +73,15 @@ class Authorization
     when "youtube"
       info['channel_url']
     end
+  end
+
+  def as_json
+    ext = {
+      "link" => link,
+      "name" => user_name,
+      "avatar" => avatar
+    }
+    super(:only => [:provider,:_id,:expired_at]).merge(ext)
   end
 
   rails_admin do

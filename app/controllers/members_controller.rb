@@ -33,6 +33,12 @@ class MembersController < ApplicationController
     render_json 0,'ok',data
   end
 
+  # get provider info
+  def provider
+    provider = current_member.has_provider?(params[:provider])
+    render_json 0,"ok",provider.as_json
+  end
+
   # api get
   def friend
     render_json 0,'ok'
