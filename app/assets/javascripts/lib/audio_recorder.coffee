@@ -6,13 +6,13 @@ class window.AudioRecorder
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia
 		window.URL = window.URL || window.webkitURL			
 		self.audio_context = new AudioContext
-	startRecording: (button) ->
+	startRecording: (button,_id) ->
 		self = this
 		start_record = ->
 			self.recorder.record()
 			button.addClass 'ing'
 			setTimeout(
-				-> self.stopRecording(button)
+				-> self.stopRecording(button,_id)
 				self.duration
 			)
 		startUserMedia = (stream) ->
@@ -27,27 +27,26 @@ class window.AudioRecorder
 				audio: true
 				startUserMedia
 				(e) ->
-					Utils.flash("请允许使用您的麦克风哦！","error","right")
+					Utils.flash("请允许使用您的麦克风哦！","error")
 					false
 			
-	stopRecording: (button) ->
+	stopRecording: (button,_id) ->
 		self = this
 		self.recorder && self.recorder.stop()
 		button.removeClass 'ing'
-		this.createDownloadLink(button.next().find("audio.output"))
+		this.createDownloadLink(button.parent().find("audio.my"),_id)
 		self.recorder.clear()
-	createDownloadLink: (audio) ->
+	createDownloadLink: (audio,_id) ->
 		self = this
 		self.recorder and self.recorder.exportWAV (blob) ->
 			url = URL.createObjectURL(blob)	 
 			audio[0].src = url
 			audio[0].play()
-			audio.parent().fadeIn()
-			wid = audio.closest(".word_audio").attr "wid"
+			audio.parent().find(".play").removeClass("disabled")
 			form = new FormData()
 			form.append("file", blob)
-			form.append("id",wid)
-			form.append("authenticity_token",$("#audio_uploader form").find("input[name='authenticity_token']").val())
+			form.append("_id",_id)
+			form.append("authenticity_token",$("footer #uploader .audio form").find("input[name='authenticity_token']").val())
 			oReq = new XMLHttpRequest()
 			oReq.open("POST", '/words/upload_audio_u')
 			oReq.send(form)

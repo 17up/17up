@@ -1,7 +1,6 @@
 = render "shared/flash_message"
 %nav
-	= render 'shared/uploader',:url => "/members/upload_avatar",:type => "image"
-	.avatar(title="点我更换头像")		
+	.avatar(title="点我更换头像" data-uploader="avatar")		
 		= image_tag current_member.avatar
 		%i.icon-upload-alt
 	.info
@@ -43,3 +42,10 @@
 		
 - content_for :footer do
 	#init.hide(data-js="Veggie")
+	#uploader
+		.audio
+			= render 'shared/uploader',:wid => 0,:url => "#",:type => "audio"
+		.avatar
+			= render 'shared/uploader',:url => "/members/upload_avatar",:type => "image"
+		.uword
+			= render 'shared/uploader',:url => "/words/upload_img_u",:type => "image",:wid => ''

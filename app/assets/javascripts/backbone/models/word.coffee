@@ -4,7 +4,7 @@ class window.Word extends Backbone.Model
 		"title": ''
 		"content": ''
 		"audio": ''
-		"image": ''
+		"img_url": '/assets/icon/default.png'
 		"imagine": null
 		"exam": false
 	fetch: (callback) ->

@@ -5,41 +5,44 @@ class Word
   field :content,localize: true
   field :lang
 
+  has_many :u_words
+  
   scope :en,where(:lang => nil)
 
   validates :title, :presence => true, :uniqueness => true
   IMAGE_URL = "/system/images/word/"
   IMAGE_PATH = "#{Rails.root}/public"+IMAGE_URL
+  after_create :draw
 
   def source_voice
     $dict_source[:english_v] + URI.encode(self.title)
   end
 
-  # style: 17up/original
-  def image_path(opt={})
-    name = opt[:w] ? "/w.png" : "/#{$config[:name]}.jpg"
-    IMAGE_PATH + self.title.parameterize.underscore + name
+  # draw word
+  def image_path
+    IMAGE_PATH + self.title.parameterize.underscore + "/w.png" 
   end
 
-  def image_url(opt={})
-    if opt[:w]
-      name = "/w.png"
-    elsif opt[:o]
-      name = "/original.jpg"
-    else
-      name = "/#{$config[:name]}.jpg"
+  def image_url
+    IMAGE_URL + self.title.parameterize.underscore + "/w.png"
+  end
+
+  def draw
+    dir = IMAGE_PATH + self.title.parameterize.underscore
+    unless File.exist?(dir)
+        `mkdir -p #{dir}`
     end
-    IMAGE_URL + self.title.parameterize.underscore + name
-  end
-
-  def image
-    return File.exist?(self.image_path) ? self.image_url : "/assets/icon/default.png"
+    opts = {
+      :text => title,
+      :type => 2,
+      :word_path => image_path
+    }
+    Image::Convert.draw_word(opts)
   end
 
   def as_json
     ext = {
-      :audio => source_voice,
-      :image => image
+      :audio => source_voice
     }
     super(:only => [:_id,:title,:content]).merge(ext)
   end

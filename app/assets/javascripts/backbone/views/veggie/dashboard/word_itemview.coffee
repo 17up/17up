@@ -14,6 +14,9 @@ class window.Veggie.WordView extends Backbone.View
 		"webkitspeechchange .speech input": "speech"
 		"focus .speech input": "focus_speech"
 		"click .goFirst": "goFirst"
+		"click .upload_img": "upload_img"
+		"click .audio .record": "audio_record"
+		"click .audio .play": "audio_play"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
 		@listenTo(@model, 'destroy', @remove)
@@ -52,11 +55,19 @@ class window.Veggie.WordView extends Backbone.View
 		$ele = $(e.currentTarget)
 		@model.fetch ->						
 			setTimeout(->
-				if $("audio",$ele).length is 1
-					self.play_audio $("audio",$ele)
+				self.play_audio $("audio.common",$ele)
 			,500)
-
-
-
-
+			$("footer #uploader .uword input[name='_id']").val(self.model.get("_id"))
+	upload_img: (e) ->
+		Utils.uploader $(e.currentTarget)
+	audio_record: (e) ->
+		_id = @model.get("_id")
+		if navigator.webkitGetUserMedia or navigator.getUserMedia
+			window.recorder = window.recorder || new AudioRecorder()
+			window.recorder.startRecording($(e.currentTarget),_id)
+		else
+			Utils.flash "您的浏览器不支持语音输入，请尝试chrome","error"
+	audio_play: (e) ->
+		@play_audio $(e.currentTarget).parent().find("audio")
+ 
 		

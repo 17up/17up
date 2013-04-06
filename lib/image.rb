@@ -1,5 +1,5 @@
 # image function
-module Grape
+module Image
   class Base
     include Utils::Service
     
@@ -21,27 +21,10 @@ module Grape
     end
   end
   
-  class WordImage < Base
+  class Word < Base
     
     def initialize(title)
       @title = title
-      @dir = Word::IMAGE_PATH + title.parameterize.underscore + "/" 
-    end
-
-    def set_name_by_dir(dir,title,w_dir=dir)
-      unless File.exist?(dir)
-        `mkdir -p #{dir}`
-      end
-      w = w_dir + "w.png"
-      unless File.exist?(w)
-        opts = {
-          :text => title,
-          :type => 2,
-          :word_path => w
-        }
-        ImageConvert.draw_word(opts)
-      end
-      return w,dir + "#{$config[:name]}.jpg"
     end
 
     def parse(info="")
@@ -58,35 +41,9 @@ module Grape
 	    data = JSON.parse(response.body)["d"]["results"]
 			data.inject([]){|a,x| a << x["MediaUrl"] }
     end   
-    
-    def make(url=nil)
-      @image = url ? url : parse[0]
-      @w,@new_image = set_name_by_dir(@dir,@title)
-      ImageConvert.new(@image,:outfile => @new_image).draw(@w,:original => @dir + 'original.jpg')
-    end
   end
   
-  class UWordImage < WordImage
-    # uw: u_word obj
-    def initialize(uw)
-      @u_word = uw
-      @title = uw.title
-      @dir = UWord::IMAGE_PATH + "#{uw.id}/"
-    end
-
-    def make(url)
-      @w,@new_image = set_name_by_dir(@dir,@title,@u_word.word.image_path(:w => true))
-      begin
-        h = ImageConvert.new(url,:outfile => @new_image).draw(@w)
-        @u_word.update_attributes(:width => UWord::IMAGE_WIDTH,:height => h)
-        return 0
-      rescue
-        return -1
-      end
-    end
-  end
-  
-  class ImageConvert
+  class Convert
     def initialize(img_path,opts={})
       @opts = {
         :outfile => img_path,#Tempfile.new("quote_image").path, 
@@ -102,7 +59,7 @@ module Grape
           :font => "public/font/Tallys/Tallys.ttf",
           :word_path => "public/water_mark.png"
         }
-        ImageConvert.draw_word(opts)
+        Convert.draw_word(opts)
       end
       return img.composite(MiniMagick::Image.open("public/water_mark.png")) do |c|
         c.gravity "NorthWest"

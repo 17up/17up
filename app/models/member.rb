@@ -30,6 +30,7 @@ class Member
 
   has_many :authorizations,:dependent => :destroy
   has_many :courses
+  has_many :u_words,:dependent => :destroy
   embeds_many :course_grades
   accepts_nested_attributes_for :course_grades
 
@@ -82,6 +83,10 @@ class Member
 
   def validate_upload_avatar(file,type)
     type.scan(/(jpeg|png|gif)/).any? and File.size(file) < AVATAR_SIZE_LIMIT
+  end
+
+  def has_u_word(wid)
+    UWord.where(:member_id => self.id,:word_id => wid).first
   end
   
   def name
