@@ -58,6 +58,12 @@ class window.Veggie.WordView extends Backbone.View
 				self.play_audio $("audio.common",$ele)
 			,500)
 			$("footer #uploader .uword input[name='_id']").val(self.model.get("_id"))
+			if self.model.get('num') is 0
+				Veggie.GuideView.addOne Guide.imagine("ihome")
+			else if self.model.get("exam") is true
+				Veggie.GuideView.addOne Guide.imagine("word")
+			else if self.model.get("num") is max - 1
+				Veggie.GuideView.addOne Guide.imagine("iend")
 	upload_img: (e) ->
 		Utils.uploader $(e.currentTarget)
 	audio_record: (e) ->

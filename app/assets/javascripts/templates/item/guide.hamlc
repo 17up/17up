@@ -11,3 +11,5 @@
 				立即开始
 	- else
 		%span.next.icon-circle-arrow-right
+- else
+	%span.icon-remove-circle.close

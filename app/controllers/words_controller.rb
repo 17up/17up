@@ -4,15 +4,13 @@ class WordsController < ApplicationController
 	def fetch
 		word = Onion::Word.new(params[:title]).insert(:skip_exist => 1)
 		if @uw = current_member.has_u_word(word)
-			word = @uw
+			synsets = Onion::Word.wordnet(params[:title],:synset)
+			synsets.delete(params[:title])
+			data = @uw.as_json.merge({:exam => true,:synsets => synsets})
+		else
+			data = word.as_json
 		end
-		render_json 0,"ok",word.as_json
-	end
-
-	def imagine
-		synsets = Onion::Word.wordnet(params[:title],:synset)
-		synsets.delete(params[:title])
-		render_json 0,"ok",synsets
+		render_json 0,"ok",data	
 	end
 
 	# U Word

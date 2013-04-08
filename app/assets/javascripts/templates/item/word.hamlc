@@ -1,7 +1,7 @@
 - if @title
-	- if @exam and @imagine
+	- if @exam
 		.image
-			%span.upload_img(data-uploader = "uword")
+			%span.upload_img(data-uploader="uword" title="点击上传")
 				%img{:src => @img_url }
 				%i.icon-upload-alt
 		.audio
@@ -19,7 +19,7 @@
 			- if @imagine.length > 0
 				%span.label
 					%span.icon-sitemap
-					同义词
+					联想词汇
 				- for i in @imagine
 					%span.label.label-success
 						= i

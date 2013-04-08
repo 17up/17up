@@ -4,7 +4,7 @@
 			%span.label
 				%span.icon-user
 				ID
-			%a.label-success.label{:href => @member_path}
+			%a.label-red.label{:href => @member_path}
 				= @uid
 		.c_at
 			%span.label

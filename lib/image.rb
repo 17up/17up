@@ -94,6 +94,20 @@ module Image
       img = MiniMagick::Image.open(src)
       return img["width"],img["height"]
     end
+
+    def self.square_thumb(src,thumb_size)
+      img = MiniMagick::Image.open(src)
+      img.combine_options do |c|
+        c.auto_orient
+        c.thumbnail "x#{thumb_size*2}"
+        c.resize "#{thumb_size*2}x<"
+        c.resize "50%"
+        c.gravity "center"
+        c.crop "#{thumb_size}x#{thumb_size}+0+0"
+        c.quality 92
+      end
+      img
+    end
     
 		# 合成单张
     def draw(word_path,opt = {})

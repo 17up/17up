@@ -44,6 +44,7 @@ class Member
   AVATAR_URL = "/system/images/member/"
   AVATAR_PATH = "#{Rails.root}/public"+AVATAR_URL
   AVATAR_SIZE_LIMIT = 3000*1000 #3m
+  THUMB_SIZE = 120
   ## role 用户组别 
   ROLE = %w{a u t}
   # nil 三无用户，被清理对象
@@ -100,12 +101,7 @@ class Member
 
   def save_avatar(file_path)
     `mkdir -p #{AVATAR_PATH + _id}`
-    # data = open(file_path){|f|f.read}
-    # file = File.open(AVATAR_PATH + avatar_name,"wb") << data
-    # file.close
-    img = MiniMagick::Image.open(file_path)
-    img.resize("120x120")
-    img.write(AVATAR_PATH + avatar_name)
+    Image::Convert.square_thumb(file_path,THUMB_SIZE).write(AVATAR_PATH + avatar_name)
   end
 
   def bind_service(omniauth, expires_time)

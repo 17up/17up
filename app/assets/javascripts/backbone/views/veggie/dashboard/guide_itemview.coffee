@@ -9,6 +9,11 @@ class window.Veggie.GuideView extends Backbone.View
 	events:
 		"click .next": 'next'
 		"click .start": 'start'
+	@addOne: (guide) ->
+		if guide
+			view = new Veggie.GuideView
+				model: guide
+			$("#assets").html(view.render().el)
 	next: ->
 		$next = @$el.next()
 		$next.fadeIn()		

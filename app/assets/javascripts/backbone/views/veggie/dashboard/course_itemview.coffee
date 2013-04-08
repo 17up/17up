@@ -12,21 +12,11 @@ class window.Veggie.CourseView extends Backbone.View
 		"click .back-to-content": "back_to_content"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
-	addCourseGuide: (sense) ->
-		if model = Guide.courses(sense)
-			view = new Veggie.GuideView
-				model: model
-			$(".action",@$el).after(view.render().el)
-	addImagineGuide: (sense) ->
-		if model = Guide.imagine(sense)
-			view = new Veggie.GuideView
-				model: model
-			$("#" + sense).append(view.render().el)
-			# destroy guide
+	
 	checkin: ->
 		self = this
 		@model.checkin ->
-			self.addCourseGuide("content")
+			Veggie.GuideView.addOne Guide.courses("content")
 			self.select_words_from_collection()
 	select_words_from_collection: ->
 		words = @collection.where
@@ -40,9 +30,10 @@ class window.Veggie.CourseView extends Backbone.View
 			open: true
 			imagine: false
 		Veggie.hide_nav()
-		@$el.siblings().hide()
+		@$el.siblings().hide()	
+		window.route.active_view.current_course = @model
 		unless @model.get("has_checkin")
-			@addCourseGuide("checkin")		
+			Veggie.GuideView.addOne Guide.courses("checkin")		
 		if @collection.length is 0			
 			$words = $("b",@$el).addClass 'selected'
 			words = _.map $words,(w) ->
@@ -61,6 +52,9 @@ class window.Veggie.CourseView extends Backbone.View
 		@model.set 
 			open: false
 		@$el.siblings().show()
+		$("#assets").html ""		
+		@collection.reset()
+		$("#imagine").html ""
 	save_step: ->
 		cid = @model.get("_id")
 		$.jStorage.set "course_#{cid}",$(".step.active").attr("id")
@@ -69,12 +63,9 @@ class window.Veggie.CourseView extends Backbone.View
 		@model.set 
 			open: true
 			imagine: false
-		if $("#imagine").jmpress("initialized")
-			$("#imagine").jmpress "deinit"
-			$("#imagine").hide()
-			$("#icontrol").removeClass 'active'
-			@$el.removeClass 'opacity'
-		@addCourseGuide("back_content")
+		window.route.active_view.deinit_imagine()
+		@$el.removeClass 'opacity'
+		Veggie.GuideView.addOne Guide.courses("back_content")
 		@select_words_from_collection()
 
 	toggleSelect: (e) ->
@@ -83,7 +74,8 @@ class window.Veggie.CourseView extends Backbone.View
 			title: $.trim($target.text())
 		if $target.hasClass 'selected'
 			$target.removeClass 'selected'
-			word[0].imagine()
+			word[0].set 
+				exam: true
 		else			
 			$target.addClass 'selected'
 			word[0].set 
@@ -96,7 +88,6 @@ class window.Veggie.CourseView extends Backbone.View
 			num: self.collection.length + 1
 			end: "end"
 		@collection.push word, id: "iend"
-		@addImagineGuide("iend")
 	addHome: (sum) ->
 		# add front page
 		word = new Word
@@ -104,21 +95,13 @@ class window.Veggie.CourseView extends Backbone.View
 			num: 0
 			sum: sum
 		@collection.push word, id: "ihome"
-		# add ihome guide if exsit
-		@addImagineGuide("ihome")
 	imagine_words: ->		
 		# render
 		@model.set
 			open: true
 			imagine: true		
 		# init imagine
-		unless $("#imagine").jmpress("initialized")			
-			window.route.active_view.init_imagine()
-			cid = @model.get("_id")
-			if step = $.jStorage.get "course_#{cid}"
-				$("#imagine").jmpress "goTo","#" + step
-			$("#imagine").show()
-		$("#icontrol").addClass 'active'
+		window.route.active_view.init_imagine()
 		@$el.addClass 'opacity'
 		if document.createElement('input').webkitSpeech is undefined
 			Utils.flash("请使用最新版本的chrome浏览器达到最佳学习效果","error")

@@ -1,9 +1,7 @@
 #icontrol
 	#progress
 		.current_bar
-
-- if @guides
-	#assets
+#assets
 #quote
 #imagine
 

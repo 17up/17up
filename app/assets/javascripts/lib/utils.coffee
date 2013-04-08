@@ -14,12 +14,14 @@ class window.Utils
 		$file = $("input[type='file']",$uploader)
 		$form = $file.closest('form')
 		$img = $("img",$ele)
+		$form.off "ajax:success"
 		$form.on "ajax:success",(d,data) ->
 			if data.status is 0
 				Utils.flash(data.msg,'success')
 				$img.attr("src",data.data)
 			else
 				Utils.flash(data.msg,'error')
+		$file.off 'change'
 		$file.on 'change', ->
 			$form.submit()
 		$file.trigger "click"
