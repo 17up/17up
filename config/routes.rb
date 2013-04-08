@@ -52,6 +52,11 @@ Veggie::Application.routes.draw do
     get "friend"
   end
   match ":role/:uid" => "members#show" 
+
+  # agent = request.user_agent.downcase
+  # if agent.include?("iphone") or agent.include?("android")
+  #   root :to => 'mobile#index' 
+  # end
   
   authenticated :member do
     root :to => "members#index"
