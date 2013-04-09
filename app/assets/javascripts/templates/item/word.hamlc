@@ -1,5 +1,7 @@
 - if @title
-	- if @exam
+	- if @imagine
+		.action.to_base(title = "忘记了？偷看解释")
+			%span.icon-eye-open
 		.image
 			%span.upload_img(data-uploader="uword" title="点击上传")
 				%img{:src => @img_url }
@@ -15,15 +17,17 @@
 			- else
 				%span.btn.green.play.disabled
 					%i.icon-play
-		.imagine
-			- if @imagine.length > 0
+		.synsets
+			- if @synsets.length > 0
 				%span.label
 					%span.icon-sitemap
 					联想词汇
-				- for i in @imagine
+				- for i in @synsets
 					%span.label.label-success
 						= i
 	- else
+		.action.to_imagine(title = "记住了，闭目联想")
+			%span.icon-eye-close
 		.title.amienne
 			%span
 				= @title

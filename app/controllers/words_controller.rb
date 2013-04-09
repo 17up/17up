@@ -6,7 +6,7 @@ class WordsController < ApplicationController
 		if @uw = current_member.has_u_word(word)
 			synsets = Onion::Word.wordnet(params[:title],:synset)
 			synsets.delete(params[:title])
-			data = @uw.as_json.merge({:exam => true,:synsets => synsets})
+			data = @uw.as_json.merge({:imagine => true,:synsets => synsets})
 		else
 			data = word.as_json
 		end

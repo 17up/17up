@@ -5,8 +5,8 @@ class window.Word extends Backbone.Model
 		"content": ''
 		"audio": ''
 		"img_url": '/assets/icon/default.png'
-		"imagine": []
-		"exam": false
+		"imagine": false
+		"synsets": []
 	fetch: (callback) ->
 		self = this
 		title = self.get("title")

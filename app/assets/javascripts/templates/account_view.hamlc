@@ -24,6 +24,12 @@
 				已修课程
 			%span.label.label-success
 				= @grades
+		.uwords
+			%span.label
+				%span.icon-star
+				已掌握词汇
+			%span.label.label-success
+				= @words
 	%span.label
 		%span.icon-link
 		其他社交帐号

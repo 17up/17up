@@ -3,16 +3,28 @@
 #dashboard 
 	#imagine
 		.word.active
-			> div
-				opacity: 1	
+			opacity: 1	
 		.word
 			text-align: center
 			z-index: 1
-			position: relative	
-		.title
+			position: relative
+			opacity: 0	
 			@include transition(all,0.8s)
+		.action
+			position: absolute
+			right: -50px
+			top: 50%
+			margin-top: -15px
+			span
+				cursor: pointer
+				padding: 5px 
+				border: 1px solid #d6e9c6
+				color: #468847
+				background: #dff0d8
+				@include round(5px)
+				display: inline-block
+		.title
 			line-height: 2
-			opacity: 0.5
 			color: black
 			@include text-shadow-3d
 			font-size: 120px
@@ -25,15 +37,11 @@
 			line-height: 2
 			font-size: 60px
 		.original
-			@include transition(opacity,0.8s)
-			opacity: 0
 			font-size: 16px
 			padding: 8px
 			line-height: 1.4
 		.speech 
 			margin-top: 20px
-			opacity: 0
-			@include transition(0.8s)
 			input
 				cursor: pointer
 				border: 0
@@ -46,7 +54,7 @@
 				&:focus
 					outline: none
 					border: none
-		.imagine
+		.synsets
 			margin: 10px 0
 			.label
 				font-size: 22px

@@ -17,6 +17,8 @@ class window.Veggie.WordView extends Backbone.View
 		"click .upload_img": "upload_img"
 		"click .audio .record": "audio_record"
 		"click .audio .play": "audio_play"
+		"click .to_base": "to_base"
+		"click .to_imagine": "to_imagine"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
 		@listenTo(@model, 'destroy', @remove)
@@ -24,6 +26,14 @@ class window.Veggie.WordView extends Backbone.View
 	render: ->
 		@$el.html @template(@model.toJSON())	
 		this
+	to_base: ->
+		@model.set 
+			imagine: false
+		@play_audio $("audio.common",@$el)
+	to_imagine: ->
+		@model.set 
+			imagine: true
+		@play_audio $("audio.common",@$el)
 	goFirst: ->
 		$("#imagine").jmpress "goTo",$("#ihome")
 	play_audio: ($audio) ->

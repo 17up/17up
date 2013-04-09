@@ -20,7 +20,7 @@ class window.Veggie.CourseView extends Backbone.View
 			self.select_words_from_collection()
 	select_words_from_collection: ->
 		words = @collection.where
-			exam: false
+			imagine: false
 		titles = _.map words, (w) ->
 			w.get("title")
 		for w in titles
@@ -75,11 +75,11 @@ class window.Veggie.CourseView extends Backbone.View
 		if $target.hasClass 'selected'
 			$target.removeClass 'selected'
 			word[0].set 
-				exam: true
+				imagine: true
 		else			
 			$target.addClass 'selected'
 			word[0].set 
-				exam: false
+				imagine: false
 	addEnd: ->
 		self = this	
 		# add end page

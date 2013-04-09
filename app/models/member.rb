@@ -137,7 +137,8 @@ class Member
   def as_json
     ext = {
       :member_path => member_path,
-      :grades => course_grades.length
+      :grades => course_grades.length,
+      :words => u_words.length
     }
     super(:only => [:c_at,:role,:uid]).merge(ext)
   end
