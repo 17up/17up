@@ -7,7 +7,7 @@
 				%img{:src => @img_url }
 				%i.icon-upload-alt
 		.audio
-			%audio.my{:data => @my_audio}
+			%audio.my{:src => @my_audio}
 			%span.btn.pink.record(title="录制你自己的发音")
 				%i.icon-circle
 				%i.icon-spinner.icon-spin
@@ -35,7 +35,7 @@
 			= @content
 		.speech
 			%input{"data-key" => @title}(type="text" x-webkit-speech='x-webkit-speech' lang="en" x-webkit-grammar="builtin:translate" title="测试你的发音")
-	%audio.common{:data => @audio }
+	%audio.common{:src => @audio }
 			
 - if @tip
 	.tip.amienne

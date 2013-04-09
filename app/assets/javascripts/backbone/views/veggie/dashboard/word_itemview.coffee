@@ -38,9 +38,7 @@ class window.Veggie.WordView extends Backbone.View
 		$("#imagine").jmpress "goTo",$("#ihome")
 	play_audio: ($audio) ->
 		if $audio.length is 1
-			unless $audio[0].src isnt ''
-				$audio[0].src = $audio.attr('data')
-			$audio[0].load()
+			#$audio[0].load()
 			$audio[0].play()
 	focus_speech: (e) ->
 		$(e.currentTarget).blur()
