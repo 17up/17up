@@ -1,0 +1,21 @@
+@import "utils"
+
+body.mobile
+	@include radial-gradient(center 40%, circle cover, #F41 0%, #8A0000 100%)
+
+	nav
+		#banner
+			text-align: center
+			@include text-shine
+			font-size: 48px
+
+	section
+		color: white
+		#member
+			padding: 20px
+		#login
+			padding: 20px
+			text-align: center
+			a 
+				display: block
+				padding: 10px

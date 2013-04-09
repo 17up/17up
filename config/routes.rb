@@ -14,7 +14,7 @@ Veggie::Application.routes.draw do
   }
 
   # olive
-  match "o" => "olive#index", :as => :olive
+  get "o", :to => "olive#index", :as => :olive
   namespace :olive do
     get 'courses'
     get 'quotes'
@@ -39,9 +39,9 @@ Veggie::Application.routes.draw do
   end
   
   # members
-  match "account" => "members#index"
-  match "achieve" => "members#index"
-  match "genius" => "members#index"
+  get "account",:to => "members#index"
+  get "achieve",:to => "members#index"
+  get "genius",:to => "members#index"
   namespace :members do
     post "update"
     post "upload_avatar"
@@ -51,12 +51,16 @@ Veggie::Application.routes.draw do
     get "genius"
     get "friend"
   end
-  match ":role/:uid" => "members#show" 
+  get ":role/:uid",:to => "members#show" 
 
-  # agent = request.user_agent.downcase
-  # if agent.include?("iphone") or agent.include?("android")
-  #   root :to => 'mobile#index' 
-  # end
+  # 如果是移动设备，则以移动版本渲染
+  mobile_devise = lambda { |request| 
+    agent = request.user_agent.downcase
+    agent.include?("iphone") or agent.include?("android")
+  }
+  constraints mobile_devise do
+     root :to => 'mobile#index' 
+  end
   
   authenticated :member do
     root :to => "members#index"
@@ -65,6 +69,6 @@ Veggie::Application.routes.draw do
 
   # See how all your routes lay out with "rake routes"
   unless Rails.application.config.consider_all_requests_local
-    match '*not_found', to: 'errors#error_404'
+    get '*not_found', to: 'errors#error_404'
   end
 end
