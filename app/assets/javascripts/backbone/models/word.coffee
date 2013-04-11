@@ -1,20 +1,20 @@
 class window.Word extends Backbone.Model
 	defaults:
-		"_id": ''
 		"title": ''
 		"content": ''
-		"audio": ''
 		"img_url": '/assets/icon/default.png'
 		"imagine": false
 		"synsets": []
+	initialize: ->
+		if t = this.get("title")
+			@common_audio = new Audio()
+			@common_audio.src = "http://tts.yeshj.com/uk/s/" + encodeURIComponent(t)
+			@common_audio.preload = "none"
 	fetch: (callback) ->
 		self = this
-		title = self.get("title")
-		if title and self.get("_id") is ''
-			$.post "/words/fetch",title: title, (data) ->
-				if data.status is 0
-					self.set data.data
-					callback() if callback
-		else
-			callback() if callback
+		$.post "/words/fetch",title: self.get("title"), (data) ->
+			if data.status is 0
+				self.set data.data
+				callback() if callback
+
 		

@@ -41,10 +41,7 @@ class Word
   end
 
   def as_json
-    ext = {
-      :audio => source_voice
-    }
-    super(:only => [:_id,:title,:content]).merge(ext)
+    super(:only => [:_id,:title,:content])
   end
 
   rails_admin do

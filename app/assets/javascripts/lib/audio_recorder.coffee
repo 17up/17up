@@ -1,27 +1,21 @@
 class window.AudioRecorder
-	duration: 3000
 	constructor: ->
 		self = this
 		window.AudioContext = window.AudioContext || window.webkitAudioContext
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia
 		window.URL = window.URL || window.webkitURL			
 		self.audio_context = new AudioContext
-	startRecording: (button,_id) ->
+	startRecording: (callback) ->
 		self = this
-		start_record = ->
-			self.recorder.record()
-			button.addClass 'ing'
-			setTimeout(
-				-> self.stopRecording(button,_id)
-				self.duration
-			)
 		startUserMedia = (stream) ->
 			input = self.audio_context.createMediaStreamSource(stream)
 			input.connect(self.audio_context.destination)
 			self.recorder = new Recorder(input)	
-			start_record()	
+			self.recorder.record()
+			callback()	
 		if self.recorder isnt undefined
-			start_record()	
+			self.recorder.record()
+			callback()	
 		else			
 			navigator.getUserMedia
 				audio: true
@@ -30,19 +24,17 @@ class window.AudioRecorder
 					Utils.flash("请允许使用您的麦克风哦！","error")
 					false
 			
-	stopRecording: (button,_id) ->
+	stopRecording: (callback) ->
 		self = this
 		self.recorder && self.recorder.stop()
-		button.removeClass 'ing'
-		this.createDownloadLink(button.parent().find("audio.my"),_id)
+		callback()
 		self.recorder.clear()
-	createDownloadLink: (audio,_id) ->
+	createDownloadLink: (my_audio,_id) ->
 		self = this
 		self.recorder and self.recorder.exportWAV (blob) ->
-			url = URL.createObjectURL(blob)	 
-			audio[0].src = url
-			audio[0].play()
-			audio.parent().find(".play").removeClass("disabled")
+			url = URL.createObjectURL(blob)	
+			my_audio.src = url
+			my_audio.play()
 			form = new FormData()
 			form.append("file", blob)
 			form.append("_id",_id)

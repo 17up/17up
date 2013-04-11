@@ -9,6 +9,7 @@ class window.Veggie.WordView extends Backbone.View
 		"data-z": -@model.get('num')*1500	
 		"data-scale": "1"
 	template: JST['item/word']
+	my_audio: new Audio()
 	events: ->
 		"enterStep": "enterStep"
 		"webkitspeechchange .speech input": "speech"
@@ -29,17 +30,15 @@ class window.Veggie.WordView extends Backbone.View
 	to_base: ->
 		@model.set 
 			imagine: false
-		@play_audio $("audio.common",@$el)
+		@model.common_audio.load()
+		@model.common_audio.play()
 	to_imagine: ->
 		@model.set 
 			imagine: true
-		@play_audio $("audio.common",@$el)
+		@model.common_audio.load()
+		@model.common_audio.play()
 	goFirst: ->
 		$("#imagine").jmpress "goTo",$("#ihome")
-	play_audio: ($audio) ->
-		if $audio.length is 1
-			#$audio[0].load()
-			$audio[0].play()
 	focus_speech: (e) ->
 		$(e.currentTarget).blur()
 	speech: (e) ->
@@ -53,35 +52,48 @@ class window.Veggie.WordView extends Backbone.View
 			Utils.flash("#{w}? 还差一点，加油！","error")
 		$ele.blur().val('')
 		setTimeout(->
-			self.play_audio $("audio",self.$el)
+			self.model.common_audio.play()
 		,500)
 	enterStep: (e) ->
-		self = this
 		max = $(".step").length - 1
 		percent = @model.get('num')*100/max
 		$("#progress .current_bar").css "width": "#{percent}%"
 		$ele = $(e.currentTarget)
-		@model.fetch ->						
-			setTimeout(->
-				self.play_audio $("audio.common",$ele)
-			,500)
-			$("footer #uploader .uword input[name='_id']").val(self.model.get("_id"))
-			if self.model.get('num') is 0
-				Veggie.GuideView.addOne Guide.imagine("ihome")
-			else if self.model.get("exam") is true
-				Veggie.GuideView.addOne Guide.imagine("word")
-			else if self.model.get("num") is max - 1
-				Veggie.GuideView.addOne Guide.imagine("iend")
+		@model.common_audio.play() if @model.common_audio
+		if id = @model.get("_id")
+			$("footer #uploader .uword input[name='_id']").val(id)
+		else if @model.get("title")
+			@model.fetch()
+		
+		if @model.get('num') is 0
+			Veggie.GuideView.addOne Guide.imagine("ihome")
+		else if @model.get("exam") is true
+			Veggie.GuideView.addOne Guide.imagine("word")
+		else if @model.get("num") is max - 1
+			Veggie.GuideView.addOne Guide.imagine("iend")
+			
 	upload_img: (e) ->
 		Utils.uploader $(e.currentTarget)
 	audio_record: (e) ->
+		self = this
 		_id = @model.get("_id")
+		$btn = $(e.currentTarget)
 		if navigator.webkitGetUserMedia or navigator.getUserMedia
 			window.recorder = window.recorder || new AudioRecorder()
-			window.recorder.startRecording($(e.currentTarget),_id)
+			window.recorder.startRecording ->			
+				$btn.addClass 'ing'
+				setTimeout( ->
+					window.recorder.stopRecording ->
+						$btn.removeClass 'ing'
+						window.recorder.createDownloadLink(self.my_audio,_id)
+				,3000)
 		else
 			Utils.flash "您的浏览器不支持语音输入，请尝试chrome","error"
 	audio_play: (e) ->
-		@play_audio $(e.currentTarget).parent().find("audio")
- 
+		if @my_audio.src isnt ''
+			if src = @model.get("my_audio")
+				@my_audio.src = src	
+			@my_audio.play() 
+		else
+			Utils.flash("你还没有录音呢，请点击我左边那家伙先录个音吧！","error")
 		
