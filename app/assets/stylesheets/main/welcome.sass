@@ -18,8 +18,22 @@
 	100%
 		opacity: 0.3
 
++keyframes(bgcolor)
+	0%
+		background-color: #7ebbef
+	30%
+		background-color: #69d965
+	60%
+		background-color: #abe6e1
+	100%
+		background-color: #7ebbef
+
 body.welcome
-	@include radial-gradient(50% 50%,circle cover,#9dcce1,#52a2c8)
+	background-color: #7ebbef
+	@include animation-name(bgcolor)
+	@include animation-duration(70s)
+	@include animation-iteration-count(infinite)
+	@include animation-timing-function(alternate)	
 
 .not-supported
 	.sorry_tip
@@ -66,6 +80,7 @@ body.welcome
 			width: 1%
 			text-align: center
 			position: relative	
+			left: 0
 			a
 				display: block
 				padding: 20px 0
@@ -75,20 +90,12 @@ body.welcome
 				border-left: 1px solid #fcfcfc
 				&:hover
 					color: #29638a
-			i
-				position: absolute
-				top: 0px
-				margin-left: -10px
-				opacity: 0
 		li.active
 			border-top: 4px solid #2a658b
 			a
 				color: #29638a
-			i 
-				opacity: 1
-				@include triangle(20px,#2a658b,down)
-	#impress
-		display: none
+	#impress		
+		opacity: 0
 		.step
 			position: relative
 			width: 900px
@@ -110,9 +117,7 @@ body.welcome
 	#belief
 		font-size: 40px
 		.title
-			font-size: 16px
-			font-weight: bold
-			@include text-shadow-inverse
+			font-size: 20px
 		#love-map
 			margin: 50px auto
 			width: 180px
@@ -161,8 +166,7 @@ body.welcome
 			padding-bottom: 20px
 			font-size: 48px
 		.desc
-			font-size: 16px
-			font-weight: bold
+			font-size: 20px
 	#login
 		.title
 			font-size: 20px

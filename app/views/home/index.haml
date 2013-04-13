@@ -23,10 +23,12 @@
 			Love can change anything	
 		#login.step(data-x="0" data-y="-600" data-z="0" data-scale="1")
 			.title
-				还剩
+				还差
 				%span.num
 					= @num
-				名体验名额
+				名志愿者
+				%br
+				你可以选择以下任意方式加入
 
 			- Authorization::PROVIDERS.each do |x|
 				= link_to image_tag("icon/#{x}_big.png",:title => x),member_omniauth_authorize_path(x.to_sym)
@@ -42,18 +44,14 @@
 			%li
 				%a(href = "#topic")
 					主题
-				%i
 			%li
 				%a(href = "#belief")
 					信念
-				%i
 			%li
 				%a(href = "#login")
-					体验
-				%i
+					加入
 			%li
 				%a(href = "#contact")
 					联络
-				%i
 - content_for :footer do	
 	#init.hide(data-js="Welcome")

@@ -4,8 +4,12 @@ class window.Welcome
         $wrap = $("#impress")
         $wrap.jmpress
         	transitionDuration: 0
-        $wrap.show()
+        $wrap.animate 'opacity':1,2500
         Utils.active_tab $(".step.active").attr("id")
         $(".step",$wrap).on 'enterStep', (e) ->
         	Utils.active_tab $(e.target).attr("id")
         mixpanel.track("new visitor")
+        setTimeout(->
+            new Sound("friends",null,true)
+        ,1500)
+        

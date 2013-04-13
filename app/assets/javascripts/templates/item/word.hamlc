@@ -12,6 +12,9 @@
 				%i.icon-spinner.icon-spin
 			%span.btn.green.play
 				%i.icon-play
+			- if @my_audio
+				.ui360
+					%a{:href => @my_audio}
 		.synsets
 			- if @synsets.length > 0
 				%span.label

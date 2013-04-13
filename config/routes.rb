@@ -67,6 +67,8 @@ Veggie::Application.routes.draw do
   end
   root :to => 'home#index'
 
+  get "lab", :to => "mobile#lab"
+
   # See how all your routes lay out with "rake routes"
   unless Rails.application.config.consider_all_requests_local
     get '*not_found', to: 'errors#error_404'

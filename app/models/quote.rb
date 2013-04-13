@@ -9,11 +9,11 @@ class Quote < Text
   BASE_URL = "http://www.goodreads.com"
   TAG_KEY = "quote_tags"
 
-  scope :no_tag, where(:tags => nil)
-  scope :empty_tag, where(:tags.with_size => 0)
-  scope :one_tag, where(:tags.with_size => 1)
-  scope :with_author, where(:author.exists => true)
-  scope :without_author, where(:author => nil)
+  scope :no_tag, -> {where(:tags => nil)}
+  scope :empty_tag, -> {where(:tags.with_size => 0)}
+  scope :one_tag, -> {where(:tags.with_size => 1)}
+  scope :with_author, -> {where(:author.exists => true)}
+  scope :without_author, -> {where(:author => nil)}
 
   def self.tag_by(tag_list,match_any = true)
     if match_any

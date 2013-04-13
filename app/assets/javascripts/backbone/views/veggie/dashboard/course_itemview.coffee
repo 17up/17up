@@ -14,10 +14,9 @@ class window.Veggie.CourseView extends Backbone.View
 		@listenTo(@model, 'change', @render)
 	
 	checkin: ->
-		self = this
-		@model.checkin ->
+		@model.checkin =>
 			Veggie.GuideView.addOne Guide.courses("content")
-			self.select_words_from_collection()
+			@select_words_from_collection()
 	select_words_from_collection: ->
 		words = @collection.where
 			imagine: false
@@ -81,11 +80,10 @@ class window.Veggie.CourseView extends Backbone.View
 			word[0].set 
 				imagine: false
 	addEnd: ->
-		self = this	
 		# add end page
 		word = new Word
 			tip: "Imagine Never End"
-			num: self.collection.length + 1
+			num: @collection.length
 			end: "end"
 		@collection.push word, id: "iend"
 	addHome: (sum) ->

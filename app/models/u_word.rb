@@ -17,7 +17,7 @@ class UWord
   AUDIO_URL = "/system/audios/u_word/"
   AUDIO_PATH = "#{Rails.root}/public"+AUDIO_URL
 
-  scope :has_image, where(:img_size.exists => true)
+  scope :has_image, -> {where(:img_size.exists => true)}
 
   def title
     word.title

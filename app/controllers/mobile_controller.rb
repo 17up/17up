@@ -4,4 +4,8 @@ class MobileController < ApplicationController
     set_seo_meta(t('mobile.title'),t('keywords'),t('describe'))
   end
 
+  def lab
+  	set_seo_meta(nil)
+  end
+
 end

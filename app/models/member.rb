@@ -48,9 +48,9 @@ class Member
   ## role 用户组别 
   ROLE = %w{a u t}
   # nil 三无用户，被清理对象
-  scope :x, where(:role => nil)
+  scope :x, -> {where(:role => nil)}
   ROLE.each do |r|
-    scope r.to_sym,where(:role => r)
+    scope r.to_sym, -> {where(:role => r)}
   end
   
   def admin?
