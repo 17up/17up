@@ -6,6 +6,7 @@ class MobileController < ApplicationController
 
   def lab
   	set_seo_meta(nil)
+  	@pics = Olive::Tumblr.new(Authorization.official("tumblr")).user_liked_media
   end
 
 end

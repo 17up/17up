@@ -154,6 +154,7 @@ class Member
     field :role
     field :gem
     field :c_at
+    field :last_sign_in_ip
     field :authorizations
   end
 

@@ -15,6 +15,7 @@ class window.Sound
 			window.sound = soundManager.createSound
 	    		id: id
 	    		url: url
+	    		autoLoad: true
     		@play(looper)
     
 

@@ -1,8 +1,9 @@
 @import "utils"
 
-body.mobile
-	@include radial-gradient(center 40%, circle cover, #F41 0%, #8A0000 100%)
-
+body.mobile	
+	@include linear-gradient(150deg, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%)
+	//#F41 0%, #8A0000 100%
+	background-attachment: fixed
 	nav
 		#banner
 			text-align: center
@@ -19,3 +20,8 @@ body.mobile
 			a 
 				display: block
 				padding: 10px
+
+#olive
+	margin-top: 40px
+	.pic
+		text-align: center

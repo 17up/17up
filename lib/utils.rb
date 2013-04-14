@@ -1,56 +1,76 @@
 # -*- coding: utf-8 -*-
 module Utils
-  class Helper
-    include ActionView::Helpers
+
+  class << self
+
+    def rand_passwd(size=6, opts = {})
+      # 全部使用数字
+      if opts[:number] == true
+        alpha = (0..9).to_a
+      elsif opts[:alpht] == true
+        alpha = ('a'..'z').to_a
+      else
+        alpha = (0..9).to_a+('a'..'z').to_a+('A'..'Z').to_a
+      end
+      alpha.sample(size).join
+    end
   end
 
   module Service
+
     def load_service
       YAML.load_file(Rails.root.join("config", "service.yml")).fetch(Rails.env)
     end
-  end
-  
-  def self.parse_ip(ip,opts={})
-    if opts[:taobao]
-      api_url = "http://ip.taobao.com/service/getIpInfo.php?ip="
-      resp = Net::HTTP.get_response(URI.parse(api_url+ip)).body
-		  data = JSON.parse(resp)
-		  if data["code"] == 0
-			  return data["data"]["country"] + data["data"]["region"] + data["data"]["city"] + data["data"]["isp"]
-		  end
-		else
-		  api_url = "https://api.weibo.com/2/location/geo/ip_to_geo.json"
-      result = Curl.get(api_url,{:source => "83541187",:ip => ip})
-      data = JSON.parse(result)["geos"][0]
-      if opts[:lng]
-        return [data["longitude"],data["latitude"]]
-      else
-        return data["more"]
+     
+    def parse_ip(ip,opts={})
+      if opts[:taobao]
+        api_url = "http://ip.taobao.com/service/getIpInfo.php?ip="
+        resp = Net::HTTP.get_response(URI.parse(api_url+ip)).body
+  		  data = JSON.parse(resp)
+  		  if data["code"] == 0
+  			  return data["data"]["country"] + data["data"]["region"] + data["data"]["city"] + data["data"]["isp"]
+  		  end
+  		else
+  		  api_url = "https://api.weibo.com/2/location/geo/ip_to_geo.json"
+        result = Utils::Curl.get(api_url,{:source => "83541187",:ip => ip})
+        data = JSON.parse(result)["geos"][0]
+        if opts[:lng]
+          return [data["longitude"],data["latitude"]]
+        else
+          return data["more"]
+        end
       end
     end
-  end
-  
-  # forecast
-  def self.check_weather(city="杭州")
-    api_url = "http://sou.qq.com/online/get_weather.php?callback=Weather&city="
-    request_url = URI.encode(api_url+city)
-    resp = Net::HTTP.get_response(URI.parse(request_url)).body
-		data = JSON.parse(resp.scan(/Weather\((\S+)\)/).flatten[0])
-		if data["real"]
-		  data["future"]["name"] + data["future"]["wea_0"] + data["real"]["temperature"] 
-	  end
-  end
-  
-  def self.rand_passwd(size=6, opts = {})
-    # 全部使用数字
-    if opts[:number] == true
-      alpha = (0..9).to_a
-    elsif opts[:alpht] == true
-      alpha = ('a'..'z').to_a
-    else
-      alpha = (0..9).to_a+('a'..'z').to_a+('A'..'Z').to_a
+    
+    # forecast
+    def check_weather(city="上海")
+      api_url = "http://sou.qq.com/online/get_weather.php?callback=Weather&city="
+      request_url = URI.encode(api_url+city)
+      resp = Net::HTTP.get_response(URI.parse(request_url)).body
+  		data = JSON.parse(resp.scan(/Weather\((\S+)\)/).flatten[0])
+  		if data["real"]
+  		  data["future"]["name"] + data["future"]["wea_0"] + data["real"]["temperature"] 
+  	  end
     end
-    alpha.sample(size).join
+
+    # geo google
+    # google map place search by text,get lat&lng
+    def location(query)
+      query = URI.encode query
+      key = load_service["google"]["api_key"]
+      request_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{query}&key=#{key}&sensor=true"
+      url = URI.parse(request_url)
+      response = Net::HTTP.start(url.host, url.port,:use_ssl => url.scheme == 'https') do |http|
+        http.request(Net::HTTP::Get.new(request_url)) 
+      end
+      data = JSON.parse(response.body)["results"][0]
+      {
+        :address => data["formatted_address"],
+        :lat => data["geometry"]["location"]["lat"],
+        :lng => data["geometry"]["location"]["lng"]
+      }
+    end
+
   end
   
   module Curl
