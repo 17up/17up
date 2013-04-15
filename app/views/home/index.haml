@@ -4,8 +4,8 @@
 #welcome_wrap
 	#impress
 		#topic.step.tallys(data-x="0" data-y="1800" data-z="3000" data-scale="1")
-			.rotate
-				☮
+			.logo
+				= image_tag("/favicon.png")
 			.title.amienne
 				imagine english
 			.desc
@@ -18,11 +18,13 @@
 					love
 				%span.moon
 					✈
-			.title
+			.title.amienne
+				Love can change anything
+			.desc
 				任斗转星移，唯有一个愿望不变：让你快乐
-			Love can change anything	
+			
 		#login.step(data-x="0" data-y="-600" data-z="0" data-scale="1")
-			.title
+			.desc
 				还差
 				%span.num
 					= @num
@@ -34,7 +36,7 @@
 				= link_to image_tag("icon/#{x}_big.png",:title => x),member_omniauth_authorize_path(x.to_sym)
 		
 		#contact.step.text_center(data-x="0" data-y="-1800" data-z="1500"  data-scale="1")
-			.title
+			.desc
 				一起共铸属于我们的知识社区吧
 			= mail_to $config[:email],image_tag("icon/gmail.png")
 			%p

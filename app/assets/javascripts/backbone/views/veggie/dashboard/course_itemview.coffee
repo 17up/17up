@@ -54,11 +54,12 @@ class window.Veggie.CourseView extends Backbone.View
 		$("#assets").html ""		
 		@collection.reset()
 		$("#imagine").html ""
-	save_step: ->
+	save_step: (id) ->
 		cid = @model.get("_id")
-		$.jStorage.set "course_#{cid}",$(".step.active").attr("id")
+		$.jStorage.set "course_#{cid}",id
 	back_to_content: ->
-		@save_step()
+		$word = $(".step.active")
+		@save_step $word.attr("id")
 		@model.set 
 			open: true
 			imagine: false
