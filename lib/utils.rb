@@ -25,17 +25,17 @@ module Utils
     def parse_ip(ip,opts={})
       if opts[:taobao]
         api_url = "http://ip.taobao.com/service/getIpInfo.php?ip="
-        resp = Net::HTTP.get_response(URI.parse(api_url+ip)).body
+        resp = HTTParty.get(api_url+ip).body
   		  data = JSON.parse(resp)
   		  if data["code"] == 0
   			  return data["data"]["country"] + data["data"]["region"] + data["data"]["city"] + data["data"]["isp"]
   		  end
   		else
   		  api_url = "https://api.weibo.com/2/location/geo/ip_to_geo.json"
-        result = Utils::Curl.get(api_url,{:source => "83541187",:ip => ip})
+        result = Curl.get(api_url,{:source => "83541187",:ip => ip})
         data = JSON.parse(result)["geos"][0]
-        if opts[:lng]
-          return [data["longitude"],data["latitude"]]
+        if opts[:geo]
+          return data["latitude"],data["longitude"]
         else
           return data["more"]
         end
@@ -46,7 +46,7 @@ module Utils
     def check_weather(city="上海")
       api_url = "http://sou.qq.com/online/get_weather.php?callback=Weather&city="
       request_url = URI.encode(api_url+city)
-      resp = Net::HTTP.get_response(URI.parse(request_url)).body
+      resp = HTTParty.get(request_url).body
   		data = JSON.parse(resp.scan(/Weather\((\S+)\)/).flatten[0])
   		if data["real"]
   		  data["future"]["name"] + data["future"]["wea_0"] + data["real"]["temperature"] 
