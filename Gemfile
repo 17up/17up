@@ -38,12 +38,13 @@ gem "remotipart", '~> 1.0'
 gem 'rails_admin'
 
 gem "devise"
+gem "httparty"
 gem "omniauth-weibo-oauth2", '~> 0.2.0'
 gem "omniauth-twitter"
 gem "omniauth-github"
 gem 'omniauth-tumblr'
 gem 'omniauth-instagram'
-gem 'omniauth-youtube',:git => "git@github.com:kkxlkkxllb/omniauth-youtube.git"
+gem 'omniauth-youtube',:git => "https://github.com/kkxlkkxllb/omniauth-youtube.git"
 gem "weibo_17up"
 gem "twitter"
 gem "tumblr_client", ">= 0.6.7"

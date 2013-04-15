@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:kkxlkkxllb/omniauth-youtube.git
+  remote: https://github.com/kkxlkkxllb/omniauth-youtube.git
   revision: 6bbf6031858ce372dcfca3d78e807765e7331d1d
   specs:
     omniauth-youtube (2.1.1)
@@ -120,6 +120,9 @@ GEM
     hashie (1.2.0)
     highline (1.6.16)
     hike (1.2.1)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.1)
     instagram (0.8.5)
@@ -165,6 +168,7 @@ GEM
       tzinfo (~> 0.3.22)
     moped (1.4.3)
     multi_json (1.7.2)
+    multi_xml (0.5.3)
     multipart-post (1.2.0)
     nested_form (0.3.1)
     net-http-digest_auth (1.2.1)
@@ -406,6 +410,7 @@ DEPENDENCIES
   haml
   haml-rails
   haml_coffee_assets
+  httparty
   instagram (~> 0.8.5)
   jquery-rails
   mechanize
