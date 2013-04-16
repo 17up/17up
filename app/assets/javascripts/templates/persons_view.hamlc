@@ -1,4 +1,4 @@
-#persons
-	- for p in @persons
-		%p
-			= p.name
+- for p in @persons
+	%p
+		= p.name
+

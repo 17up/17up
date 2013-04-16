@@ -48,3 +48,4 @@ class window.Olive.QuotesView extends Olive.View
 		@destroy_tag()
 		@create()
 		@search()
+		super()

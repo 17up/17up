@@ -14,6 +14,7 @@ module Utils
       end
       alpha.sample(size).join
     end
+
   end
 
   module Service
