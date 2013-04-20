@@ -28,4 +28,15 @@ module Eva
 		end
 		
 	end
+
+	class Media < Base
+		def fetch
+			if p = @member.has_provider?("tumblr")
+				data = Olive::Tumblr.new(p).user_liked_media
+				@member.write_attribute(:tumblr,data)
+				@member.save
+			end
+		end
+		
+	end
 end

@@ -50,7 +50,7 @@ class WordsController < ApplicationController
 	  def find_or_create_uw(id)
 	    @word = Word.find(id)
 	    unless @uw = current_member.has_u_word(@word)
-	      @uw = current_member.u_words.create(:word_id => @word._id)
+	      @uw = current_member.u_words.new(:word_id => @word._id)
 	    end
 	    @uw
 	  end

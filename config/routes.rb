@@ -66,8 +66,13 @@ Veggie::Application.routes.draw do
     root :to => "members#index"
   end
   root :to => 'home#index'
-
-  get "lab", :to => "mobile#lab"
+  
+  get "lab" => "mobile#lab"
+  #mobile
+  namespace :mobile do
+    get "fetch"
+    post "make_word"
+  end
 
   # See how all your routes lay out with "rake routes"
   unless Rails.application.config.consider_all_requests_local

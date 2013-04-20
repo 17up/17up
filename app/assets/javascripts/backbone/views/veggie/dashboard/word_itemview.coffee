@@ -62,10 +62,12 @@ class window.Veggie.WordView extends Backbone.View
 		$ele = $(e.currentTarget)
 		if @sound
 			@sound.play() 
+		$input_id = $("footer #uploader .uword input[name='_id']")
 		if id = @model.get("_id")
-			$("footer #uploader .uword input[name='_id']").val(id)
+			$input_id.val(id)
 		else if @model.get("title")
-			@model.fetch()
+			@model.fetch =>
+				$input_id.val(@model.get("_id"))
 		
 		if @model.get('num') is 0
 			Veggie.GuideView.addOne Guide.imagine("ihome")
@@ -75,7 +77,9 @@ class window.Veggie.WordView extends Backbone.View
 			Veggie.GuideView.addOne Guide.imagine("iend")
 			
 	upload_img: (e) ->
-		Utils.uploader $(e.currentTarget)
+		Utils.uploader $(e.currentTarget),(img) =>
+			@model.set 
+				img_url: img
 	audio_record: (e) ->
 		self = this
 		_id = @model.get("_id")
