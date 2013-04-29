@@ -48,12 +48,12 @@ end
 namespace :websocket do
   desc "Start websocket"
   task :start, :roles => :app do
-    run "cd #{deploy_to}current/; rake websocket_rails:start_server"
+    run "cd #{deploy_to}current/; rake websocket_rails:start_server RAILS_ENV=production"
   end
 
   desc "Stop websocket"
   task :stop, :roles => :app do
-    run "cd #{deploy_to}current/; rake websocket_rails:stop_server"
+    run "cd #{deploy_to}current/; rake websocket_rails:stop_server RAILS_ENV=production"
   end
 end
 
