@@ -74,7 +74,7 @@ group :development, :test do
 	gem 'quiet_assets'
   gem 'database_cleaner'
 end
-
+gem "websocket-rails"
 gem 'redis'
 gem 'redis-rails'
 gem "mongoid"

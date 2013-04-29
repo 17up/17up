@@ -87,10 +87,10 @@ class window.Utils
 
 	@active_tab: (id) ->
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
-	@flash: (msg,type='') ->
-		$flash = $("#flash_message")
-		$flash.prepend JST['flash']
-		$alert = $(".alert",$flash)
+	@flash: (msg,type='',$container) ->
+		$container = $container || $("#flash_message")
+		$container.prepend JST['widget/flash']
+		$alert = $(".alert:first-child",$container)
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
 		$("strong",$alert).text(msg)
@@ -101,7 +101,7 @@ class window.Utils
 		setTimeout fuc,5000
 		false
 	@confirm: (msg,yesCallback) ->
-		$("body").prepend JST['confirm']
+		$("body").prepend JST['widget/confirm']
 		$confirm = $("#confirm_dialog")
 		$alert = $(".alert",$confirm)	
 		$("strong",$confirm).text(msg)

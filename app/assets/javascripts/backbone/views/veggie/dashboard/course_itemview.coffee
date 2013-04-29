@@ -12,7 +12,6 @@ class window.Veggie.CourseView extends Backbone.View
 		"click .back-to-content": "back_to_content"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
-	
 	checkin: ->
 		@model.checkin =>
 			Veggie.GuideView.addOne Guide.courses("content")
@@ -47,6 +46,7 @@ class window.Veggie.CourseView extends Backbone.View
 			@addEnd()
 		else
 			@select_words_from_collection()
+		window.chatroom.enter_channel(@model.get("_id"))
 	back_to_list: ->
 		@model.set 
 			open: false
@@ -54,6 +54,7 @@ class window.Veggie.CourseView extends Backbone.View
 		$("#assets").html ""		
 		@collection.reset()
 		$("#imagine").html ""
+		window.chatroom.leave_channel()
 	save_step: (id) ->
 		cid = @model.get("_id")
 		$.jStorage.set "course_#{cid}",id
@@ -67,7 +68,7 @@ class window.Veggie.CourseView extends Backbone.View
 		@$el.removeClass 'opacity'
 		Veggie.GuideView.addOne Guide.courses("back_content")
 		@select_words_from_collection()
-
+		
 	toggleSelect: (e) ->
 		$target = $(e.currentTarget)
 		word = @collection.where

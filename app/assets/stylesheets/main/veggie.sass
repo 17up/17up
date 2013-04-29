@@ -1,9 +1,40 @@
 @import "utils"
 
 $nav_height: 86px
+$chatroom_height: 44px
 body.veggie
 	background: url(/assets/img/bg/bg_home.png) #DBEED5
-	overflow: auto
+	overflow: auto	
+	#chatroom
+		opacity: 0
+		position: fixed
+		bottom: 0
+		width: 100%
+		height: $chatroom_height
+		left: 0
+		z-index: 100
+		@include glass
+		.inner_wrap
+			width: 640px
+			margin: 0 auto
+			position: relative
+			padding: 5px 0
+			#oline_users
+				width: 210px
+				overflow: hidden
+				text-align: right
+				position: absolute
+				left: 0
+				bottom: 0
+				.member
+					display: inline-block
+					padding: 5px
+					img 
+						width: 32px
+						height: 32px
+			#chat_content
+				margin-left: 215px
+				width: 400px
 	nav
 		height: $nav_height
 		@include fibre

@@ -9,7 +9,7 @@ class window.Veggie
 		window.route = new Veggie.Router()
 		Backbone.history.start
 			pushState: true
-    	
+
 		$(document).bind "keyup.nav",(e) ->
 			switch e.keyCode
 				when 27 # esc
