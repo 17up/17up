@@ -45,20 +45,15 @@ namespace :deploy do
   end
 end
 
-namespace :faye do
-  desc "Start Faye"
+namespace :websocket do
+  desc "Start websocket"
   task :start, :roles => :app do
-    run "cd #{deploy_to}current/faye_server; thin start -C thin.yml"
+    run "cd #{deploy_to}current/; rake websocket_rails:start_server"
   end
 
-  desc "Stop Faye"
+  desc "Stop websocket"
   task :stop, :roles => :app do
-    run "cd #{deploy_to}current/faye_server; thin stop -C thin.yml"
-  end
-
-  desc "Restart Faye"
-  task :restart, :roles => :app do
-    run "cd #{deploy_to}current/faye_server; thin restart -C  thin.yml"
+    run "cd #{deploy_to}current/; rake websocket_rails:stop_server"
   end
 end
 
