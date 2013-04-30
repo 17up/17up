@@ -143,6 +143,15 @@ class Member
     super(:only => [:c_at,:role,:uid]).merge(ext)
   end
 
+  def as_profile
+    {
+      :_id => _id,
+      :avatar => avatar,
+      :name => name,
+      :member_path => member_path
+    }
+  end
+
   rails_admin do
     field :email do
       pretty_value do

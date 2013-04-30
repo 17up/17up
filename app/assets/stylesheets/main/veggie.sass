@@ -1,7 +1,6 @@
 @import "utils"
 
 $nav_height: 86px
-$chatroom_height: 44px
 body.veggie
 	background: url(/assets/img/bg/bg_home.png) #DBEED5
 	overflow: auto	
@@ -10,7 +9,7 @@ body.veggie
 		position: fixed
 		bottom: 0
 		width: 100%
-		height: $chatroom_height
+		height: auto
 		left: 0
 		z-index: 100
 		@include glass
@@ -22,16 +21,29 @@ body.veggie
 			#oline_users
 				width: 210px
 				overflow: hidden
-				text-align: right
 				position: absolute
 				left: 0
 				bottom: 0
+				height: 100%
 				.member
 					display: inline-block
 					padding: 5px
+					vertical-align: middle
+					@include transition(0.8s)
+					span.invite
+						width: 28px
+						height: 28px
+						text-align: center
+						line-height: 32px
+						color: #666
+						display: inline-block
+						@include round(5px)
+						border: 2px dotted #333
+						cursor: pointer
 					img 
 						width: 32px
 						height: 32px
+						@include round(5px)
 			#chat_content
 				margin-left: 215px
 				width: 400px

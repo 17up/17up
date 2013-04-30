@@ -9,8 +9,6 @@ class window.Veggie.MemberView extends Backbone.View
 		@$el.html(template)
 		this
 	remove: ->
-		@$el.animate
-			"opacity":0
-			500
-			->
-				$(@).remove()
+		@$el.css "-webkit-transform":"scale(0.0)"
+		@$el.on "webkitTransitionEnd",(e) ->
+			$(@).remove()

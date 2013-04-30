@@ -6,22 +6,15 @@ class ChatController < WebsocketRails::BaseController
 
 	def client_connected
   	controller_store[:user_count] += 1
-    data = {
-      :avatar => current_member.avatar,
-      :name => current_member.name,
-      :count => controller_store[:user_count]
-    }
-    send_message :enter, data
+    #send_message :enter, data
   end
 
   def delete_user
   	controller_store[:user_count] -= 1
-    data = {
-      :avatar => current_member.avatar,
-      :name => current_member.name,
-      :count => controller_store[:user_count]
-    }
-    send_message :leave, data
+    if connection_store.keys.length == 1
+      channel = connection_store.keys[0]
+      send_leave(channel)
+    end
  	end
 
  	def new_message
@@ -31,33 +24,31 @@ class ChatController < WebsocketRails::BaseController
 
   def enter_channel
       channel = data["cid"]
-      if controller_store[channel]
-        controller_store[channel] += 1
-      else
-        controller_store[channel] = 1
-      end
+      mids = connection_store.collect_all(channel).compact
+      if mids.length < 5
+        guys = Member.where(:_id.in => mids)
+        connection_store[channel] = current_member._id
+        newer = current_member.as_profile
+        data = {
+          :guys => guys.collect{|x| x.as_profile},
+          :newer => newer
+        }
 
-      data = {
-        :_id => current_member._id,
-        :avatar => current_member.avatar,
-        :name => current_member.name
-      }
-      WebsocketRails[channel].trigger 'enter', data
+        WebsocketRails[channel].trigger 'enter', data
+      else
+        WebsocketRails[channel].trigger 'enter_fail'
+      end 
   end
 
   def leave_channel
       channel = data["cid"]
-      if controller_store[channel]
-        controller_store[channel] -= 1
-      else
-        controller_store[channel] = 0
-      end
-      p controller_store[channel]
-      data = {
-        :_id => current_member._id,
-        :avatar => current_member.avatar,
-        :name => current_member.name
-      }
-      WebsocketRails[channel].trigger 'leave', data
+      send_leave(channel)
+  end
+
+  private
+  def send_leave(channel)
+    connection_store[channel] = nil
+    leaver = current_member.as_profile
+    WebsocketRails[channel].trigger 'leave', leaver
   end
 end
