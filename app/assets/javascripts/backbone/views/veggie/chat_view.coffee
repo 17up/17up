@@ -5,8 +5,10 @@ class window.Veggie.ChatView extends Backbone.View
 	collection: new Veggie.Members()
 	initialize: (self = this) ->	
 		$("body").append(self.render().el)
-		@dispatcher = new WebSocketRails('localhost:3000/websocket')
-		#@dispatcher = new WebSocketRails('17up.org:3001/websocket')
+		if location.href.match(/17up.org/)
+			@dispatcher = new WebSocketRails('17up.org:3001/websocket')
+		else
+			@dispatcher = new WebSocketRails('localhost:3000/websocket')
 		# @dispatcher.on_open = (data) ->
 		# 	console.log data
 		# @dispatcher.bind 'enter', (member)->		

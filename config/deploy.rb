@@ -45,7 +45,7 @@ namespace :deploy do
   end
 end
 
-namespace :websocket do
+namespace :ws do
   desc "Start websocket"
   task :start, :roles => :app do
     run "cd #{deploy_to}current/; rake websocket_rails:start_server"
