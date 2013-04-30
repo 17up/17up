@@ -1,3 +1,3 @@
-class window.Mobile.Image extends Backbone.Model
+class window.MagicImage extends Backbone.Model
 	defaults:
 		"url": ""
