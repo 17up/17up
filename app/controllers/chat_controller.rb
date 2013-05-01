@@ -1,5 +1,5 @@
 class ChatController < WebsocketRails::BaseController
-
+  # 独立的server,不能用current_member
 	def initialize_session
       controller_store[:user_count] = 0
   end
@@ -13,7 +13,7 @@ class ChatController < WebsocketRails::BaseController
   	controller_store[:user_count] -= 1
     if connection_store.keys.length == 1
       channel = connection_store.keys[0]
-      send_leave(channel)
+      send_leave(channel,connection_store[channel])
     end
  	end
 
@@ -27,8 +27,8 @@ class ChatController < WebsocketRails::BaseController
       mids = connection_store.collect_all(channel).compact
       if mids.length < 5
         guys = Member.where(:_id.in => mids)
-        connection_store[channel] = current_member._id
-        newer = current_member.as_profile
+        connection_store[channel] = data["uid"]
+        newer = Member.find(data["uid"]).as_profile
         data = {
           :guys => guys.collect{|x| x.as_profile},
           :newer => newer
@@ -41,14 +41,13 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def leave_channel
-      channel = data["cid"]
-      send_leave(channel)
+      send_leave(data["cid"],data["uid"])
   end
 
   private
-  def send_leave(channel)
+  def send_leave(channel,uid)
     connection_store[channel] = nil
-    leaver = current_member.as_profile
+    leaver = Member.find(uid).as_profile
     WebsocketRails[channel].trigger 'leave', leaver
   end
 end

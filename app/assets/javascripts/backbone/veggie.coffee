@@ -4,8 +4,6 @@
 class window.Veggie
 	constructor: ->
 		$("body").addClass 'veggie'
-		$("nav .avatar").on 'click', ->
-			Utils.uploader($(@))
 		window.route = new Veggie.Router()
 		Backbone.history.start
 			pushState: true

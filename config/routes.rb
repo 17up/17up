@@ -47,6 +47,7 @@ Veggie::Application.routes.draw do
     post "upload_avatar"
     get "dashboard"
     get "account"
+    get "profile"
     get "provider"
     get "genius"
     get "friend"

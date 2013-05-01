@@ -32,19 +32,15 @@ class window.Veggie.ChatView extends Backbone.View
 	send_message: (content) ->
 		message = 
 			cid: @channel.name
-			name: $("nav .name").text()
+			_id: window.current_member.get("_id")
 			content: content
 
 		@dispatcher.trigger('new_message', message)
-	find_and_remove: (_id) ->
-		m = @collection.where(_id: _id)[0]
-		if m
-			@collection.remove m
-			m.destroy()
 	enter_channel: (channel_id) ->		
 		@channel = @dispatcher.subscribe(channel_id)
 		data = 
 			cid: channel_id
+			uid: window.current_member.get("_id")
 		@dispatcher.trigger('enter_channel',data)
 		@$el.css("opacity":1)
 		@channel.bind 'enter', (data) =>
@@ -52,21 +48,28 @@ class window.Veggie.ChatView extends Backbone.View
 			if is_newer
 				for m in data.guys
 					@collection.push(new Member(m))			
-			@collection.push(new Member(data.newer))
-			if is_newer
+				@collection.push(new Member(data.newer))
 				for i in [1..(5 - @collection.length)]
 					@collection.push(new Member())
 			else
-				@find_and_remove('')
+				m = @collection.where(_id: '')[0]
+				m.set data.newer
 		@channel.bind 'success', (ms) =>
-			Utils.flash(ms.name + " : " + ms.content,"success",$("#chatroom"))
+			m = @collection.where(_id: ms._id)[0]
+			m.trigger "say"
+			if ms._id is window.current_member.get("_id")
+				Utils.flash(ms.content,"success",$("#chatroom"))
+			else
+				Utils.flash(ms.content,"info",$("#chatroom"))
+			
 		@channel.bind 'leave', (data) =>
-			@find_and_remove(data._id)
-			@collection.push(new Member())
+			m = @collection.where(_id: data._id)[0]
+			m.set m.defaults
 	leave_channel: ->
 		@$el.css("opacity":0)
 		data = 
 			cid: @channel.name
+			uid: window.current_member.get("_id")
 		@dispatcher.trigger('leave_channel',data)
 		@channel._callbacks = []
 		@collection.reset()

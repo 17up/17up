@@ -1,19 +1,5 @@
 = render "shared/flash_message"
 %nav
-	.avatar(title="点我更换头像" data-uploader="avatar")		
-		= image_tag current_member.avatar
-		%i.icon-upload-alt
-	.info
-		.name
-			= current_member.name
-		.gem.label
-			= current_member.gem
-	.brand.dancer
-		17up
-	.nav-item
-		%a.active(href = "/members/sign_out" data-method="delete" rel="nofollow")
-			%span.button.xs.glossy(data-icon=' ')
-				%i.icon-off
 #container
 	%aside
 		%ul#side_nav

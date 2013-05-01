@@ -3,12 +3,16 @@ class window.Veggie.MemberView extends Backbone.View
 	className: 'member'
 	template: JST['item/member']
 	initialize: ->
-		@listenTo(@model, 'destroy', @remove)
+		@listenTo(@model, 'change', @render)
+		@listenTo(@model, 'say', @say)
+		@$el.on "webkitTransitionEnd",(e) ->
+			$(@).removeClass("highlight")
 	render: ->
 		template = @template(@model.toJSON())
 		@$el.html(template)
 		this
-	remove: ->
-		@$el.css "-webkit-transform":"scale(0.0)"
-		@$el.on "webkitTransitionEnd",(e) ->
-			$(@).remove()
+	say: ->
+		@$el.addClass("highlight")
+
+
+			

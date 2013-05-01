@@ -148,7 +148,9 @@ class Member
       :_id => _id,
       :avatar => avatar,
       :name => name,
-      :member_path => member_path
+      :member_path => member_path,
+      :gem => gem,
+      :is_member => is_member?
     }
   end
 

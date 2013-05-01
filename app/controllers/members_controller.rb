@@ -39,6 +39,11 @@ class MembersController < ApplicationController
     render_json 0,"ok",provider.as_json
   end
 
+  # get current member profile
+  def profile
+    render_json 0,"ok",current_member.as_profile
+  end
+
   # api get
   def friend
     render_json 0,'ok'

@@ -89,11 +89,10 @@ class window.Utils
 		$("ul.tab li a[href='#"+id+"']").parent().addClass('active').siblings().removeClass("active")
 	@flash: (msg,type='',$container) ->
 		$container = $container || $("#flash_message")
-		$container.prepend JST['widget/flash']
+		$container.prepend JST['widget/flash'](msg:msg)
 		$alert = $(".alert:first-child",$container)
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
-		$("strong",$alert).text(msg)
 		$alert.slideDown()
 		fuc = -> 
 			$alert.slideUp ->
