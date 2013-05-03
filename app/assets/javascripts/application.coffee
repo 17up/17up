@@ -25,3 +25,4 @@ $ ->
 	if $init.length is 1
 		js_class = $("footer #init").data().js
 		new window[js_class]
+	#Synth.init()

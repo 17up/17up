@@ -11,14 +11,6 @@
 	100%
 		@include transform(rotate(360deg))
 
-+keyframes(logo)
-	0%
-		@include transform(scale(1) rotate(0deg))
-	50%
-		@include transform(scale(0.9) rotate(-60deg))
-	100%
-		@include transform(scale(1) rotate(0deg))
-
 +keyframes(shine)
 	0%
 		opacity: 0.3
@@ -174,13 +166,8 @@ body.welcome
 				@include animation-iteration-count(infinite)
 				@include animation-timing-function(linear)		
 	#topic
-		.logo 
-			img
-				width: 160px
-				@include animation-name(logo)
-				@include animation-duration(17s)
-				@include animation-iteration-count(infinite)
-				@include animation-timing-function(alternate)
+		#logo
+			font-size: 120px
 
 	#login
 		.desc

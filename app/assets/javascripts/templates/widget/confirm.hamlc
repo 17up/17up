@@ -1,6 +1,7 @@
 #confirm_dialog
 	.alert.alert-error.text_center.hide
 		%strong
+			= @msg
 		.confirm
 			%span.btn.yes(data-confirm = "true")
 				%i.icon-ok

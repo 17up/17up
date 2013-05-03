@@ -99,11 +99,33 @@ class window.Utils
 				$(@).remove()
 		setTimeout fuc,5000
 		false
+	@message: (avatar,msg,style = '',$container) ->
+		$container = $container || $("#chatroom")
+		$container.prepend JST['widget/message'](avatar:avatar,msg:msg)
+		$alert = $(".ms:first-child",$container)
+		if style isnt ''
+			$alert.addClass "ms-#{style}"
+		$alert.css 		
+			"-webkit-transform": "scale(0)"
+			"opacity": "0"
+			"-webkit-transition": "1s"
+		fade_in = ->
+			$alert.css 
+				"-webkit-transform":"scale(1)"
+				"opacity": "1"
+		fade_out  = ->
+			$alert.css 
+				"-webkit-transform":"scale(1.5)"
+				"opacity": "0.0"
+			$alert.on "webkitTransitionEnd",->
+				$(@).remove()
+		setTimeout fade_in,100
+		setTimeout fade_out,7000
+		false
 	@confirm: (msg,yesCallback) ->
-		$("body").prepend JST['widget/confirm']
+		$("body").prepend JST['widget/confirm'](msg:msg)
 		$confirm = $("#confirm_dialog")
-		$alert = $(".alert",$confirm)	
-		$("strong",$confirm).text(msg)
+		$alert = $(".alert",$confirm)
 		$("#container").addClass 'mask'
 		$alert.fadeIn()
 		$(".btn",$confirm).click ->
@@ -112,3 +134,11 @@ class window.Utils
 			$confirm.remove()	
 			$("#container").removeClass 'mask'
 		false
+	@highlight: ($el,transition = "1s",color = "#5889e8") ->
+		$el.off "webkitTransitionEnd"
+		origin_bg = $el.css "background-color"
+		$el.css 
+			"-webkit-transition": transition
+			"background-color": color
+		$el.on "webkitTransitionEnd",(e) ->
+			$(@).css "background-color": origin_bg

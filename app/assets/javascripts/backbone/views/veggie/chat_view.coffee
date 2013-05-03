@@ -11,19 +11,20 @@ class window.Veggie.ChatView extends Backbone.View
 			@dispatcher = new WebSocketRails('localhost:3000/websocket')
 		# @dispatcher.on_open = (data) ->
 		# 	console.log data
-		# @dispatcher.bind 'enter', (member)->		
-		# 	console.log member.count
-		
+
 		$content = $(@content_id)
 		$(document).bind "keyup",(event) ->  		 			
 			if event.keyCode is 13
 				content = $.trim($content.val())
-				if content isnt "" 
-					self.send_message(content)
+				if content is ""
 					$content.val("").focus()
+				else if content.length > 50
+					Utils.flash("#{content.length} 个字符太长啦，发言简短更显才气！","error")
 				else
-					$content.focus()
+					self.send_message(content)
+					$content.val("").blur()#.focus()
 
+					
 	render: ->
 		template = @template()
 		@$el.html(template)
@@ -53,15 +54,15 @@ class window.Veggie.ChatView extends Backbone.View
 					@collection.push(new Member())
 			else
 				m = @collection.where(_id: '')[0]
-				m.set data.newer
+				m.set data.newer		
+				Utils.message(m.get("avatar"),"welcome " + m.get("name"),"info")
 		@channel.bind 'success', (ms) =>
 			m = @collection.where(_id: ms._id)[0]
-			m.trigger "say"
 			if ms._id is window.current_member.get("_id")
-				Utils.flash(ms.content,"success",$("#chatroom"))
+				style = "success"
 			else
-				Utils.flash(ms.content,"info",$("#chatroom"))
-			
+				style = ""
+			Utils.message(m.get("avatar"),ms.content,style)
 		@channel.bind 'leave', (data) =>
 			m = @collection.where(_id: data._id)[0]
 			m.set m.defaults

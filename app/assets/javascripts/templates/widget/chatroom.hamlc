@@ -1,3 +1,4 @@
-.inner_wrap
-	#oline_users
-	%input#chat_content(type="text" placeholder="和一起学习的伙伴畅谈吧")
+.container
+	.inner_wrap
+		#oline_users
+		%input#chat_content(type="text" placeholder="和一起学习的伙伴畅谈吧")

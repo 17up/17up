@@ -2,13 +2,14 @@
 
 #dashboard 
 	#imagine
+		@include user-select(none)
 		.word.active
 			opacity: 1	
 		.word
 			text-align: center
 			z-index: 1
 			position: relative
-			opacity: 0	
+			opacity: 0
 			@include transition(all,0.8s)
 		.action
 			position: absolute
@@ -109,6 +110,7 @@
 		li 
 			list-style: none
 			@include transition(opacity,0.8s)
+			@include user-select(none)
 			.title
 				font-size: 18px
 				line-height: 1.5
