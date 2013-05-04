@@ -16,13 +16,14 @@ class window.Veggie.ChatView extends Backbone.View
 		$(document).bind "keyup",(event) ->  		 			
 			if event.keyCode is 13
 				content = $.trim($content.val())
+				wc = Utils.wd_count(content)
 				if content is ""
 					$content.val("").focus()
-				else if content.length > 50
-					Utils.flash("#{content.length} 个字符太长啦，发言简短更显才气！","error")
+				else if wc > 17
+					Utils.flash("#{wc} 个词太长啦，发言简短更显才气！","error")
 				else
 					self.send_message(content)
-					$content.val("").blur()#.focus()
+					$content.val("").focus()
 
 					
 	render: ->

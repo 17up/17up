@@ -15,6 +15,7 @@ class window.Veggie.DashboardView extends Veggie.View
 			$("#imagine").jmpress "deinit"
 		$("#imagine").hide()
 		$("#icontrol").removeClass 'active'
+		@$el.css "height":"auto"
 	init_imagine: ->
 		unless $("#imagine").jmpress("initialized")
 			if @current_course
@@ -35,6 +36,7 @@ class window.Veggie.DashboardView extends Veggie.View
 					$("#imagine").jmpress "goTo","#" + step
 				$("#imagine").show()
 				$("#icontrol").addClass 'active'
+				@$el.css "height":"100%"
 	keyup: (event) ->
 		switch event.keyCode
 			when 39

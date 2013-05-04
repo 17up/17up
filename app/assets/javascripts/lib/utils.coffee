@@ -99,14 +99,25 @@ class window.Utils
 				$(@).remove()
 		setTimeout fuc,5000
 		false
+	@wd_count: (string) ->
+		cn_regx = /[\u4E00-\u9FA5\uf900-\ufa2d]/ig
+		has_cn = string.match(cn_regx)
+		if has_cn
+			cn_count = has_cn.length
+			string = string.replace(cn_regx,'')
+		else
+			cn_count = 0
+		en_count = (_.compact(string.split(" "))).length
+		en_count + cn_count
 	@message: (avatar,msg,style = '',$container) ->
 		$container = $container || $("#chatroom")
+		wc = Utils.wd_count(msg)
 		$container.prepend JST['widget/message'](avatar:avatar,msg:msg)
 		$alert = $(".ms:first-child",$container)
 		if style isnt ''
 			$alert.addClass "ms-#{style}"
 		$alert.css 		
-			"-webkit-transform": "scale(0)"
+			"-webkit-transform": "scale(0.3)"
 			"opacity": "0"
 			"-webkit-transition": "1s"
 		fade_in = ->
@@ -120,7 +131,11 @@ class window.Utils
 			$alert.on "webkitTransitionEnd",->
 				$(@).remove()
 		setTimeout fade_in,100
-		setTimeout fade_out,7000
+		if wc > 6 
+			duration = wc*1100 
+		else
+			duration = 7000
+		setTimeout fade_out,duration
 		false
 	@confirm: (msg,yesCallback) ->
 		$("body").prepend JST['widget/confirm'](msg:msg)
@@ -134,11 +149,10 @@ class window.Utils
 			$confirm.remove()	
 			$("#container").removeClass 'mask'
 		false
-	@highlight: ($el,transition = "1s",color = "#5889e8") ->
-		$el.off "webkitTransitionEnd"
-		origin_bg = $el.css "background-color"
+	@highlight: ($el) ->		
 		$el.css 
-			"-webkit-transition": transition
-			"background-color": color
+			"-webkit-transition": "2s"
+			"-webkit-transform": "scale(2)"
 		$el.on "webkitTransitionEnd",(e) ->
-			$(@).css "background-color": origin_bg
+			$(@).css "-webkit-transform": "scale(1)"
+			$(@).off "webkitTransitionEnd"

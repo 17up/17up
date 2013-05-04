@@ -68,6 +68,8 @@ class window.Veggie.CourseView extends Backbone.View
 		@$el.removeClass 'opacity'
 		Veggie.GuideView.addOne Guide.courses("back_content")
 		@select_words_from_collection()
+		# w = $.trim($(".title",$word).text())
+		# Utils.highlight $('b:contains("' + w + '")')
 		
 	toggleSelect: (e) ->
 		$target = $(e.currentTarget)
