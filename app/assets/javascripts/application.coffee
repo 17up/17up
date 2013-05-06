@@ -14,6 +14,7 @@
 #= require backbone/olive
 #= require backbone/user_show
 
+
 $ ->
 	$('body').on 'click',"span.close", ->
 		$(@).parent().slideUp ->

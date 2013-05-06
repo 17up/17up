@@ -1,0 +1,120 @@
+<script type="text/javascript">
+  $(function(){
+    var $lrcInput = $("#lrc")
+      , $out = $("#out")
+      , $timer = $("#timer")
+      , lrc
+      ;
+    
+    $("#list>li").click(function(i){
+      loadLrc('/lrcs/' + this.innerHTML)
+    })
+    
+    $("#parse").click(function(){
+      lrc = parse($lrcInput.val());
+    });
+    
+    $("#play").click(function(){
+      var s = $("#startTime").val() * 1000 || 0
+      lrc.play(s);
+      showTimer(s);
+    });
+    
+    $("#pause").click(function(){
+      lrc.pauseToggle();
+      showTimer.pause();
+    })
+    
+    $("#stop").click(function(){
+      lrc.stop();
+      showTimer.stop();
+    })
+    
+    $("#seek").click(function(){
+      var offset = $("#startTime").val() * 1 || 0
+      lrc.seek(offset);
+      showTimer.seek(offset);
+    })
+    
+    
+    var loadLrc = function(url){
+      $lrcInput.val('歌词加载中..');
+      
+      lrc && lrc.stop();
+      showTimer.stop();
+      
+      $.ajax(url || '/lrcs/1.lrc').done(function(txt){
+        $lrcInput.val(txt);
+        lrc = parse(txt)
+      })
+    };
+    
+    var showTimer = (function(){
+      var timeStamp, timer
+        , state, curTime
+        ;
+      var fn = function(time){
+        time = time || 0;
+        timeStamp = Date.now() - time;
+        show(time);
+      };
+      
+      fn.pause = function(){
+        state ? fn.stop() : fn(curTime);
+      };
+      
+      fn.stop = function(){
+        clearTimeout(timer);
+        state = false;
+      };
+      
+      fn.seek = function(offset){
+        timeStamp -= offset;
+        if(!state) curTime += offset;
+      };
+      
+      function show(time){
+        var sec = ((time / 1000) % 60).toFixed(2)
+          , min = Math.floor(time / 60000)
+        curTime = time;
+        $timer.text(min + ':' + sec);
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+          show(Date.now() - timeStamp);
+        }, 10);
+        state = true;
+      }
+      return fn;
+    })();
+    
+    var parse = function (txt){
+      return new Lrc(txt, function(text, extra){
+        if(!text){ return }
+        var lrcs = this.lrc.split('\n');
+        var span = $("<span>").text(lrcs[extra.originLineNum]).hide();
+        $out.empty().append(span.fadeIn('slow'))
+      });
+    };
+    
+    loadLrc();
+  })
+  </script>
+  <form action="#" style="float: left">
+	<textarea name="lrc" id="lrc" style="width: 100%; min-height: 400px;"></textarea>
+  <label for="startTime"><input type="text" id="startTime" /></label>
+  <button id="play" type="button">play</button>
+  <button id="seek" type="button">seek</button>
+  <button id="pause" type="button">pause_play</button>
+  <button id="stop" type="button">stop</button>
+  <button id="parse" type="button">parse</button>
+</form>
+<div style="overflow: hidden; margin: 0 0 0 20px;">
+<ul id="list">
+	<li>1.lrc</li>
+	<li>2.lrc</li>
+	<li>3.lrc</li>
+	<li>4.lrc</li>
+</ul>
+<div id="timer"></div>
+<div id="out"></div>
+</div>

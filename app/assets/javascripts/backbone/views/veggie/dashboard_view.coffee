@@ -3,7 +3,11 @@ class window.Veggie.DashboardView extends Veggie.View
 	className: "common"
 	template: JST['dashboard_view']
 	collection: new Veggie.Dashboard()
-
+	add_song: ->
+		model = new Song(@collection.get("song"))
+		view = new Veggie.SongView
+			model: model
+		@$el.append(view.render().el)
 	active: ->
 		super()		
 		@init_imagine()
@@ -49,10 +53,11 @@ class window.Veggie.DashboardView extends Veggie.View
 		view = JST['item/quote'](q: @collection.get("quote"))
 		$("#quote").html view
 	render: ->
-		template = @template(@collection.toJSON())
+		template = @template()
 		@$el.html(template)
 		this
 	extra: ->
+		@add_song()
 		courses = new Veggie.Courses(@collection.get("courses"))
 		options = {}
 		if @collection.has("guides")

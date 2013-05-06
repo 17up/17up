@@ -37,6 +37,10 @@ Veggie::Application.routes.draw do
     post 'upload_img_u'
     post 'upload_audio_u'
   end
+
+  namespace :songs do
+    post 'create'
+  end
   
   # members
   get "account",:to => "members#index"

@@ -14,6 +14,11 @@ class OliveController < ApplicationController
 	end
 
 	# get
+	def songs
+		render_json 0,"ok"
+	end
+
+	# get
 	def persons
 		@persons = Person.all.as_json(:only => [:name])
 		data = {

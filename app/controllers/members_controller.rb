@@ -10,7 +10,8 @@ class MembersController < ApplicationController
   def dashboard  
     data = {
       :quote => Eva::Quote.new(current_member).single,
-      :courses => Eva::Course.new(current_member).list
+      :courses => Eva::Course.new(current_member).list,
+      :song => Song.first.as_json
     }
 
     unless current_member.is_member?

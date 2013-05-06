@@ -7,6 +7,7 @@ class Course
   field :status, type: Integer, default: 3
   field :tags, type: Array
   field :content
+  field :script, type: Array
   
   # author
   belongs_to :member
