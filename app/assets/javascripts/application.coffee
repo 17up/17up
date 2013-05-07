@@ -22,7 +22,7 @@ $ ->
 	soundManager.setup
         useHTML5Audio: true
         preferFlash: false
-	$init = $("footer #init")
+	$init = $("#init")
 	if $init.length is 1
-		js_class = $("footer #init").data().js
+		js_class = $init.data().js
 		new window[js_class]
