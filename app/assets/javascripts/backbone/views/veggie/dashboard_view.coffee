@@ -3,15 +3,11 @@ class window.Veggie.DashboardView extends Veggie.View
 	className: "common"
 	template: JST['dashboard_view']
 	collection: new Veggie.Dashboard()
-	events: 
-		"click #song": "play_song"
 	add_song: ->
 		model = new Song(@collection.get("song"))
 		@song_view = new Veggie.SongView
 			model: model
 		$("#widgets",@$el).append(@song_view.render().el)
-	play_song: ->
-		@song_view.play()
 	add_courses: ->
 		courses = new Veggie.Courses(@collection.get("courses"))
 		for c in courses.models

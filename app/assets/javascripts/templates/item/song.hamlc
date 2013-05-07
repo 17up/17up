@@ -1,15 +1,10 @@
-- if @open
-	.fullmode.form.alert-success
-		.title
-			= @title
-		.nav
-			%span.btn.back
-				%i.icon-reply
-				返回
-- else
-	.banner.form.alert-success
-		.title
-			= @title
-		.artist
-			= @artist
-		%span.icon-play-circle
+.banner.form.alert-success
+	.title
+		= @title
+	.artist.dancer
+		= @artist
+	.action
+		%span.play
+			%i.icon-play
+		%span.back
+			%i.icon-reply

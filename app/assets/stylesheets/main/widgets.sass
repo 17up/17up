@@ -11,17 +11,23 @@
 				height: 100px
 				cursor: pointer
 				position: relative
-				.icon-play-circle
+				overflow: hidden
+				.title
+					font-size: 22px
+					line-height: 2
+				.artist
+					font-size: 30px
+				.action
 					font-size: 60px
 					position: absolute
 					top: 50%
-					left: 50%
-					margin-left: -25px
-					margin-top: -30px
-			.fullmode
-				width: auto
-				position: relative
-				.nav
-					position: absolute
-					right: 5px
-					top: 2px
+					right: 40px
+					margin-top: -34px
+					@include transition(all,0.8s)
+					@include transform(translateX(140px))	
+					span
+						display: inline-block
+						width: 70px		
+				&:hover
+					.action
+						color: #6fb5e8

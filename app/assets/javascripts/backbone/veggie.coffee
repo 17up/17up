@@ -28,7 +28,7 @@ class window.Veggie
 							requestMethod.apply(element)
 					else
 						false
-	@hide_nav: ->
+	@hide_nav: (callback) ->
 		$("#flash_message .alert").remove()
 		$("nav").animate 
 			"top": "-86px"
@@ -36,6 +36,7 @@ class window.Veggie
 			 ->
 			 	$(@).hide()
 			 	$("article .common").animate 'top':0
+			 	callback() if callback
 		$("aside").animate 
 			"left":"-86px"
 			500
