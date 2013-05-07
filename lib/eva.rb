@@ -24,7 +24,7 @@ module Eva
 	class Quote < Base
 		def single
 			@quote = ::Quote.tag_by("love").first
-			@quote.as_short_json
+			@quote.as_short_json if @quote
 		end
 		
 	end

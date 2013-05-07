@@ -4,6 +4,14 @@
 #assets
 #quote
 #imagine
+#widgets
+	.headline.form.alert-info
+		%span.icon-star
+		每周推荐
+#courses{:class => ("hide" if @is_newer) }
+	.headline.form.alert-info
+		%span.icon-magic
+		智能课表
 
 	
 

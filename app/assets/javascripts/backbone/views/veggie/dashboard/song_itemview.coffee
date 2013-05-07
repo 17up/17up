@@ -1,13 +1,29 @@
 class window.Veggie.SongView extends Backbone.View
 	id: "song"
 	template: JST['item/song']
+	events:
+		"click .back": "back"
+	back: ->
+		@model.set 
+			open: false
+		@$el.siblings().show()
+		@$el.parent().siblings().show()
+	initialize: ->
+		@listenTo(@model, 'change', @render)
 	render: ->
 		@$el.html @template(@model.toJSON())
 		this
 	play: ->
-		@audio = soundManager.createSound
-			id: @model.get("_id")
-			url: @model.get("url")
+		Veggie.hide_nav()
+		@$el.parent().siblings().hide()
+		@$el.siblings().hide()
+		@model.set 
+			open: true
+		unless @audio
+			@audio = soundManager.createSound
+				id: @model.get("_id")
+				url: @model.get("url")
+				autoLoad: true
 		@audio.play()
 		lyrics = new Lrc @model.get("lyrics"),@show_lyrics
 		info = lyrics.tags

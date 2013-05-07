@@ -28,6 +28,7 @@ class window.Veggie.CourseView extends Backbone.View
 			open: true
 			imagine: false
 		Veggie.hide_nav()
+		@$el.parent().siblings().hide()
 		@$el.siblings().hide()	
 		window.route.active_view.current_course = @model
 		unless @model.get("has_checkin")
@@ -51,6 +52,7 @@ class window.Veggie.CourseView extends Backbone.View
 		@model.set 
 			open: false
 		@$el.siblings().show()
+		@$el.parent().siblings().show()
 		$("#assets").html ""		
 		@collection.reset()
 		$("#imagine").html ""

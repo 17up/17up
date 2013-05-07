@@ -3,11 +3,21 @@ class window.Veggie.DashboardView extends Veggie.View
 	className: "common"
 	template: JST['dashboard_view']
 	collection: new Veggie.Dashboard()
+	events: 
+		"click #song": "play_song"
 	add_song: ->
 		model = new Song(@collection.get("song"))
-		view = new Veggie.SongView
+		@song_view = new Veggie.SongView
 			model: model
-		@$el.append(view.render().el)
+		$("#widgets",@$el).append(@song_view.render().el)
+	play_song: ->
+		@song_view.play()
+	add_courses: ->
+		courses = new Veggie.Courses(@collection.get("courses"))
+		for c in courses.models
+			view = new Veggie.CourseView
+				model: c
+			$("#courses",@$el).append(view.render().el)
 	active: ->
 		super()		
 		@init_imagine()
@@ -53,22 +63,16 @@ class window.Veggie.DashboardView extends Veggie.View
 		view = JST['item/quote'](q: @collection.get("quote"))
 		$("#quote").html view
 	render: ->
-		template = @template()
+		template = @template(is_newer: @collection.has("guides"))
 		@$el.html(template)
 		this
 	extra: ->
 		@add_song()
-		courses = new Veggie.Courses(@collection.get("courses"))
-		options = {}
+		@add_courses()
 		if @collection.has("guides")
 			guides = @collection.get("guides")
 			Guide.fetch(guides)
 			for g,i in guides["member"]
 				@addOneGuide(Guide.generate(g,i+1))	
 			$(document).on('keyup', @keyup)
-			options =	
-				className: 'hide'
-		magic_courses_view = new Veggie.MagicCoursesView options
-		@$el.append magic_courses_view.render().el
-		magic_courses_view.addAll(courses)
 		super()
