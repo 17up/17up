@@ -1,4 +1,4 @@
-#tag_list.block
+#tag_list
 	.alert.alert-info
 		%span.icon-tags
 		= @tags.count
@@ -10,7 +10,7 @@
 			%input(name = 'tag' placeholder = "输入标签名" type="text" required="required")
 			%input.btn(type = "submit" value = "删除")
 			
-#create.block
+#create
 	.alert.alert-info
 		%span.icon-magic
 		Create
@@ -19,7 +19,7 @@
 			%input(name = 'author' placeholder = "输入作者" type="text" required="required")
 			%input.btn(type = "submit" value = "创建")
 			
-#search.block
+#search
 	.alert.alert-info
 		%span.icon-search
 		Search
@@ -28,5 +28,5 @@
 			%input(name = 'author' placeholder = "输入作者" type="text" required="required")
 			%input.btn(type = "submit" value = "搜索")
 				
-#quote_list.block
+#quote_list
 		

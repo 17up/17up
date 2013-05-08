@@ -14,6 +14,7 @@ class Olive.Router extends Backbone.Router
 		'courses': 'courses'
 		'quotes': 'quotes'
 		'persons': 'persons'
+		'songs': "songs"
 	before_change: ->
 		if window.route.active_view
 			window.route.active_view.close()
@@ -35,3 +36,9 @@ class Olive.Router extends Backbone.Router
 			@persons_view.active()
 		else
 			@persons_view = new Olive.PersonsView()
+	songs: ->
+		@before_change()
+		if @songs_view
+			@songs_view.active()
+		else
+			@songs_view = new Olive.SongsView()

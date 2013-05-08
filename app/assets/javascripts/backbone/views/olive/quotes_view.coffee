@@ -1,5 +1,6 @@
 class window.Olive.QuotesView extends Olive.View
 	id: 'quotes'
+	className: "block"
 	template: JST['quotes_view']
 	collection: new Olive.Quote()
 	events: ->

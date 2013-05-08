@@ -1,6 +1,5 @@
 class window.Veggie.CourseView extends Backbone.View
 	tagName: 'li'
-	className: "form alert-success"
 	template: JST['item/member_course']
 	collection: new Veggie.Words()
 	events: ->
