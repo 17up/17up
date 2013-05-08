@@ -6,5 +6,7 @@
 	.action
 		%span.play
 			%i.icon-play
+		%span.pause
+			%i.icon-pause
 		%span.back
 			%i.icon-reply

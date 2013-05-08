@@ -1,43 +1,74 @@
 class window.Veggie.SongView extends Backbone.View
 	id: "song"
 	template: JST['item/song']
+	open: false
 	events:
 		"click .back": "back"
-		"click .play": "enter"
+		"click .play": "play"
+		"click .pause": "pause"
 	back: (e) ->
+		$action = $(e.currentTarget).parent()
+		@open = false
+		@audio.stop()
+		$("span",$action).show()
 		@$el.siblings().show()
 		@$el.parent().siblings().show()
 		$(".banner",@$el).css "width":"50%"
-		$(e.currentTarget).hide()
+		$action.css 
+			"-webkit-transform": "translateX(230px)"
 	initialize: ->
-		@listenTo(@model, 'change', @render)
+		@audio = soundManager.createSound
+			id: @model.get("_id")
+			url: @model.get("url")
+			autoLoad: true
+
 	render: ->
 		@$el.html @template(@model.toJSON())
 		this
-	enter: (e) ->
-		$action = $(e.currentTarget).parent()
-		Veggie.hide_nav ->
-			width = $(window).width() - 48
-			$(".banner",@$el).animate
-				"width": width + "px"
-				800
-				-> 
-					$(@).css "width": "auto"
-					$action.css 
-						"-webkit-transform": "translateX(0)"
-		@$el.parent().siblings().hide()
-		@$el.siblings().hide()
-		@play()
-	play: ->		
-		unless @audio
-			@audio = soundManager.createSound
-				id: @model.get("_id")
-				url: @model.get("url")
-				autoLoad: true
-		@audio.play()
-		# lyrics = new Lrc @model.get("lyrics"),@show_lyrics
-		# info = lyrics.tags
-		# lyrics.play(0)
+	play: (e) ->
+		$play_btn = $(e.currentTarget)
+		$pause_btn = $(e.currentTarget).next()
+		if @open
+			if @audio.paused
+				@audio.resume()
+				$play_btn.hide()
+				$pause_btn.show()
+			else
+				$play_btn.hide()
+				$pause_btn.show()
+				@audio.play
+					onfinish: ->
+						$play_btn.show()
+						$pause_btn.hide()
+		else
+			$play_btn.hide()
+			$action = $(e.currentTarget).parent()
+			@open = true
+			Veggie.hide_nav ->
+				width = $(window).width() - 48
+				$(".banner",@$el).animate
+					"width": width + "px"
+					800
+					-> 
+						$(@).css "width": "auto"
+						$action.css 
+							"-webkit-transform": "translateX(0)"					
+			@$el.parent().siblings().hide()
+			@$el.siblings().hide()
+			@audio.play
+				onfinish: ->
+					$play_btn.show()
+					$pause_btn.hide()
+			# lyrics = new Lrc @model.get("lyrics"),@show_lyrics
+			# info = lyrics.tags
+			# lyrics.play(0)
+	pause: (e) ->
+		$play_btn = $(e.currentTarget).prev()
+		$pause_btn = $(e.currentTarget)
+		unless @audio.paused
+			@audio.pause()
+			$pause_btn.hide()
+			$play_btn.show()
 	fade_in: ($txt) ->
 		setTimeout( ->
 			$txt.css 

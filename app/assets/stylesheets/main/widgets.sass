@@ -9,7 +9,6 @@
 			.banner
 				width: 50%
 				height: 100px
-				cursor: pointer
 				position: relative
 				overflow: hidden
 				.title
@@ -21,13 +20,13 @@
 					font-size: 60px
 					position: absolute
 					top: 50%
-					right: 40px
+					right: 25px
 					margin-top: -34px
 					@include transition(all,0.8s)
-					@include transform(translateX(140px))	
+					@include transform(translateX(230px))	
 					span
 						display: inline-block
-						width: 70px		
-				&:hover
-					.action
+						width: 70px
+						cursor: pointer
+					span:hover
 						color: #6fb5e8

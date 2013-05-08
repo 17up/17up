@@ -19,7 +19,7 @@ Veggie::Application.routes.draw do
     get 'courses'
     get 'quotes'
     get 'persons'
-    
+    get 'songs'
     post 'create_quote'
     post 'destroy_tag'
   end
