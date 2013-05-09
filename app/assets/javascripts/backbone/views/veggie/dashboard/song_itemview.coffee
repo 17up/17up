@@ -59,9 +59,12 @@ class window.Veggie.SongView extends Backbone.View
 				onfinish: ->
 					$play_btn.show()
 					$pause_btn.hide()
-			# lyrics = new Lrc @model.get("lyrics"),@show_lyrics
-			# info = lyrics.tags
-			# lyrics.play(0)
+			lyrics = new Lrc @model.get("lyrics"),(text,ex) =>
+				$(".lyrics_container",@$el).prepend JST['item/lrc'](text: text)
+				$alert = $(".lyrics:first-child",@$el)
+				@fade_in($alert)
+				@fade_out($alert.siblings())
+			lyrics.play(0)
 	pause: (e) ->
 		$play_btn = $(e.currentTarget).prev()
 		$pause_btn = $(e.currentTarget)
@@ -81,8 +84,4 @@ class window.Veggie.SongView extends Backbone.View
 			"opacity": "0.0"
 		$txt.on "webkitTransitionEnd",->
 			$(@).remove()
-	show_lyrics: (text,ex) ->
-		@$el.append JST['item/lrc'](text: text)
-		$alert = $(".lyrics:last-child",@$el)
-		@fade_in($alert)
-		@fade_out($alert.siblings())
+		

@@ -10,3 +10,4 @@
 			%i.icon-pause
 		%span.back
 			%i.icon-reply
+.lyrics_container
