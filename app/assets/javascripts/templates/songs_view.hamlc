@@ -2,8 +2,11 @@
 	.alert.alert-info
 		%span.icon-upload
 		上传制作
-.form.alert-success
-	!= JST['form/song']()
+	.form.alert-success
+		%span.btn(data-uploader="song")
+			点击上传
+	#lyrics.form.alert-success.hide
+		!= JST['form/song']()
 #recent_songs
 	.form.alert-info
 		%span.icon-time

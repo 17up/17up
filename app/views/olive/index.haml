@@ -26,3 +26,6 @@
 
 - content_for :footer do
 	#init.hide(data-js="Olive")
+	#uploader
+		.song
+			= render 'shared/uploader',:url => "/songs/upload",:type => "audio"

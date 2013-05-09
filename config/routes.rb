@@ -40,6 +40,7 @@ Veggie::Application.routes.draw do
 
   namespace :songs do
     post 'create'
+    post 'upload'
   end
   
   # members
