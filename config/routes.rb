@@ -56,6 +56,7 @@ Veggie::Application.routes.draw do
     get "provider"
     get "genius"
     get "friend"
+    get "invite_list"
   end
   get ":role/:uid",:to => "members#show" 
 

@@ -36,13 +36,24 @@ class MembersController < ApplicationController
 
   # get provider info
   def provider
-    provider = current_member.has_provider?(params[:provider])
-    render_json 0,"ok",provider.as_json
+    p = current_member.has_provider?(params[:provider])
+    data = p.as_json
+    if p.provider == "weibo"
+      data.merge!(:friends => Wali::Friend.new(p).bilateral)
+    end
+    render_json 0,"ok",data
   end
 
   # get current member profile
   def profile
     render_json 0,"ok",current_member.as_profile
+  end
+
+  def invite_list
+    if p = current_member.has_provider?("weibo")
+      @friends = Wali::Friend.new(p).bilateral
+    end
+    render_json 0,"ok",@friends
   end
 
   # api get

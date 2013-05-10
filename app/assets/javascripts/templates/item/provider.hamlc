@@ -10,4 +10,11 @@
 		%span.icon-time
 		过期时间：
 		= (new Date(@expired_at)).format("yyyy-MM-dd hh:mm:ss")
+- if @friends
+	.friends.clearfix
+		.title.label.label-success
+			好友们
+		- for friend in @friends
+			.f_card{:title => friend["name"],:uid => friend["id"]}
+				%img{:src => friend["profile_image_url"]} 
 

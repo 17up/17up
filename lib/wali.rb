@@ -73,6 +73,23 @@ module Wali
 	  	end 
 	  
 	end
+
+	# only weibo
+	class Friend < Base
+
+		def bilateral
+			friends = client.friendships_friends_bilateral(@provider.uid)["users"]
+			friends.collect do |x| 
+				x.slice("id","screen_name","name","profile_image_url")
+			end
+		end
+
+		def twitter
+			client.friend_ids.ids & client.follower_ids.ids
+		end
+
+
+	end
 	
 end
 
