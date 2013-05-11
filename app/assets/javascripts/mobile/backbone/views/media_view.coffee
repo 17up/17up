@@ -1,13 +1,19 @@
 class window.Mobile.MediaView extends Backbone.View
-	id: "#images"
-	template: JST['genius_view']
+	id: "images"
+	template: JST['mobile/templates/media_view']
 	collection: new Mobile.Media()
+	events:
+		"click .reload": "reload"
 	initialize: ->
 		@collection.fetch
-			url: "/mobile/fetch"
-			success: =>
+			success: (data) =>
 				$("article").append(@render().el)
+	reload: ->
+		@collection.fetch
+			url: "/mobile/fetch?reload=1"
+			success: (data) =>
+				@render()
 	render: ->
-		template = @template(tags: @collection.get("tags"))
+		template = @template(@collection.toJSON())
 		@$el.html(template)
 		this

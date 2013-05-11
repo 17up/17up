@@ -38,8 +38,11 @@ class MembersController < ApplicationController
   def provider
     p = current_member.has_provider?(params[:provider])
     data = p.as_json
-    if p.provider == "weibo"
+    case p.provider
+    when "weibo"
       data.merge!(:friends => Wali::Friend.new(p).bilateral)
+    when "tumblr"
+      false
     end
     render_json 0,"ok",data
   end
@@ -49,11 +52,19 @@ class MembersController < ApplicationController
     render_json 0,"ok",current_member.as_profile
   end
 
+  # To-Do
+  # friendship status
   def invite_list
     if p = current_member.has_provider?("weibo")
-      @friends = Wali::Friend.new(p).bilateral
+      has_invites = current_member.invites.collect(&:target)
+      @friends = Wali::Friend.new(p).bilateral.select do |x|
+        has_invites.exclude?(x["id"].to_s)
+      end
     end
-    render_json 0,"ok",@friends
+    data = {
+      :friends => @friends
+    }
+    render_json 0,"ok",data
   end
 
   # api get
@@ -118,6 +129,25 @@ class MembersController < ApplicationController
         end
       end
     end
+  end
+
+  # invite
+  # @target: uid
+  # @cname 课程名
+  # @provider 'weibo'
+  # @style common / teach
+  def send_invite
+    provider = params[:provider] || "weibo"
+    target = params[:target]
+    message = params[:msg].gsub(/\s+/,' ')
+    invite = current_member.invites.new(:target => target,:provider => provider)
+    if invite.save and p = current_member.has_provider?(provider)          
+      HardWorker::SendInviteJob.perform_async(message,p._id)
+      render_json 0,"ok"
+    else
+      render_json -1,"error"
+    end
+    
   end
 
 end

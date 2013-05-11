@@ -41,6 +41,34 @@ body.veggie
 					@include round(8px)
 		.container
 			@include glass
+		#invite
+			position: relative
+			.close
+				position: absolute
+				right: 10px
+				top: 10px
+				font-size: 30px
+			.share
+				position: absolute
+				right: 10px
+				bottom: 10px
+				font-size: 30px
+				color: #468847
+				cursor: pointer
+				&:hover
+					color: #ef7a7f
+			.title
+				padding: 5px
+			.friend.selected
+				background: #d6e9c6
+			.friend
+				cursor: pointer
+				margin: 5px 
+				padding: 5px
+				img 
+					width: 32px
+					height: 32px
+					@include round(5px)
 		.inner_wrap
 			width: 640px
 			margin: 0 auto

@@ -22,6 +22,13 @@ module HardWorker
       self.logger("#{words_count} words prepared")
     end
   end
+
+  class SendInviteJob < Base
+    def perform(message,id)
+      provider = Authorization.find(id)
+      Wali::Base.new(provider).client.statuses_update(message)
+    end
+  end
   
   class UploadOlive < Base
 
