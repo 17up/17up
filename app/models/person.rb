@@ -3,10 +3,13 @@ class Person
   field :name, type: String
   field :tags, type: Array
   field :area
+  field :glist, type: Array
 
   validates :name, :presence => true,:uniqueness => true
 
-
+  def like_by?(member)
+    glist.include?(member._id) if glist
+  end
  
   rails_admin do 
   	field :name
