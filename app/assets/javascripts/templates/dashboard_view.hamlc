@@ -4,7 +4,7 @@
 #assets
 #quote
 #imagine
-#widgets
+#widgets{:class => ("hide" if @is_newer) }
 	.headline.form.alert-info
 		%span.icon-star
 		每周推荐

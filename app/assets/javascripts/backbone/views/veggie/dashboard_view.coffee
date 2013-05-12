@@ -63,12 +63,13 @@ class window.Veggie.DashboardView extends Veggie.View
 		@$el.html(template)
 		this
 	extra: ->
-		@add_song()
-		@add_courses()
 		if @collection.has("guides")
 			guides = @collection.get("guides")
 			Guide.fetch(guides)
 			for g,i in guides["member"]
 				@addOneGuide(Guide.generate(g,i+1))	
 			$(document).on('keyup', @keyup)
+		@add_song()
+		@add_courses()
+		window.chatroom = new Veggie.ChatView()
 		super()
