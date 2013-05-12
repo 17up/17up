@@ -14,7 +14,8 @@ class window.Veggie.SongView extends Backbone.View
 		$("span",$action).show()
 		@$el.siblings().show()
 		@$el.parent().siblings().show()
-		$(".banner",@$el).css "width":"50%"
+		@$el.addClass("left").css "width":"50%"
+		
 		$action.css 
 			"-webkit-transform": "translateX(230px)"
 		$("#icontrol").removeClass 'active'
