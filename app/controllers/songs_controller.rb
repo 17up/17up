@@ -3,7 +3,9 @@ class SongsController < ApplicationController
 
 	def create
 		attrs = params.slice(:artist,:title,:album,:lyrics)
-		unless song = Song.where(:title => attrs['title']).first
+		if song = Song.where(:title => attrs['title']).first
+			song.update_attributes(attrs)
+		else
 			song = Song.create(attrs)
 		end
 		render_json 0,"ok",song._id

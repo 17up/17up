@@ -27,4 +27,12 @@ class Song
 		}
 		super(:only => [:_id,:lyrics,:artist,:title]).merge(ext)
 	end
+
+	rails_admin do 
+	  	field :title
+	  	field :artist
+	  	field :album
+	  	field :format
+	  	field :lyrics, :text
+	end
 end

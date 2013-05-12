@@ -11,7 +11,7 @@ class window.Olive.SongsView extends Olive.View
 		@$el.html(template)				
 		this
 	upload_song: ->
-		Utils.uploader $("#upload_songs .uploader"), (data) ->
+		Utils.uploader $("#upload_songs .uploader"), (data) =>
 			@song.set data
 	parse_lyrics: (e) ->
 		setTimeout(=>

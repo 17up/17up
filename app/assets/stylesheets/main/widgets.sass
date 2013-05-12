@@ -7,8 +7,14 @@
 			margin-bottom: 10px
 		#song
 			.lyrics_container
+				width: 100%				
 				.lyrics
+					position: absolute
+					left: 50%
+					width: 900px
+					margin-left: -450px
 					@include transition(1s)
+					@include transform(scale(0))
 					font-size: 20px
 					color: #333
 			.banner

@@ -16,9 +16,11 @@ class window.Veggie.SongView extends Backbone.View
 		$(".banner",@$el).css "width":"50%"
 		$action.css 
 			"-webkit-transform": "translateX(230px)"
+		$("#icontrol").removeClass 'active'
+		$(".lyrics_container",@$el).empty()
 	initialize: ->
 		@audio = soundManager.createSound
-			id: @model.get("_id")
+			id: @model.get("_id") || "17music"
 			url: @model.get("url")
 			autoLoad: true
 
@@ -28,6 +30,28 @@ class window.Veggie.SongView extends Backbone.View
 	play: (e) ->
 		$play_btn = $(e.currentTarget)
 		$pause_btn = $(e.currentTarget).next()
+		play_song = =>
+			@lyrics = new Lrc @model.get("lyrics"),(text,ex) =>
+				$(".lyrics_container",@$el).append JST['item/lrc'](text: text)
+				$alert = $(".lyrics:last-child",@$el)
+				@fade_out($alert.siblings())
+				@fade_in($alert)
+			@audio.play
+				onplay: =>
+					@lyrics.play(0)
+				onfinish: ->
+					$play_btn.show()
+					$pause_btn.hide()
+				onpause: =>
+					@lyrics.pauseToggle()
+				onresume: =>
+					@lyrics.pauseToggle()
+				onstop: =>
+					@lyrics.stop()
+				whileplaying:  ->
+					percent = @position*100/@duration
+					$("#progress .current_bar").css "width": "#{percent}%"			
+			$("#icontrol").show().addClass 'active'
 		if @open
 			if @audio.paused
 				@audio.resume()
@@ -36,10 +60,7 @@ class window.Veggie.SongView extends Backbone.View
 			else
 				$play_btn.hide()
 				$pause_btn.show()
-				@audio.play
-					onfinish: ->
-						$play_btn.show()
-						$pause_btn.hide()
+				play_song()
 		else
 			$play_btn.hide()
 			$action = $(e.currentTarget).parent()
@@ -55,16 +76,7 @@ class window.Veggie.SongView extends Backbone.View
 							"-webkit-transform": "translateX(0)"					
 			@$el.parent().siblings().hide()
 			@$el.siblings().hide()
-			@audio.play
-				onfinish: ->
-					$play_btn.show()
-					$pause_btn.hide()
-			lyrics = new Lrc @model.get("lyrics"),(text,ex) =>
-				$(".lyrics_container",@$el).prepend JST['item/lrc'](text: text)
-				$alert = $(".lyrics:first-child",@$el)
-				@fade_in($alert)
-				@fade_out($alert.siblings())
-			lyrics.play(0)
+			play_song()
 	pause: (e) ->
 		$play_btn = $(e.currentTarget).prev()
 		$pause_btn = $(e.currentTarget)
@@ -77,7 +89,7 @@ class window.Veggie.SongView extends Backbone.View
 			$txt.css 
 				"-webkit-transform":"scale(1) translateY(170px)"
 				"opacity": "1"
-		,10)		
+		,1)		
 	fade_out: ($txt) ->
 		$txt.css 
 			"-webkit-transform":"scale(1.5)"
