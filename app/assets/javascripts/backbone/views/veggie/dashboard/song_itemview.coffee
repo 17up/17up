@@ -1,5 +1,6 @@
 class window.Veggie.SongView extends Backbone.View
 	id: "song"
+	className: "left"
 	template: JST['item/song']
 	open: false
 	events:
@@ -65,9 +66,9 @@ class window.Veggie.SongView extends Backbone.View
 			$play_btn.hide()
 			$action = $(e.currentTarget).parent()
 			@open = true
-			Veggie.hide_nav ->
+			Veggie.hide_nav =>
 				width = $(window).width() - 48
-				$(".banner",@$el).animate
+				@$el.removeClass("left").animate
 					"width": width + "px"
 					800
 					-> 

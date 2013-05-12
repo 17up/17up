@@ -31,6 +31,8 @@ class Member
   has_many :authorizations,:dependent => :destroy
   has_many :courses
   has_many :u_words,:dependent => :destroy
+  has_many :invites,:dependent => :destroy
+
   embeds_many :course_grades
   accepts_nested_attributes_for :course_grades
 

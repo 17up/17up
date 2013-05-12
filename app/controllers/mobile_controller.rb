@@ -8,10 +8,12 @@ class MobileController < ApplicationController
   end
 
   def fetch
-  	unless current_member[:tumblr]
+  	if current_member[:tumblr].nil? || params[:reload]
   		Eva::Media.new(current_member).fetch
   	end
-  	data = current_member[:tumblr] ? current_member[:tumblr] : []
+  	data = {
+      :tumblr => current_member[:tumblr] ? current_member[:tumblr] : []
+    }
   	render_json 0,"ok",data
   end
 

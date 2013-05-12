@@ -33,6 +33,9 @@ module Eva
 		def fetch
 			if p = @member.has_provider?("tumblr")
 				data = Olive::Tumblr.new(p).user_liked_media
+				if @member[:tumblr]
+					data =  data | @member[:tumblr]
+				end
 				@member.write_attribute(:tumblr,data)
 				@member.save
 			end

@@ -11,7 +11,8 @@ class MembersController < ApplicationController
     data = {
       :quote => Eva::Quote.new(current_member).single,
       :courses => Eva::Course.new(current_member).list,
-      :song => Song.first.as_json
+      :song => Song.first.as_json,
+      :person => Person.first.as_json
     }
 
     unless current_member.is_member?
@@ -36,13 +37,35 @@ class MembersController < ApplicationController
 
   # get provider info
   def provider
-    provider = current_member.has_provider?(params[:provider])
-    render_json 0,"ok",provider.as_json
+    p = current_member.has_provider?(params[:provider])
+    data = p.as_json
+    case p.provider
+    when "weibo"
+      data.merge!(:friends => Wali::Friend.new(p).bilateral)
+    when "tumblr"
+      false
+    end
+    render_json 0,"ok",data
   end
 
   # get current member profile
   def profile
     render_json 0,"ok",current_member.as_profile
+  end
+
+  # To-Do
+  # friendship status
+  def invite_list
+    if p = current_member.has_provider?("weibo")
+      has_invites = current_member.invites.collect(&:target)
+      @friends = Wali::Friend.new(p).bilateral.select do |x|
+        has_invites.exclude?(x["id"].to_s)
+      end
+    end
+    data = {
+      :friends => @friends
+    }
+    render_json 0,"ok",data
   end
 
   # api get
@@ -107,6 +130,25 @@ class MembersController < ApplicationController
         end
       end
     end
+  end
+
+  # invite
+  # @target: uid
+  # @cname 课程名
+  # @provider 'weibo'
+  # @style common / teach
+  def send_invite
+    provider = params[:provider] || "weibo"
+    target = params[:target]
+    message = params[:msg].gsub(/\s+/,' ')
+    invite = current_member.invites.new(:target => target,:provider => provider)
+    if invite.save and p = current_member.has_provider?(provider)          
+      HardWorker::SendInviteJob.perform_async(message,p._id)
+      render_json 0,"ok"
+    else
+      render_json -1,"error"
+    end
+    
   end
 
 end

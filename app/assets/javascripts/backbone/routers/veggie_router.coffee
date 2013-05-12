@@ -6,7 +6,6 @@ class Veggie.Router extends Backbone.Router
 	initialize: ->
 		self = this
 		new Veggie.BannerView()
-		window.chatroom = new Veggie.ChatView()
 		$("#side_nav li").click ->
 			href = $(@).attr 'rel'
 			$(@).addClass('active')

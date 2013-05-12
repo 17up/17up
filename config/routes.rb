@@ -50,15 +50,21 @@ Veggie::Application.routes.draw do
   namespace :members do
     post "update"
     post "upload_avatar"
+    post "send_invite"
     get "dashboard"
     get "account"
     get "profile"
     get "provider"
     get "genius"
     get "friend"
+    get "invite_list"
   end
-  get ":role/:uid",:to => "members#show" 
 
+  #mobile
+  namespace :mobile do
+    get "fetch"
+    post "make_word"
+  end
   # 如果是移动设备，则以移动版本渲染
   mobile_devise = lambda { |request| 
     agent = request.user_agent.downcase
@@ -74,11 +80,8 @@ Veggie::Application.routes.draw do
   root :to => 'home#index'
   
   get "lab" => "mobile#lab"
-  #mobile
-  namespace :mobile do
-    get "fetch"
-    post "make_word"
-  end
+
+  get ":role/:uid",:to => "members#show"
 
   # See how all your routes lay out with "rake routes"
   unless Rails.application.config.consider_all_requests_local

@@ -6,6 +6,6 @@ class Mobile.Router extends Backbone.Router
 	initialize: ->
 		this
 	routes:
-		'images':'images'
+		'':'images'
 	images: ->
-		this
+		view = new Mobile.MediaView()
