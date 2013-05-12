@@ -14,6 +14,14 @@ class window.Veggie.DashboardView extends Veggie.View
 			view = new Veggie.CourseView
 				model: c
 			$("#courses",@$el).append(view.render().el)
+	add_quote: ->
+		view = JST['item/quote'](q: @collection.get("quote"))
+		$("#quote").html view
+	add_person: ->
+		model = new Person(@collection.get("person"))
+		person_view = new Veggie.PersonView
+			model: model
+		$("#widgets",@$el).append(person_view.render().el)
 	active: ->
 		super()		
 		@init_imagine()
@@ -55,9 +63,6 @@ class window.Veggie.DashboardView extends Veggie.View
 		view = new Veggie.GuideView
 			model: guide
 		$("#assets").append(view.render().el)
-	addQuote: ->
-		view = JST['item/quote'](q: @collection.get("quote"))
-		$("#quote").html view
 	render: ->
 		template = @template(is_newer: @collection.has("guides"))
 		@$el.html(template)
@@ -71,5 +76,7 @@ class window.Veggie.DashboardView extends Veggie.View
 			$(document).on('keyup', @keyup)
 		@add_song()
 		@add_courses()
+		@add_quote()
+		@add_person()
 		window.chatroom = new Veggie.ChatView()
 		super()

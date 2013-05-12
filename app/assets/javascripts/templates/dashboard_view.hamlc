@@ -2,12 +2,12 @@
 	#progress
 		.current_bar
 #assets
-#quote
 #imagine
-#widgets{:class => ("hide" if @is_newer) }
+#widgets.clearfix{:class => ("hide" if @is_newer) }
 	.headline.form.alert-info
 		%span.icon-star
 		每周推荐
+	#quote
 #courses{:class => ("hide" if @is_newer) }
 	.headline.form.alert-info
 		%span.icon-magic

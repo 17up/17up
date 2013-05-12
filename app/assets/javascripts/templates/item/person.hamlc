@@ -1,0 +1,5 @@
+.form.banner.alert-success
+	.name
+		= @name
+	.area
+		= @area

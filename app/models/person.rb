@@ -5,6 +5,8 @@ class Person
   field :area
 
   validates :name, :presence => true,:uniqueness => true
+
+
  
   rails_admin do 
   	field :name
@@ -13,6 +15,7 @@ class Person
         value.blank? ? '-' : value.join(" / ")
       end
     end
+    field :area
   end
 
   index({ name: 1})
