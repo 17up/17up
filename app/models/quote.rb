@@ -1,4 +1,5 @@
 class Quote < Text
+  include Concerns::Likeable
   
   field :author, type: Hash
   field :source, type: Hash

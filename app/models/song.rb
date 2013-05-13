@@ -1,5 +1,6 @@
 class Song
   	include Mongoid::Document
+  	include Concerns::Likeable
 
   	field :lyrics
 	field :artist

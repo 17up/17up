@@ -19,6 +19,7 @@ class window.Veggie.SongView extends Backbone.View
 			"-webkit-transform": "translateX(230px)"
 		$("#icontrol").removeClass 'active'
 		$(".lyrics_container",@$el).empty()
+		$("body").css "overflow":"auto"
 	initialize: ->
 		@audio = soundManager.createSound
 			id: @model.get("_id") || "17music"
@@ -29,6 +30,7 @@ class window.Veggie.SongView extends Backbone.View
 		@$el.html @template(@model.toJSON())
 		this
 	play: (e) ->
+		$("body").css "overflow":"hidden"
 		$play_btn = $(e.currentTarget)
 		$pause_btn = $(e.currentTarget).next()
 		play_song = =>
