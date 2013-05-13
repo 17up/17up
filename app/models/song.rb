@@ -11,6 +11,8 @@ class Song
 	validates :title, :uniqueness => true,:presence => true
 	validates :lyrics, :presence => true
 
+	after_destroy :clear_data
+
 	AUDIO_URL = "/system/audios/song/"
 	AUDIO_PATH = "#{Rails.root}/public" + AUDIO_URL
 
@@ -28,6 +30,10 @@ class Song
 		}
 		super(:only => [:_id,:lyrics,:artist,:title]).merge(ext)
 	end
+
+	def clear_data
+    	`rm -rf #{AUDIO_PATH + _id}`
+  	end 
 
 	rails_admin do 
 	  	field :title
