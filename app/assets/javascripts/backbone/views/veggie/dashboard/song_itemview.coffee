@@ -7,6 +7,7 @@ class window.Veggie.SongView extends Backbone.View
 		"click .back": "back"
 		"click .play": "play"
 		"click .pause": "pause"
+		"click .like": "like"
 	back: (e) ->
 		$action = $(e.currentTarget).parent()
 		@open = false
@@ -100,4 +101,7 @@ class window.Veggie.SongView extends Backbone.View
 			"opacity": "0.0"
 		$txt.on "webkitTransitionEnd",->
 			$(@).remove()
-		
+	like: (e) ->
+		@model.set
+			liked: true
+		false

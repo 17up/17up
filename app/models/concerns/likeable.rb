@@ -10,5 +10,9 @@ module Concerns
       return false if member.blank?
       self.liked_member_ids.include?(member._id)
     end
+
+    def liked_by(member)
+      self.liked_member_ids << member._id
+    end
   end
 end

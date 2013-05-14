@@ -12,5 +12,6 @@
 			%i.icon-reply
 .lyrics_container
 .panel.text_center
-	%a(href="#like")
-		%span.icon-heart
+	- unless @liked
+		%a.like(href="#like")
+			%span.icon-heart

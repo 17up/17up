@@ -50,7 +50,7 @@ class window.Veggie.ChatView extends Backbone.View
 			cid: channel_id
 			uid: window.current_member.get("_id")
 		@dispatcher.trigger('enter_channel',data)
-		@$el.css("opacity":1)
+		@$el.show()
 		@channel.bind 'enter', (data) =>
 			is_newer = @collection.length is 0
 			if is_newer
@@ -74,7 +74,7 @@ class window.Veggie.ChatView extends Backbone.View
 			m = @collection.where(_id: data._id)[0]
 			m.set m.defaults
 	leave_channel: ->
-		@$el.css("opacity":0)
+		@$el.hide()
 		data = 
 			cid: @channel.name
 			uid: window.current_member.get("_id")

@@ -11,8 +11,8 @@ class MembersController < ApplicationController
     data = {
       :quote => Eva::Quote.new(current_member).single,
       :courses => Eva::Course.new(current_member).list,
-      :song => Song.first.as_json,
-      :person => Person.first.as_json
+      :song => Eva::Song.new(current_member).single,
+      :person => Eva::Person.new(current_member).single
     }
 
     unless current_member.is_member?

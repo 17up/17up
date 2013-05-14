@@ -29,6 +29,21 @@ module Eva
 		
 	end
 
+	class Song < Base
+		def single
+			@song = ::Song.first
+			liked = @song.liked_by?(@member)
+			@song.as_json.merge!(:liked => liked)
+		end
+	end
+
+	class Person < Base
+		def single
+			::Person.first.as_json
+		end
+
+	end
+
 	class Media < Base
 		def fetch
 			if p = @member.has_provider?("tumblr")
