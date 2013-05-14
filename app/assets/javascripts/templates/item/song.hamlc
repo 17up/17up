@@ -11,3 +11,6 @@
 		%span.back
 			%i.icon-reply
 .lyrics_container
+.panel.text_center
+	%a(href="#like")
+		%span.icon-heart

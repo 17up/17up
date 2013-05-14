@@ -140,7 +140,7 @@ class MembersController < ApplicationController
   def send_invite
     provider = params[:provider] || "weibo"
     target = params[:target]
-    message = params[:msg].gsub(/\s+/,' ')
+    message = params[:msg].gsub(/\s+/,' ') + " " + $config[:domain]
     invite = current_member.invites.new(:target => target,:provider => provider)
     if invite.save and p = current_member.has_provider?(provider)          
       HardWorker::SendInviteJob.perform_async(message,p._id)

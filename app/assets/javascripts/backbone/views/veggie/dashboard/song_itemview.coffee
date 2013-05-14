@@ -14,7 +14,7 @@ class window.Veggie.SongView extends Backbone.View
 		$("span",$action).show()
 		@$el.siblings().show()
 		@$el.parent().siblings().show()
-		@$el.addClass("left").css "width":"50%"	
+		@$el.removeClass("playing").addClass("left").css "width":"50%"	
 		$action.css 
 			"-webkit-transform": "translateX(230px)"
 		$("#icontrol").removeClass 'active'
@@ -31,6 +31,7 @@ class window.Veggie.SongView extends Backbone.View
 		this
 	play: (e) ->
 		$("body").css "overflow":"hidden"
+		@$el.addClass "playing"
 		$play_btn = $(e.currentTarget)
 		$pause_btn = $(e.currentTarget).next()
 		play_song = =>
