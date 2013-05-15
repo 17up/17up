@@ -1,5 +1,10 @@
 .form.banner.alert-success
-	.name
+	.name.ellipsis
 		= @name
-	.area
+	.area.ellipsis
 		= @area
+	.action
+		%span.enter
+			%i.icon-globe
+		%span.back
+			%i.icon-reply

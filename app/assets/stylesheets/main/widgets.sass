@@ -3,20 +3,41 @@
 #dashboard
 	#widgets
 		margin: 10px
+		.banner
+			height: 100px
+			position: relative
+			overflow: hidden
+			.action
+				font-size: 60px
+				position: absolute
+				top: 50%
+				right: 25px
+				margin-top: -34px
+				@include transition(all,0.8s)
+				span
+					display: inline-block
+					cursor: pointer
+					width: 70px
+				span:hover
+					color: #6fb5e8
 		.headline
 			margin-bottom: 10px
+		#person.enter_in
+			margin-left: 0
 		#person
 			width: 50%		
 			margin-right: -10px
 			margin-left: 10px	
 			.banner
 				margin-right: 10px
-				height: 100px
-				position: relative
-				overflow: hidden
 				.name
 					font-size: 26px
 					line-height: 2
+					padding-right: 85px	
+				.area
+					padding-right: 85px	
+				.action
+					@include transform(translateX(120px))
 		#song.playing
 			.panel
 				display: block
@@ -43,25 +64,12 @@
 					font-size: 20px
 					color: #333
 			.banner
-				height: 100px
-				position: relative
-				overflow: hidden
 				.title
 					font-size: 26px
 					line-height: 2
+					padding-right: 85px				
 				.artist
 					font-size: 26px
-				.action
-					font-size: 60px
-					position: absolute
-					top: 50%
-					right: 25px
-					margin-top: -34px
-					@include transition(all,0.8s)
+					padding-right: 85px
+				.action					
 					@include transform(translateX(230px))	
-					span
-						display: inline-block
-						width: 70px
-						cursor: pointer
-					span:hover
-						color: #6fb5e8
