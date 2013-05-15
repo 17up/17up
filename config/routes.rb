@@ -58,6 +58,7 @@ Veggie::Application.routes.draw do
     get "genius"
     get "friend"
     get "invite_list"
+    post "like"
   end
 
   #mobile

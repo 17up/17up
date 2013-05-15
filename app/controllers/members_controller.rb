@@ -151,4 +151,19 @@ class MembersController < ApplicationController
     
   end
 
+  # like
+  # @obj [Song,Quote,Person]
+  # @_id
+  def like
+    valiable_obj = %w{Song Quote Person}
+    if valiable_obj.include? params[:obj]
+      obj = eval(params[:obj]).find(params[:_id])
+      obj.liked_by(current_member)
+      render_json 0,"ok",obj.liked_count
+    else
+      render_json -1,"invalue"
+    end
+    
+  end
+
 end

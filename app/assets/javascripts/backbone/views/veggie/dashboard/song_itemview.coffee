@@ -102,6 +102,10 @@ class window.Veggie.SongView extends Backbone.View
 		$txt.on "webkitTransitionEnd",->
 			$(@).remove()
 	like: (e) ->
-		@model.set
-			liked: true
+		@model.liked (cnt)->
+			$(e.currentTarget).fadeOut()
+			if cnt is 1
+				Utils.flash "感动,你是第一个说赞的同学哦，握爪"
+			else
+				Utils.flash("感谢你的赞，还有 " + (cnt - 1) + " 同学也觉得很赞!")
 		false

@@ -14,4 +14,4 @@
 .panel.text_center
 	- unless @liked
 		%a.like(href="#like")
-			%span.icon-heart
+			%span.icon-thumbs-up

@@ -13,6 +13,11 @@ module Concerns
 
     def liked_by(member)
       self.liked_member_ids << member._id
+      self.save
+    end
+
+    def liked_count
+      self.liked_member_ids.length
     end
   end
 end
