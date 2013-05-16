@@ -1,6 +1,6 @@
 .bg_icon
 	%img{:src => "/assets/icon/#{@provider}_big.png"}
-.alert.alert-success.headline
+.headline
 	%img{:src => @avatar}
 	.name
 		%a{:href => @link}(target = 'blank')

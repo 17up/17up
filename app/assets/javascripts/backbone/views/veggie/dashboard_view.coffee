@@ -24,7 +24,8 @@ class window.Veggie.DashboardView extends Veggie.View
 		$("#widgets",@$el).append(person_view.render().el)
 	active: ->
 		super()		
-		@init_imagine()
+		if @current_course and @current_course.get("open")
+			@init_imagine()
 	close: ->
 		super()
 		@deinit_imagine()
@@ -35,26 +36,25 @@ class window.Veggie.DashboardView extends Veggie.View
 		$("#icontrol").removeClass 'active'
 		@$el.css "height":"auto"
 	init_imagine: ->
-		unless $("#imagine").jmpress("initialized")
-			if @current_course
-				$("#imagine").jmpress
-					transitionDuration: 0
-					hash:
-						use: false
-					mouse:
-						clickSelects: false
-					keyboard:
-						keys:
-							9: null
-							32: null
-				$("#imagine").jmpress("route", "#iend", true)
-				$("#imagine").jmpress("route", "#ihome", true, true)
-				cid = @current_course.get("_id")
-				if step = $.jStorage.get "course_#{cid}"
-					$("#imagine").jmpress "goTo","#" + step
-				$("#imagine").show()
-				$("#icontrol").addClass 'active'
-				@$el.css "height":"100%"
+		unless $("#imagine").jmpress("initialized")		
+			$("#imagine").jmpress
+				transitionDuration: 0
+				hash:
+					use: false
+				mouse:
+					clickSelects: false
+				keyboard:
+					keys:
+						9: null
+						32: null
+			$("#imagine").jmpress("route", "#iend", true)
+			$("#imagine").jmpress("route", "#ihome", true, true)
+			cid = @current_course.get("_id")
+			if step = $.jStorage.get "course_#{cid}"
+				$("#imagine").jmpress "goTo","#" + step
+			$("#imagine").show()
+			$("#icontrol").addClass 'active'
+			@$el.css "height":"100%"
 	keyup: (event) ->
 		switch event.keyCode
 			when 39
