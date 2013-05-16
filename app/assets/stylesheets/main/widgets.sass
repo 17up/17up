@@ -18,12 +18,19 @@
 					display: inline-block
 					cursor: pointer
 					width: 70px
+					text-align: center
+				.pause
+					display: none
 				span:hover
 					color: #6fb5e8
 		.headline
 			margin-bottom: 10px
 		#person.enter_in
-			margin-left: 0
+			.action	
+				.enter
+					display: none
+				.pause
+					display: inline-block
 		#person
 			width: 50%		
 			margin-right: -10px
@@ -38,6 +45,7 @@
 					padding-right: 85px	
 				.action
 					@include transform(translateX(120px))
+
 		#song.playing
 			.panel
 				display: block
@@ -48,6 +56,11 @@
 				left: 0
 				a 
 					color: #ff903a
+			.action	
+				.play
+					display: none
+				.pause
+					display: inline-block
 		#song
 			width: 50%		
 			.panel
@@ -72,4 +85,4 @@
 					font-size: 26px
 					padding-right: 85px
 				.action					
-					@include transform(translateX(230px))	
+					@include transform(translateX(120px))	

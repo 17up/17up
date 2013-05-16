@@ -12,12 +12,11 @@ class window.Veggie.SongView extends Backbone.View
 		$action = $(e.currentTarget).parent()
 		@open = false
 		@audio.stop()
-		$("span",$action).show()
 		@$el.siblings().show()
 		@$el.parent().siblings().show()
 		@$el.removeClass("playing").addClass("left").css "width":"50%"	
 		$action.css 
-			"-webkit-transform": "translateX(230px)"
+			"-webkit-transform": "translateX(120px)"
 		$("#icontrol").removeClass 'active'
 		$(".lyrics_container",@$el).empty()
 		$("body").css "overflow":"auto"
@@ -31,10 +30,9 @@ class window.Veggie.SongView extends Backbone.View
 		@$el.html @template(@model.toJSON())
 		this
 	play: (e) ->
+		$ele = @$el
 		$("body").css "overflow":"hidden"
-		@$el.addClass "playing"
-		$play_btn = $(e.currentTarget)
-		$pause_btn = $(e.currentTarget).next()
+		$ele.addClass "playing"		
 		play_song = =>
 			@lyrics = new Lrc @model.get("lyrics"),(text,ex) =>
 				$(".lyrics_container",@$el).append JST['item/lrc'](text: text)
@@ -45,8 +43,7 @@ class window.Veggie.SongView extends Backbone.View
 				onplay: =>
 					@lyrics.play(0)
 				onfinish: ->
-					$play_btn.show()
-					$pause_btn.hide()
+					$ele.removeClass("playing")
 				onpause: =>
 					@lyrics.pauseToggle()
 				onresume: =>
@@ -60,14 +57,9 @@ class window.Veggie.SongView extends Backbone.View
 		if @open
 			if @audio.paused
 				@audio.resume()
-				$play_btn.hide()
-				$pause_btn.show()
 			else
-				$play_btn.hide()
-				$pause_btn.show()
 				play_song()
 		else
-			$play_btn.hide()
 			$action = $(e.currentTarget).parent()
 			@open = true
 			Veggie.hide_nav =>
@@ -83,12 +75,9 @@ class window.Veggie.SongView extends Backbone.View
 			@$el.siblings().hide()
 			play_song()
 	pause: (e) ->
-		$play_btn = $(e.currentTarget).prev()
-		$pause_btn = $(e.currentTarget)
 		unless @audio.paused
 			@audio.pause()
-			$pause_btn.hide()
-			$play_btn.show()
+			@$el.removeClass "playing"
 	fade_in: ($txt) ->
 		setTimeout( ->
 			$txt.css 

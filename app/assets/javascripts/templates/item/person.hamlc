@@ -5,6 +5,8 @@
 		= @area
 	.action
 		%span.enter
-			%i.icon-globe
+			%i.icon-facetime-video
+		%span.pause
+			%i.icon-pause
 		%span.back
 			%i.icon-reply
