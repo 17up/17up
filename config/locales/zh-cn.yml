@@ -25,7 +25,13 @@ zh-cn:
       avatar: "图片格式仅支持 png、jpg、gif，图片大小限制 3M"
       image: "图片最大 2M 限制"
   greet:
-    new_user: "@%{name} 欢迎来到 17up 学会，天亮了，梦醒了，愉快的一天开始啦。"
+    new_user:
+      morn: "@%{name} 欢迎来到 17up 学会，天亮了，梦醒了，愉快的一天开始啦。"
+      am: "@%{name} 欢迎来到 17up 学会，你那里是上午吧"
+      pm: "@%{name} 欢迎来到 17up 学会,"
+      night: "@%{name} 欢迎来到 17up 学会，"
+      midn: "@%{name} 欢迎来到 17up 学会，"
+
   invite: 
     common: "@%{uname} 我觉得你可能会对 %{cname} 这堂课感兴趣哦，快来跟我一起上课吧！"
     teach: "@%{uname} 我觉得你当 %{cname} 这堂课的老师一定很赞耶！快来教教我吧！"

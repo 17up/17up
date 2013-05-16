@@ -49,9 +49,26 @@ module Wali
 	end
 
 	class Greet < Base
+
+		def get_time
+			h = Time.now.hour
+			if h < 4
+				"midn"
+			elsif h < 8
+				"morn"
+			elsif h < 12
+				"am"
+			elsif h < 18
+				"pm"
+			elsif h < 22
+				"night"
+			else
+				"midn"
+			end
+		end
   
 	  	def deliver
-	  		content = I18n.t('greet.new_user',:name => @provider.at_name) 
+	  		content = I18n.t("greet.new_user.#{get_time}",:name => @provider.at_name) 
 	  		veggie = Authorization.official(@provider.provider) 
 			case @provider.provider
 			when "weibo"  		     
