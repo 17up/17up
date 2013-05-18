@@ -53,7 +53,7 @@ class window.Veggie.DashboardView extends Veggie.View
 			if step = $.jStorage.get "course_#{cid}"
 				$("#imagine").jmpress "goTo","#" + step
 			$("#imagine").show()
-			$("#icontrol").addClass 'active'
+			$("#icontrol").show().addClass 'active'
 			@$el.css "height":"100%"
 	keyup: (event) ->
 		switch event.keyCode

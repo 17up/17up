@@ -13,6 +13,25 @@ module HardWorker
       provider = Authorization.find(id)
       self.logger(provider.user_name)
       Wali::Greet.new(provider,opts).deliver
+      invites = Invite.where(:provider => provider.provider,:target => provider.uid)
+      if invites.any?
+        member = provider.member
+        invites.each do |invite|
+          # 每个当前用户相关邀请的发起人的好友名单中加入当前用户
+          # 并获赠 2 gem
+          # 通知 owner 有新朋友接受了邀请，并获得了奖励
+          owner = invite.member
+          owner.friend_ids << member._id
+          owner.gem += 2
+          owner.save
+          # 当前被邀请用户免费登记受邀课程,并加好友
+          # 通知受邀者成功接受了多少个邀请，并新增了多少好友
+          member.friend_ids << owner._id
+          member.course_grades << CourseGrade.new(:course_id => invite.course_id)
+          member.save
+
+        end
+      end
     end
   end
 

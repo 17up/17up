@@ -8,10 +8,11 @@ module Eva
 	class Course < Base
 		def list
 			# 推荐课程，在已发布课程中做推荐筛选
-			recommands = ::Course.open.limit(10)
+			recommands = ::Course.open.limit(2)
 			# 正在学习的课程，学完并通过考核的课程不显示
 			checked = @member.checked_courses
-			list = (checked + recommands).uniq
+			invited = @member.invited_courses
+			list = (checked + recommands + invited).uniq
 			result = []
 			list.each_with_index do |c,i|
 				result << c.as_json.merge!(:has_checkin => (i < checked.length))

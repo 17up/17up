@@ -15,6 +15,13 @@ class window.Veggie.ChatView extends Backbone.View
 		else
 			@dispatcher = new WebSocketRails('localhost:3000/websocket')
 
+		@dispatcher.on_open = (data) ->
+			uid = window.current_member.get("_id")
+			@notify_channel = this.subscribe("notify_" + uid)
+			@notify_channel.bind "invite_course", (data) ->
+				$("#courses .headline").after JST["widget/notice"](msg: data)
+
+
 		$(document).bind "keyup",(event) ->  		 			
 			if event.keyCode is 13
 				$content = $("#chat_content")
@@ -25,7 +32,6 @@ class window.Veggie.ChatView extends Backbone.View
 				else if wc > 17
 					Utils.flash("#{wc} 个词太长啦，发言简短更显才气！","error")
 				else
-					console.log content
 					self.send_message(content)
 					$content.val("").focus()
 
@@ -100,15 +106,20 @@ class window.Veggie.ChatView extends Backbone.View
 		if $target.length isnt 0
 			uid = $target.attr("uid")
 			msg = $.trim $(".message",@$el).text()
-			$.post "/members/send_invite",target: uid, msg: msg, (data) =>
-				if data.status is 0
-					@close_invite()
-					setTimeout( ->
-						$("#invite .uname").text("")
-						$target.remove()
-						Utils.flash("邀请将在您的微博上发出，您的好友一旦接受邀请，小柒会立即通知您",'success',$wrap)
-					,1000)
-				else
-					Utils.flash("啊呀，邀请失败啦","error",$wrap)
+			cid = window.route.active_view.current_course.get("_id")
+			$.post "/members/send_invite",
+				target: uid
+				msg: msg
+				course_id: cid
+				(data) =>
+					if data.status is 0
+						@close_invite()
+						setTimeout( ->
+							$("#invite .uname").text("")
+							$target.remove()
+							Utils.flash("邀请将在您的微博上发出，您的好友一旦接受邀请，小柒会立即通知您",'success',$wrap)
+						,1000)
+					else
+						Utils.flash("啊呀，邀请失败啦","error",$wrap)
 		else
 			Utils.flash("你还没有选择要邀请哪一个好友呢","error",@$el)

@@ -27,6 +27,7 @@ class Member
   field :role 
   field :uid
   field :gem, :type => Integer, :default => 0
+  field :friend_ids, :type => Array
 
   has_many :authorizations,:dependent => :destroy
   has_many :courses
@@ -65,6 +66,11 @@ class Member
 
   def checked_courses
     cids = course_grades.collect(&:course_id)
+    Course.where(:_id.in => cids)
+  end
+
+  def invited_courses 
+    cids = Invite.inside.where(:target => self._id).collect(&:course_id).uniq
     Course.where(:_id.in => cids)
   end
 

@@ -57,7 +57,7 @@ class MembersController < ApplicationController
   # friendship status
   def invite_list
     if p = current_member.has_provider?("weibo")
-      has_invites = current_member.invites.collect(&:target)
+      has_invites = current_member.invites.outside.collect(&:target)
       @friends = Wali::Friend.new(p).bilateral.select do |x|
         has_invites.exclude?(x["id"].to_s)
       end
@@ -134,21 +134,50 @@ class MembersController < ApplicationController
 
   # invite
   # @target: uid
-  # @cname 课程名
+  # @msg
   # @provider 'weibo'
+  # @course_id
   # @style common / teach
   def send_invite
     provider = params[:provider] || "weibo"
-    target = params[:target]
-    message = params[:msg].gsub(/\s+/,' ') + " " + $config[:domain]
-    invite = current_member.invites.new(:target => target,:provider => provider)
-    if invite.save and p = current_member.has_provider?(provider)          
-      HardWorker::SendInviteJob.perform_async(message,p._id)
-      render_json 0,"ok"
+    
+    # 检查被邀请者是否已经存在
+    if p = Authorization.where(:provider => provider,:uid => params[:target]).first
+      member = p.member
+      # 相互添加好友并通知
+      current_member.friend_ids << member._id
+      current_member.save
+      member.friend_ids << current_member._id
+      member.save
+      # 新建站内邀请
+      current_member.invites.create(:target => member._id,:course_id => params[:course_id])
+      render_json 1,"new friend"
     else
-      render_json -1,"error"
+      args = params.slice(:target,:course_id).merge!(:provider => provider)
+      message = params[:msg].gsub(/\s+/,' ') + " " + $config[:host]
+      # 新建站外邀请
+      invite = current_member.invites.new(args)
+      if invite.save and p = current_member.has_provider?(provider)          
+        HardWorker::SendInviteJob.perform_async(message,p._id)
+        render_json 0,"send invite by #{provider}"
+      else
+        render_json -1,"error"
+      end
     end
     
+  end
+
+  # 向已存在好友发起邀请
+  # @_id
+  # @course_id
+  def invite_friend
+    @friend = Member.find(params[:_id])
+    if @friend.has_checkin?(params[:course_id])
+      render_json -1,"already checkin"
+    else
+      current_member.invites.create(:target => @friend._id,:course_id => params[:course_id])
+      render_json 0,"ok"
+    end
   end
 
   # like
