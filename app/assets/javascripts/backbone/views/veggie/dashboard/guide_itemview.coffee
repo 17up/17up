@@ -13,7 +13,7 @@ class window.Veggie.GuideView extends Backbone.View
 		if guide
 			view = new Veggie.GuideView
 				model: guide
-			$("#assets").html(view.render().el)
+			$("#assets").show().html(view.render().el)
 	next: ->
 		$next = @$el.next()
 		$next.fadeIn()		

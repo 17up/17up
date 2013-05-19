@@ -38,6 +38,7 @@ class window.Veggie.WordView extends Backbone.View
 	to_imagine: ->
 		@model.set 
 			imagine: true
+		Veggie.GuideView.addOne Guide.imagine("word")
 		@sound.play()
 	goFirst: ->
 		$("#imagine").jmpress "goTo",$("#ihome")
@@ -71,8 +72,6 @@ class window.Veggie.WordView extends Backbone.View
 		
 		if @model.get('num') is 0
 			Veggie.GuideView.addOne Guide.imagine("ihome")
-		else if @model.get("exam") is true
-			Veggie.GuideView.addOne Guide.imagine("word")
 		else if @model.get("num") is max - 1
 			Veggie.GuideView.addOne Guide.imagine("iend")
 			

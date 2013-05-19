@@ -10,9 +10,15 @@ class window.Olive.SongsView extends Olive.View
 		template = @template()
 		@$el.html(template)				
 		this
+	add_one: (model) ->
+		view = new Olive.SongView
+			model: model
+		$("#recent_songs",@$el).append(view.render().el)
 	upload_song: ->
 		Utils.uploader $("#upload_songs .uploader"), (data) =>
 			@song.set data
+			@add_one(@song)
+			$("form",@$el)[0].reset()
 	parse_lyrics: (e) ->
 		setTimeout(=>
 			text = $(e.currentTarget).val()
@@ -33,4 +39,7 @@ class window.Olive.SongsView extends Olive.View
 					$(".uploader",@$el).show()
 		,100)	
 	extra: ->		
+		for s in @collection.get("songs")
+			song = new Song(s)
+			@add_one(song)
 		super()

@@ -32,7 +32,7 @@ module Eva
 
 	class Song < Base
 		def single
-			@song = ::Song.first
+			@song = ::Song.last
 			liked = @song.liked_by?(@member)
 			@song.as_json.merge!(:liked => liked)
 		end

@@ -26,7 +26,8 @@ class Song
 
 	def as_json
 		ext = {
-			:url => audio_url
+			:url => audio_url,
+			:liked_count => liked_count
 		}
 		super(:only => [:_id,:lyrics,:artist,:title]).merge(ext)
 	end

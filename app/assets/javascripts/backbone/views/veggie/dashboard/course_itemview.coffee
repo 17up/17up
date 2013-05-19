@@ -1,6 +1,6 @@
 class window.Veggie.CourseView extends Backbone.View
 	tagName: 'li'
-	template: JST['item/member_course']
+	template: JST['item/course']
 	collection: new Veggie.Words()
 	events: ->
 		"click b": "toggleSelect"

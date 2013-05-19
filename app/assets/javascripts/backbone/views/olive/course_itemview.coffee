@@ -1,7 +1,7 @@
 class window.Olive.CourseView extends Backbone.View
 	tagName: 'li'
 	className: "form alert-success"
-	template: JST['item/course']
+	template: JST['item/o_course']
 	events:
 		"click .edit": 'modify'
 		"click .publish": 'publish'

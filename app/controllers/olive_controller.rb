@@ -15,7 +15,11 @@ class OliveController < ApplicationController
 
 	# get
 	def songs
-		render_json 0,"ok"
+		@songs = Song.desc("_id").limit(5)
+		data = {
+			:songs => @songs.collect(&:as_json)
+		}
+		render_json 0,"ok",data
 	end
 
 	# get

@@ -11,6 +11,7 @@ class window.Veggie.SongView extends Backbone.View
 	back: (e) ->
 		$action = $(e.currentTarget).parent()
 		@open = false
+		$(".panel",@$el).hide()
 		@audio.stop()
 		@$el.siblings().show()
 		@$el.parent().siblings().show()
@@ -70,7 +71,8 @@ class window.Veggie.SongView extends Backbone.View
 					-> 
 						$(@).css "width": "auto"
 						$action.css 
-							"-webkit-transform": "translateX(0)"					
+							"-webkit-transform": "translateX(0)"	
+						$(".panel",$ele).show()				
 			@$el.parent().siblings().hide()
 			@$el.siblings().hide()
 			play_song()

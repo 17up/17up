@@ -1,40 +1,32 @@
-.headline
+.banner.form.alert-success
 	.title
-		- if @title
-			= @title
-		- else
-			This Is A New Course
-	.u_at
-		%span.icon-time
-		- if @u_at
-			= (new Date(@u_at)).format("yyyy-MM-dd hh:mm:ss")
-			saved
-		- else
-			No Sync Record
-	.action
-		- if @status is 1
-			- if @preview
-				%span.btn.close_preview(title="关闭预览")
-					%i.icon-eye-close
-			- else
-				%span.btn.preview(title="预览")
-					%i.icon-eye-open
-			%span.btn.disabled
-				已发布
-		- else
-			%span.btn.edit(title="编辑")
-				%i.icon-edit
-			- if @status is 3
-				%span.btn.publish(title="申请发布")
-					%i.icon-bell-alt
-			- else if @status is 2
-				%span.btn.disabled
-					审核中
-- if @preview
-	- if @tags
-		.tags
+		= @title
+	.info
+		%span.icon-leaf
+		= @wl
+		- if @tags
+			%i.icon-tags
 			= @tags
-	.content
-		!= @content
-- else
-	.editor
+	.action
+		- if @open
+			- if @imagine
+				%span.btn.back-to-content
+					%i.icon-reply
+					返回
+			- else
+				- if @has_checkin
+					%span.btn.green.imagine_words
+						学单词
+				- else
+					%span.btn.orange.checkin
+						登记
+				%span.btn.back-to-list
+					%i.icon-reply
+					返回
+		- else
+			%span.btn.study(title = "进入课程")
+				%i.icon-bell-alt
+- if @open
+	- unless @imagine
+		.content.form
+			!= @content
