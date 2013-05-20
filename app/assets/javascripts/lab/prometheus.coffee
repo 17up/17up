@@ -1,7 +1,8 @@
 class window.Prometheus
 	constructor: ->
 		chart1 = $("#chart1")
-		options = 
+
+		options = 			
 			'radius': 200
 			'width' : 500
 			'height' : 500
@@ -14,4 +15,7 @@ class window.Prometheus
 				'children' : 'group'
 				'value' : 'size'
 		d3.sunburst chart1,options
+		d3.sunburst.settings =
+			'chartName': "human future"			
+			'labelPosition': 0
 		  
