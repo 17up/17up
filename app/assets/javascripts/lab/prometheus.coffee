@@ -1,33 +1,17 @@
 class window.Prometheus
 	constructor: ->
-		params = 
-			title: 
-				text: "what can we do for the human future?"
-			theme: "theme2"
-			data: [    
-				type: "doughnut"
-				indexLabelFontFamily: "Garamond"     
-				indexLabelFontSize: 20
-				startAngle: 90
-				indexLabelFontColor: "dimgrey"       
-				indexLabelLineColor: "darkgrey" 
-				toolTipContent: "focus this?"					
-				dataPoints: [
-					{  
-						y: 50
-						label: "Environmental protection" 
-					}
-					{  
-						y: 50
-						label: "Education" 
-					}
-				]
-			]
-		chart = new CanvasJS.Chart("chart",params)
-		chart.render()
-			
-
-		
-
-
-
+		chart1 = $("#chart1")
+		options = 
+			'radius': 200
+			'width' : 500
+			'height' : 500
+			'padding': 1
+			'dataUrl' : 'flare.json'
+			'dataType' : 'json'
+			'chartType' : 'bubble'
+			'dataStructure' : 
+				'name' : 'name'
+				'children' : 'group'
+				'value' : 'size'
+		d3.sunburst chart1,options
+		  
