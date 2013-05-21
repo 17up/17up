@@ -12,14 +12,17 @@
 				%i.icon-spinner.icon-spin
 			%span.btn.green.play
 				%i.icon-play
-		.synsets
-			- if @synsets.length > 0
-				%span.label
-					%span.icon-sitemap
-					联想词汇
+		- if @synsets.length > 0
+			.synsets			
 				- for i in @synsets
 					%span.label.label-success
 						= i
+		- if @sentences.length > 0
+			.sentences
+				- for s in @sentences
+					.sentence.form.alert-success
+						= s
+
 	- else
 		.action.to_imagine(title = "记住了，闭目联想")
 			%span.icon-eye-close

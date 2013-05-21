@@ -48,6 +48,11 @@ module Onion
       end
     end
 
+    def self.from_tweet(title,count = 1)
+      result = Wali::Base.new(Authorization.official("twitter")).client.search(title,:result_type => "popular",:count => count,:show_user => false,:include_entities => false)
+      sentences = result.statuses.collect(&:text)
+    end
+
     # insert words form file
     def self.form_file
       # page = Nokogiri::HTML(open(Rails.root.join('public','v.html')))
