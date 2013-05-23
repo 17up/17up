@@ -24,15 +24,19 @@ class MembersController < ApplicationController
 
   # api get
   def account
-    @providers = Authorization::PROVIDERS.map do |p|
-      {
-        :provider => p,
-        :has_bind => current_member.has_provider?(p) ? true : false,
-        :omniauth_url => member_omniauth_authorize_path(p)
-      }
+    if current_member.is_member?
+      @providers = Authorization::PROVIDERS.map do |p|
+        {
+          :provider => p,
+          :has_bind => current_member.has_provider?(p) ? true : false,
+          :omniauth_url => member_omniauth_authorize_path(p)
+        }
+      end
+      data = current_member.as_json.merge(:providers => @providers)
+      render_json 0,'ok',data
+    else
+      render_json -1,"u are not member"
     end
-    data = current_member.as_json.merge(:providers => @providers)
-    render_json 0,'ok',data
   end
 
   # get provider info
@@ -74,8 +78,12 @@ class MembersController < ApplicationController
   end
 
   # api get
-  def genius
-    render_json 0,'ok'
+  def teach
+    if current_member.is_teacher?
+      render_json 0,'ok'
+    else
+      render_json -1,"u are not teacher"
+    end
   end
 
   # page

@@ -59,6 +59,10 @@ class Member
   def admin?
     self.role == "a"
   end
+
+  def is_teacher?
+    self.role == "t"
+  end
   
   def is_member?
     !role.blank?
@@ -158,7 +162,8 @@ class Member
       :name => name,
       :member_path => member_path,
       :gem => gem,
-      :is_member => is_member?
+      :is_member => is_member?,
+      :is_teacher => is_teacher?
     }
   end
 

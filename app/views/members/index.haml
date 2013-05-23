@@ -2,30 +2,28 @@
 %nav
 #container
 	%aside
-		%ul#side_nav
+		%ul#side_nav	
 			%li(rel = 'dashboard')
 				%span.icon-leaf
 				%div
 					学院
+				%i	
+			%li(rel = 'account')
+				%span.icon-user
+				%div
+					会员
 				%i
-			- if current_member.is_member?
-				%li(rel = 'account')
-					%span.icon-user
-					%div
-						会员
-					%i
+			%li(rel = "teach")
+				%span.icon-magic
+				%div
+					备课
+				%i	
 			/ %li(rel = "friend")
 			/ 	%span.icon-globe
 			/ 	%div
 			/ 		好友
 			/ 	%i
-			/ %li(rel = "genius")
-			/ 	%span.icon-magic
-			/ 	%div
-			/ 		兴趣
-			/ 	%i
-	%article			
-		
+	%article					
 - content_for :footer do
 	#init.hide(data-js="Veggie")
 	#uploader

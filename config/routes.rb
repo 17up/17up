@@ -55,7 +55,7 @@ Veggie::Application.routes.draw do
     get "account"
     get "profile"
     get "provider"
-    get "genius"
+    get "teach"
     get "friend"
     get "invite_list"
     post "like"

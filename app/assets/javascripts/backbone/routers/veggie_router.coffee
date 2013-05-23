@@ -6,7 +6,7 @@ class Veggie.Router extends Backbone.Router
 	initialize: ->
 		self = this
 		new Veggie.BannerView()
-		$("#side_nav li").click ->
+		$("#side_nav").on "click","li", ->
 			href = $(@).attr 'rel'
 			$(@).addClass('active')
 			if href is 'dashboard'
@@ -16,7 +16,7 @@ class Veggie.Router extends Backbone.Router
 		"": "home"
 		"account": "account"
 		"friend": "friend"
-		"genius": "genius"
+		"teach": "teach"
 	before_change: ->
 		if window.route.active_view
 			window.route.active_view.close()
@@ -38,9 +38,9 @@ class Veggie.Router extends Backbone.Router
 			@friend_view.active()
 		else
 			@friend_view = new Veggie.FriendView()
-	genius: ->
+	teach: ->
 		@before_change()
-		if @genius_view
-			@genius_view.active()
+		if @teach_view
+			@teach_view.active()
 		else
-			@genius_view = new Veggie.GeniusView()
+			@teach_view = new Veggie.TeachView()
