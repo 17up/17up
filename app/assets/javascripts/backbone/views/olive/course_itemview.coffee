@@ -19,9 +19,10 @@ class window.Olive.CourseView extends Backbone.View
 	preview: ->	
 		@model.set 
 			preview: true
+			editable: false
 	back: ->
 		@$el.siblings().show()
-		@render()
+		@model.set editable: false
 	save: ->
 		self = this
 		@$el.find(".headline").show()
@@ -34,7 +35,7 @@ class window.Olive.CourseView extends Backbone.View
 				self.model.set resp.data
 				self.$el.siblings().show()
 		else
-			Utils.flash("请认真制作课程，内容不得为空","error")
+			Utils.flash("请确认课程标题及内容已填写","error",@$el.parent())
 	delete: ->
 		self = this
 		Utils.confirm "确认删除？", ->
@@ -43,8 +44,7 @@ class window.Olive.CourseView extends Backbone.View
 	modify: ->
 		self = this
 		@$el.siblings().hide()
-		@$el.find(".headline").hide()
-		@$el.find(".editor").html JST['form/course_form'](course: @model.toJSON())
+		@model.set editable: true
 		$form = $("form",@$el)
 		Utils.tag_input($form)
 		Utils.rich_textarea($form)		

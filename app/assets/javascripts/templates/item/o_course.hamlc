@@ -1,40 +1,43 @@
-.headline
-	.title
-		- if @title
-			= @title
-		- else
-			This Is A New Course
-	.u_at
-		%span.icon-time
-		- if @u_at
-			= (new Date(@u_at)).format("yyyy-MM-dd hh:mm:ss")
-			saved
-		- else
-			No Sync Record
-	.action
-		- if @status is 1
-			- if @preview
-				%span.btn.close_preview(title="关闭预览")
-					%i.icon-eye-close
+- if @editable
+	.editor
+		!= JST['form/course_form'](course: @)
+- else
+	.headline
+		.title
+			- if @title
+				= @title
 			- else
-				%span.btn.preview(title="预览")
-					%i.icon-eye-open
-			%span.btn.disabled
-				已发布
-		- else
-			%span.btn.edit(title="编辑")
-				%i.icon-edit
-			- if @status is 3
-				%span.btn.publish(title="申请发布")
-					%i.icon-bell-alt
-			- else if @status is 2
+				This Is A New Course
+		.u_at
+			%span.icon-time
+			- if @u_at
+				= (new Date(@u_at)).format("yyyy-MM-dd hh:mm:ss")
+				saved
+			- else
+				No Sync Record
+		.action
+			- if @status is 1
+				- if @preview
+					%span.btn.close_preview(title="关闭预览")
+						%i.icon-eye-close
+				- else
+					%span.btn.preview(title="预览")
+						%i.icon-eye-open
 				%span.btn.disabled
-					审核中
+					已发布
+			- else
+				%span.btn.edit(title="编辑")
+					%i.icon-edit
+				- if @status is 3
+					%span.btn.publish(title="申请发布")
+						%i.icon-bell-alt
+				- else if @status is 2
+					%span.btn.disabled
+						审核中
 - if @preview
 	- if @tags
 		.tags
 			= @tags
 	.content
 		!= @content
-- else
-	.editor
+	

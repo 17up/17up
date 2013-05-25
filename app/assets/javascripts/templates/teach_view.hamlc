@@ -1,6 +1,6 @@
+#t_assets
 - if @is_teacher
 	#t_courses
-		!= JST["courses_view"]()				
-- else
-	#t_assets
+		!= JST["courses_view"]()
+	
 

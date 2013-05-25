@@ -18,11 +18,13 @@ class window.Veggie.TeachView extends Veggie.View
 		$("#t_courses",@$el).append(view.render().el)
 	extra: ->
 		if window.current_member.get("is_teacher")
-			for c in @collection.models
-				@addOne(c)
+			if @collection.models.length is 0
+				guide = Guide.generate "你已经成为 17up 学会的教师了，赶快创建你的第一课吧"
+				Veggie.GuideView.addOne(guide,$("#t_assets"))
+			else
+				for c in @collection.models
+					@addOne(c)
 		else
 			guide = Guide.generate "目前，“备课” 功能正在试验室阶段，你想成为一名 17up 教师吗？请通过任何方式联系我吧，感谢您的支持！"
-			view = new Veggie.GuideView
-				model: guide
-			$("#t_assets").show().html(view.render().el)
+			Veggie.GuideView.addOne(guide,$("#t_assets"))
 		super()

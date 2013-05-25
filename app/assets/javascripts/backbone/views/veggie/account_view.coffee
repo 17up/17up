@@ -1,11 +1,10 @@
 class window.Veggie.AccountView extends Veggie.View	
 	id: "account"
-	className: "jmpress"
 	template: JST['account_view']
 	collection: new Veggie.Account()
 	close: ->
-		if @$el.jmpress("initialized")
-			@$el.jmpress "deinit"
+		if $("#account_wrap").jmpress("initialized")
+			$("#account_wrap").jmpress "deinit"
 		super()
 		# invoke super close method
 	active: ->
@@ -14,17 +13,17 @@ class window.Veggie.AccountView extends Veggie.View
 		super() 
 		@init_jmpress()
 	init_jmpress: ->
-		#Utils.active_tab $(".step.active").attr("id")
-		@$el.jmpress
-			transitionDuration: 0
-			hash:
-				use: true
-			mouse:
-				clickSelects: false
-			keyboard:
-				keys:
-					9: null
-					32: null
+		unless $("#account_wrap").jmpress("initialized")
+			$("#account_wrap").jmpress
+				transitionDuration: 0
+				hash:
+					use: true
+				mouse:
+					clickSelects: false
+				keyboard:
+					keys:
+						9: null
+						32: null
 	addProviders: (providers) ->
 		for p,i in providers
 			provider = new Provider
@@ -32,7 +31,7 @@ class window.Veggie.AccountView extends Veggie.View
 				num: i + 1
 			view = new Veggie.ProviderView
 				model: provider
-			@$el.append(view.render().el)
+			$("#account_wrap").append(view.render().el)
 	render: ->
 		template = @template(@collection.toJSON())
 		@$el.html(template)				
