@@ -1,4 +1,5 @@
 @import "utils"
+@import "course"
 
 body.olive
 	background: url(/assets/img/bg/bg_home.png) #DBEED5
@@ -55,42 +56,7 @@ body.olive
 			.form
 				margin-top: 10px
 			#courses
-				nav 
-					.new
-						position: absolute
-						right: 10px
-						top: 2px
-				li 
-					list-style: none
-					.headline
-						position: relative
-						.title
-							font-size: 18px
-							line-height: 1.5
-						.u_at
-							font-size: 14px
-						.action
-							position: absolute
-							right: 0px
-							top: 50%
-							margin-top: -20px
-							.label
-								padding: 10px
-							span
-								font-size: 20px
-					.tags
-						margin-top: 10px
-						padding-left: 10px
-						border-left: 4px solid #3a7ced
-					.content
-						line-height: 1.5
-						> div
-							margin: 10px 0
-							text-indent: 20px
-						b 
-							color: #ff2f4f
-						i
-							color: #3f94ff
+				@include course-li
 			#quotes
 				> div
 					margin-bottom: 10px

@@ -18,7 +18,7 @@ class window.Veggie
 						Veggie.show_nav()
 					false
 				when 70 # F
-					if $("input:focus").length is 0
+					if $("input:focus,.textarea:focus").length is 0
 						element = document.body
 						requestMethod = element.requestFullScreen ||
 								element.webkitRequestFullScreen ||

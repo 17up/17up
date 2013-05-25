@@ -9,14 +9,26 @@ class WordsController < ApplicationController
 		else
 			data = word.as_json
 		end
-		# 联想同义词，提供wordnet参考，由老师编辑添加
+		
 		# 联想好友们的发音，图片
 		#Onion::Word.wordnet(params[:title],:synset)
+		#Onion::Word.from_tweet(title)
 		data.merge!({
-			:synsets => [],
-			:sentences => []#Onion::Word.from_tweet(title)
+			:synsets => word.synset,
+			:sentences => word.sentence
 			})
 		render_json 0,"ok",data	
+	end
+
+	# @id
+	# @synset array
+	# 联想同义词，提供wordnet参考，由老师编辑添加
+	def insert_synset
+		
+	end
+
+	def insert_sentence
+		
 	end
 
 	# U Word

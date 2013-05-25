@@ -24,7 +24,7 @@ class window.Veggie.DashboardView extends Veggie.View
 		$("#widgets",@$el).append(person_view.render().el)
 	active: ->
 		super()		
-		if @current_course and @current_course.get("open")
+		if @current_course and @current_course.get("imagine")
 			@init_imagine()
 	close: ->
 		super()
@@ -69,6 +69,7 @@ class window.Veggie.DashboardView extends Veggie.View
 		this
 	extra: ->
 		if @collection.has("guides")
+			Veggie.hide_nav()
 			guides = @collection.get("guides")
 			Guide.fetch(guides)
 			for g,i in guides["member"]

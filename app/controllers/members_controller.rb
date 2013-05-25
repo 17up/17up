@@ -80,7 +80,8 @@ class MembersController < ApplicationController
   # api get
   def teach
     if current_member.is_teacher?
-      render_json 0,'ok'
+      @courses = current_member.courses.collect(&:as_json)
+      render_json 0,'ok',@courses
     else
       render_json -1,"u are not teacher"
     end

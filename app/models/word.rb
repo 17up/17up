@@ -4,6 +4,8 @@ class Word
   field :title
   field :content,localize: true
   field :lang
+  field :synset, type: Array, default: []
+  field :sentence, type: Array, default: []
 
   has_many :u_words
   

@@ -46,7 +46,7 @@ Veggie::Application.routes.draw do
   # members
   get "account",:to => "members#index"
   get "achieve",:to => "members#index"
-  get "genius",:to => "members#index"
+  get "teach",:to => "members#index"
   namespace :members do
     post "update"
     post "upload_avatar"

@@ -61,7 +61,7 @@ class Member
   end
 
   def is_teacher?
-    self.role == "t"
+    self.role == "t" || admin?
   end
   
   def is_member?
