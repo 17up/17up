@@ -72,7 +72,7 @@ class window.Veggie.WordView extends Backbone.View
 		
 		if @model.get('num') is 0
 			Veggie.GuideView.addOne Guide.imagine("ihome")
-		else if @model.get("num") is max - 1
+		else if @model.get("num") is max
 			Veggie.GuideView.addOne Guide.imagine("iend")
 			
 	upload_img: (e) ->

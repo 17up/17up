@@ -37,17 +37,15 @@ class window.Veggie.CourseView extends Backbone.View
 			words = _.map $words,(w) ->
 				$(w).text()
 			words = _.uniq(words)
-			@addHome(words.length)
 			for w,i in words
 				word = new Word
 					title: $.trim(w)
 					num: i + 1
 				@collection.push(word) 
-			@addEnd()
 		else
 			@select_words_from_collection()
 		window.chatroom.enter_channel(@model.get("_id"))
-		
+
 	back_to_list: ->
 		@model.set 
 			open: false
@@ -71,8 +69,7 @@ class window.Veggie.CourseView extends Backbone.View
 		Veggie.GuideView.addOne Guide.courses("back_content")
 		@select_words_from_collection()
 		# w = $.trim($(".title",$word).text())
-		# Utils.highlight $('b:contains("' + w + '")')
-		
+		# Utils.highlight $('b:contains("' + w + '")')		
 	toggleSelect: (e) ->
 		$target = $(e.currentTarget)
 		word = @collection.where
@@ -85,21 +82,32 @@ class window.Veggie.CourseView extends Backbone.View
 			$target.addClass 'selected'
 			word[0].set 
 				imagine: false
+	addOneWord: (word,opts = {}) ->
+		options = _.extend
+			model: word
+			opts
+		view = new Veggie.WordView options			 
+		new_step = view.render().el
+		$("#imagine").append(new_step)
+		# $("#imagine").jmpress("canvas").append(new_step)
+		# $("#imagine").jmpress("init",new_step)
 	addEnd: ->
-		# add end page
 		word = new Word
 			tip: "Imagine Never End"
-			num: @collection.length
+			num: @collection.length + 1
 			end: "end"
-		@collection.push word, id: "iend"
-	addHome: (sum) ->
-		# add front page
+		@addOneWord(word,id: "iend")
+	addHome: ->
 		word = new Word
 			tip: "Start Imagine"
 			num: 0
-			sum: sum
-		@collection.push word, id: "ihome"
+			sum: @collection.length
+		@addOneWord(word,id: "ihome")
 	imagine_words: ->		
+		@addHome()
+		for word in @collection.models
+			@addOneWord word
+		@addEnd()
 		# render
 		@model.set
 			open: true
