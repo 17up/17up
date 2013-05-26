@@ -29,8 +29,8 @@ class window.Olive.CourseView extends Backbone.View
 		serializedData = {}
 		$.each obj, (index, field)->
 			serializedData[field.name] = field.value
-		Utils.loading @$el
 		if serializedData['content'] isnt '' and serializedData['title'] isnt ''
+			Utils.loading @$el
 			@model.save serializedData,success: (m,resp) ->
 				self.model.set resp.data
 				self.$el.siblings().show()

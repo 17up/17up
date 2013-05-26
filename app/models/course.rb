@@ -45,9 +45,6 @@ class Course
 
   def make_raw_content
     self.raw_content = content.split("\r\n").map do |s|
-      (s.scan(/[-\w]+/) & Word.pluck(:title)).uniq.each do |c|
-        s.gsub!(c,"<b>#{c}</b>")
-      end
       "<div>#{s}</div>"
     end.join()
   end
