@@ -25,15 +25,16 @@ class window.Olive.CourseView extends Backbone.View
 		@model.set editable: false
 	save: ->
 		self = this
-		@$el.find(".headline").show()
 		obj = $("form",@$el).serializeArray()
 		serializedData = {}
 		$.each obj, (index, field)->
 			serializedData[field.name] = field.value
+		Utils.loading @$el
 		if serializedData['content'] isnt '' and serializedData['title'] isnt ''
 			@model.save serializedData,success: (m,resp) ->
 				self.model.set resp.data
 				self.$el.siblings().show()
+				Utils.loaded self.$el
 		else
 			Utils.flash("请确认课程标题及内容已填写","error",@$el.parent())
 	delete: ->
@@ -47,7 +48,7 @@ class window.Olive.CourseView extends Backbone.View
 		@model.set editable: true
 		$form = $("form",@$el)
 		Utils.tag_input($form)
-		Utils.rich_textarea($form)		
+		$('textarea',$form).css('overflow', 'hidden').autogrow()	
 	publish: (e) ->
 		@model.ready()
 		

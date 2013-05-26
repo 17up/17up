@@ -36,43 +36,21 @@ class window.Utils
 			'width':'auto'
 			'defaultText':'添加标签'
 			'placeholderColor': '#888'
-	@rich_textarea: ($form) ->
-		$textarea = $('.editable .textarea',$form)
-		$('.editable .menu_bar',$form).on 'click', '.btn',(e) ->
-			$this = $(@)
-			switch $this.data().action
-				# when "clean"
-				# 	$textarea = $this.closest(".editable").find(".textarea")
-				# 	$textarea.html $textarea.text()
-				when "phrase"
-					Utils.getSelection('Italic')
-				when "word"
-					Utils.getSelection('bold')
-			e.preventDefault()
-		$textarea.bind 'dblclick', ->		
-			selection = Utils.getSelection()
-		$(document).delegate '.editable .textarea',"keydown.textarea",(e) ->
-			switch e.keyCode
-				when 9 # tab
-					e.preventDefault()			
-					if window.getSelection
-						sel = window.getSelection()
-						# 选中光标前面的单词
-						sel.modify('move','left','word')
-						sel.modify('extend','right','word')
-						#Utils.getSelection()
-						# setTimeout(->
-						# 	sel.modify('move','right','word')
-						# ,500)
-
-		$textarea.bind 'blur', ->
-			$textarea = $(@).closest("form").find("textarea")
-			$textarea.val $(@).html().replace("&nbsp;",'')
-		$textarea.focus ->
-			if $.trim($(@).text()) is ''
-				$(@).html("<div>&nbsp; </div>")
-		$form.on "paste",".textarea",(e) ->
-			Utils.flash("禁止粘贴内容哦")	
+	# $(document).delegate '.editable .textarea',"keydown.textarea",(e) ->
+	# 	switch e.keyCode
+	# 		when 9 # tab
+	# 			e.preventDefault()			
+	# 			if window.getSelection
+	# 				sel = window.getSelection()
+	# 				# 选中光标前面的单词
+	# 				sel.modify('move','left','word')
+	# 				sel.modify('extend','right','word')
+	# 				Utils.getSelection()
+	# 				setTimeout(->
+	# 					sel.modify('move','right','word')
+	# 				,500)
+	# Utils.getSelection('Italic')
+	# Utils.getSelection('bold')
 	@getSelection: (command = 'bold') ->
 		if window.getSelection
 			select = window.getSelection()

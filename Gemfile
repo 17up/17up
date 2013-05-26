@@ -85,5 +85,6 @@ gem 'slim'
 gem 'sidekiq'
 
 gem "parallel"
+gem "scalpel"
 # API
 #gem 'grape', :github => 'intridea/grape', :branch => 'frontier'

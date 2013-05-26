@@ -39,5 +39,5 @@
 		.tags
 			= @tags
 	.content
-		!= @content
+		!= @raw_content
 	

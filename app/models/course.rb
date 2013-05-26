@@ -7,6 +7,7 @@ class Course
   field :status, type: Integer, default: 3
   field :tags, type: Array
   field :content
+  field :raw_content, default: ""
   field :script, type: Array
   
   # author
@@ -29,7 +30,7 @@ class Course
   end
 
   def words_in_content
-    content.scan(/<b>([^<\/]*)<\/b>/).flatten.uniq
+    raw_content.scan(/<b>([^<\/]*)<\/b>/).flatten.uniq
   end
 
   def words
@@ -42,23 +43,47 @@ class Course
     end
   end
 
+  def make_raw_content
+    self.raw_content = content.split("\r\n").map do |s|
+      (s.scan(/[-\w]+/) & Word.pluck(:title)).uniq.each do |c|
+        s.gsub!(c,"<b>#{c}</b>")
+      end
+      "<div>#{s}</div>"
+    end.join()
+  end
+
   def as_json
     ext = {
       "author" => member.name,
       "tags" => tags.join(","),
       "wl" => words_in_content.length
     }
-    super(:only => [:_id,:title,:content,:u_at,:status]).merge(ext)
+    super(:only => [:_id,:title,:content,:raw_content,:u_at,:status]).merge(ext)
   end
 
   rails_admin do
-    field :status, :integer do
-      pretty_value do
-        STATUS[value.to_s]
+    list do 
+      field :status, :integer do
+        pretty_value do
+          STATUS[value.to_s]
+        end
+      end
+      field :title
+      field :member
+    end
+    edit do 
+      field :status, :integer
+      field :title
+      field :content , :text
+      field :raw_content, :text
+    end
+    show do 
+      configure :raw_content do 
+        pretty_value do 
+          bindings[:view].raw value
+        end
       end
     end
-    field :title
-    field :member
   end
 
   index({ title: 1})

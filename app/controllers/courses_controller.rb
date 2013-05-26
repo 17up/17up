@@ -19,16 +19,17 @@ class CoursesController < ApplicationController
 	end
 
   	def update
-		unless !params[:_id].blank? and find_member_course
+		unless params[:_id].present? and find_member_course
 			@course = current_member.courses.new
 		end
 		@course.title = params[:title]
 		@course.tags = params[:tags].split(",")
 		@course.content = params[:content].strip
 		@course.status = 3
-		if @course.save!
+		@course.make_raw_content
+		if @course.save
 			HardWorker::PrepareWordJob.perform_async(@course._id)
-			render_json 0,"save success",@course.as_json
+			render_json 0,"save success",@course.as_json.merge!(:editable => false)
 		else
 			render_json -1,"fail"
 		end
@@ -66,6 +67,10 @@ class CoursesController < ApplicationController
 
 	private
 	def find_member_course
-		@course = current_member.courses.find(params[:_id])
+		if current_member.admin?
+			@course = Course.find(params[:_id])
+		else
+			@course = current_member.courses.find(params[:_id])
+		end
 	end
 end

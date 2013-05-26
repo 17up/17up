@@ -62,31 +62,18 @@ input.center_input
 
 textarea
 	min-width: 500px
-	height: 50px
+	min-height: 100px
+	line-height: 1.5
 	border: 2px solid #cccccc
 	padding: 5px
 	resize: none
+	color: #468847
 	font-size: 14px
-.editable
-	margin: 10px 0
-	.menu_bar
-		margin-bottom: 5px
-	.textarea
-		border: 2px solid #cccccc
-		padding: 5px
-		min-height: 100px
-		background-color: rgba(255,255,255,0.5)
-		&:focus
-			outline: none
-			border-color: #40a701
-		b 
-			color: #ff2f4f
-		i
-			color: #3f94ff
-div.tagsinput
-	border: none
+	@include box-sizing(border-box)
+	width: 100%
 	background-color: rgba(255,255,255,0.5)
-
+	font-family: monospace, "Droid Sans Mono", sans-serif
+	font-size: 16px
 .text_center
 	text-align: center
 

@@ -2,7 +2,8 @@
 	%input{:value => @course._id}(type="hidden" name="_id")
 	%input.center_input{:value => @course.title}(name="title" placeholder = "输入课程标题" type="text" required="required" autocomplete="off")
 	%input.tags{:value => @course.tags}(name="tags")
-	!= JST['form/rich_editor'](ele: 'content',data: @course.content)
+	%textarea{:name => 'content'}(placeholder="请在此编辑您的课程正文")
+		= @course.content
 	%span.btn.save
 		存档
 	%span.btn.back.orange
