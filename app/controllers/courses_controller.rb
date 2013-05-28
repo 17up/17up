@@ -27,12 +27,21 @@ class CoursesController < ApplicationController
 		@course.content = params[:content].strip
 		@course.status = 3
 		@course.make_raw_content
-		if @course.save
-			HardWorker::PrepareWordJob.perform_async(@course._id)
+		if @course.save		
 			render_json 0,"save success",@course.as_json.merge!(:editable => false)
 		else
 			render_json -1,"fail"
 		end
+	end
+
+	# @raw_content
+	# @_id
+	def prepare_words
+		@course = find_member_course
+		@course.raw_content = params[:raw_content]
+		@course.save
+		HardWorker::PrepareWordJob.perform_async(@course._id)
+		render_json 0,"ok"
 	end
 
 	def ready
