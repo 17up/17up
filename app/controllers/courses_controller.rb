@@ -28,26 +28,19 @@ class CoursesController < ApplicationController
 		@course.status = 3
 		@course.make_raw_content
 		if @course.save		
-			render_json 0,"save success",@course.as_json.merge!(:editable => false)
+			render_json 0,"save success",@course.as_json
 		else
 			render_json -1,"fail"
 		end
 	end
 
-	# @raw_content
-	# @_id
-	def prepare_words
-		@course = find_member_course
-		@course.raw_content = params[:raw_content]
-		@course.save
-		HardWorker::PrepareWordJob.perform_async(@course._id)
-		render_json 0,"ok"
-	end
-
 	def ready
 		if find_member_course
+			@course.raw_content = params[:raw_content]
 			# 标记课程状态为审核中
-			@course.update_attribute(:status,2)
+			@course.status = 2
+			@course.save
+			HardWorker::PrepareWordJob.perform_async(@course._id)			
 			render_json 0,"wait for open"
 		else
 			render_json -1,"no course"

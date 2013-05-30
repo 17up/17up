@@ -7,12 +7,15 @@ class window.Course extends Backbone.Model
 		"status": ''
 		"open": false
 	url: "/courses/update"
-	ready: ->
-		self = this
-		$.post "/courses/ready",_id:self.get("_id"),(data)->
+	ready: (content,callback) ->
+		params = 
+			_id: @.get("_id")
+			raw_content: content
+		$.post "/courses/ready",params,(data) =>
 			if data.status is 0	
-				self.set 
+				@.set 
 					status: 2
+				callback() if callback
 	destroy: ->
 		super()
 		self = this
