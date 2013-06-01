@@ -4,7 +4,7 @@ class window.Course extends Backbone.Model
 		"title": ''
 		"content": ''
 		"tags": ''
-		"status": ''
+		"status": 0
 		"open": false
 	url: "/courses/update"
 	ready: (content,callback) ->
@@ -15,6 +15,7 @@ class window.Course extends Backbone.Model
 			if data.status is 0	
 				@.set 
 					status: 2
+					editable: false
 				callback() if callback
 	destroy: ->
 		super()

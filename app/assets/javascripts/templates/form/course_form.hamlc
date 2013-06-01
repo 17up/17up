@@ -4,10 +4,10 @@
 	%input.tags{:value => @course.tags}(name="tags")
 	%textarea{:name => 'content'}(placeholder="请在此编辑您的课程正文")
 		= @course.content
-	%span.btn.next
-		下一步
-	%span.btn.back.orange
-		放弃
-	- if @course.status is 3
-		%span.btn.delete.pink
-			删除
+	%span.btn.save
+		%i.icon-ok
+		保存修改
+	- if @status is 3 or 2
+		%span.btn.next.green
+			%i.icon-chevron-down
+			编辑词汇

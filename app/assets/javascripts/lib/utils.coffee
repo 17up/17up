@@ -36,19 +36,6 @@ class window.Utils
 			'width':'auto'
 			'defaultText':'添加标签'
 			'placeholderColor': '#888'
-	# $(document).delegate '.editable .textarea',"keydown.textarea",(e) ->
-	# 	switch e.keyCode
-	# 		when 9 # tab
-	# 			e.preventDefault()			
-	# 			if window.getSelection
-	# 				sel = window.getSelection()
-	# 				# 选中光标前面的单词
-	# 				sel.modify('move','left','word')
-	# 				sel.modify('extend','right','word')
-	# 				Utils.getSelection()
-	# 				setTimeout(->
-	# 					sel.modify('move','right','word')
-	# 				,500)
 	# Utils.getSelection('Italic')
 	# Utils.getSelection('bold')
 	@getSelection: (command = 'bold') ->

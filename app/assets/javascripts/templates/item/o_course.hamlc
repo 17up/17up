@@ -7,11 +7,20 @@
 				= @tags
 		.content
 			!= @raw_content
-		%span.btn.publish
-			完成
+		%span.btn.publish.green
+			%i.icon-ok
+			提交审核
 	- else
 		.editor
 			!= JST['form/course_form'](course: @)
+	.edit-action
+		%span.btn.back
+			%i.icon-reply
+			返回
+		- if @status is 3
+			%span.btn.delete.pink
+				%i.icon-remove
+				删除
 - else
 	.headline
 		.title
