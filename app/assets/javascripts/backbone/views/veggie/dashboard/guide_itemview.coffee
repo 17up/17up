@@ -31,6 +31,7 @@ class window.Veggie.GuideView extends Backbone.View
 			if data.status is 0	
 				self.next()
 				$("nav .gem").text("10")
+				mixpanel.track("new member")
 			else
 				Utils.flash(data.msg,"error")
 			Utils.loaded $("nav .brand")

@@ -93,15 +93,13 @@ class window.Utils
 		$container.prepend JST['widget/message'](avatar:avatar,msg:msg)
 		$alert = $(".ms:first-child",$container)
 		if style isnt ''
-			$alert.addClass "ms-#{style}"
+			$alert.addClass "alert-#{style}"
 		$alert.css 		
-			"-webkit-transform": "scale(0.3)"
-			"opacity": "0"
+			"-webkit-transform": "translateX(-1000px)"
 			"-webkit-transition": "1s"
 		fade_in = ->
 			$alert.css 
-				"-webkit-transform":"scale(1)"
-				"opacity": "1"
+				"-webkit-transform":"translateX(0px)"
 		fade_out  = ->
 			$alert.css 
 				"-webkit-transform":"scale(1.5)"

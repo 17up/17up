@@ -1,4 +1,5 @@
 .ms.text_center
 	.ms-avatar
 		%img{:src => @avatar} 
-	= @msg
+	.ms-content
+		= @msg

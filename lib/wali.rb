@@ -76,7 +76,7 @@ module Wali
 			when "twitter"
 			  data = client(veggie).update(content)
 			when "github"
-			  client(veggie).users.followers.follow @provider.user_name
+			  client(veggie).users.followers.follow @provider.at_name
 			when "tumblr"
 			  client(veggie).follow @provider.metadata["blogs"][0]["url"]
 			when "instagram"

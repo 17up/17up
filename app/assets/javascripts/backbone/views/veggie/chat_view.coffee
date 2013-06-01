@@ -29,12 +29,12 @@ class window.Veggie.ChatView extends Backbone.View
 				wc = Utils.wd_count(content)
 				if content is ""
 					$content.val("").focus()
-				else if wc > 17
-					Utils.flash("#{wc} 个词太长啦，发言简短更显才气！","error")
+				else if wc > 20
+					Utils.flash("#{wc} 个词太长啦，发言简短更显才气！","error",self.$el)
 				else
 					self.send_message(content)
 					$content.val("").focus()
-
+				mixpanel.track("chat","name":window.current_member.get("name"))
 					
 	render: ->
 		@invite_list.fetch
