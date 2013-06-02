@@ -56,6 +56,7 @@ class window.Utils
 		$container = $container || $("#flash_message")
 		$container.prepend JST['widget/flash'](msg:msg)
 		$alert = $(".alert:first-child",$container)
+		$origin = $("body").css 'overflow'
 		$("body").css 'overflow':'hidden'
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
@@ -63,7 +64,7 @@ class window.Utils
 		fuc = -> 
 			$alert.slideUp ->
 				$(@).remove()
-				$("body").css 'overflow':'auto'
+				$("body").css 'overflow':$origin
 		setTimeout fuc,5000		
 		false
 	@wd_count: (string) ->
@@ -84,11 +85,11 @@ class window.Utils
 		if style isnt ''
 			$alert.addClass "alert-#{style}"
 		$alert.css 		
-			"-webkit-transform": "translateX(-1000px)"
-			"-webkit-transition": "1s"
+			"-webkit-transform": "translateY(300px)"
+			"-webkit-transition": "0.8s"
 		fade_in = ->
 			$alert.css 
-				"-webkit-transform":"translateX(0px)"
+				"-webkit-transform":"translateY(0px)"
 		fade_out  = ->
 			$alert.css 
 				"-webkit-transform":"scale(1.5)"

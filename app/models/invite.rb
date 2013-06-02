@@ -18,7 +18,7 @@ class Invite
   def push_notify
   	if provider.nil?
       cname = Course.find(course_id).title
-      message = t("invite.common",:uname => member.name,:cname => cname)
+      message = I18n.t("invite.common",:uname => member.name,:cname => cname)
   		WebsocketRails["notify_#{target}"].trigger "invite_course",message
   	end
   end

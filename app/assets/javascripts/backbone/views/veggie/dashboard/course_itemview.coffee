@@ -46,7 +46,6 @@ class window.Veggie.CourseView extends Backbone.View
 		else
 			@select_words_from_collection()
 		window.chatroom.enter_channel(@model.get("_id"))
-
 	back_to_list: ->
 		@model.set 
 			open: false
