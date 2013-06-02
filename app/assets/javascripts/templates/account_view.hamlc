@@ -16,9 +16,15 @@
 			.role
 				%span.label
 					%span.icon-trophy
-					会员等级
+					学员状态
 				%span.label.label-success
-					普通会员
+					普通学员
+				- if @role is 'a'
+					%span.label.label-red
+						管理员
+				- else if @role is 't'
+					%span.label.label-red
+						教师
 			.grades
 				%span.label
 					%span.icon-book

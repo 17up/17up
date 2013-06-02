@@ -39,8 +39,7 @@ class CoursesController < ApplicationController
 			@course.raw_content = params[:raw_content]
 			# 标记课程状态为审核中
 			@course.status = 2
-			@course.save
-			HardWorker::PrepareWordJob.perform_async(@course._id)			
+			@course.save				
 			render_json 0,"wait for open"
 		else
 			render_json -1,"no course"
@@ -48,14 +47,13 @@ class CoursesController < ApplicationController
 	end
 
 	def open
-		if current_member.admin?
-			if @course = Course.ready.find(params[:_id])
-				@course.update_attribute(:status,1)
-				render_json 0,"open"
-			else
-				render_json -1,"no course"
-			end
-		end		
+		if find_member_course
+			HardWorker::PrepareWordJob.perform_async(@course._id)
+			@course.make_open					
+			render_json 0,"open"
+		else
+			render_json -1,"no course"
+		end
 	end
 
 	def destroy

@@ -1,6 +1,9 @@
 #t_assets
 - if @is_teacher
 	#t_courses
-		!= JST["courses_view"]()
+		.alert.alert-info
+			%span.icon-list
+			课程列表
+			%span.icon-plus.new(title="新建")
 	
 

@@ -3,11 +3,6 @@ class window.Olive.CoursesView extends Olive.View
 	className: "block"
 	template: JST['courses_view']
 	collection: new Olive.Courses()
-	events:
-		"click .new": 'newCourse'
-	newCourse: ->
-		course = new Course()
-		@addOne course
 	addOne: (course) ->
 		view = new Olive.CourseView
 			model: course

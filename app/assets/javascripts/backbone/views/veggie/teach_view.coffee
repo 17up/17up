@@ -13,7 +13,7 @@ class window.Veggie.TeachView extends Veggie.View
 		course = new Course()
 		@addOne course
 	addOne: (course) ->
-		view = new Olive.CourseView
+		view = new Veggie.TeachCourseView
 			model: course
 		$("#t_courses",@$el).append(view.render().el)
 	extra: ->
@@ -25,6 +25,6 @@ class window.Veggie.TeachView extends Veggie.View
 				for c in @collection.models
 					@addOne(c)
 		else
-			guide = Guide.generate "目前，“备课” 功能正在试验室阶段，你想成为一名 17up 教师吗？请通过任何方式联系我吧，感谢您的支持！"
+			guide = Guide.generate "目前，“教案” 功能正在实验室阶段，你想成为一名 17up 教师吗？请通过任何方式联系我吧，感谢您的支持！"
 			Veggie.GuideView.addOne(guide,$("#t_assets"))
 		super()

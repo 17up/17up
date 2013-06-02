@@ -11,6 +11,7 @@ class window.Veggie.CourseView extends Backbone.View
 		"click .back-to-content": "back_to_content"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
+		@listenTo(@model, 'study', @study)
 	checkin: ->
 		@model.checkin =>
 			Veggie.GuideView.addOne Guide.courses("content")

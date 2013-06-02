@@ -1,12 +1,14 @@
 class Quote < Text
-  include Concerns::Likeable
   
   field :author, type: Hash
   field :source, type: Hash
+  field :u_at, type: DateTime
 
   validates :content, :uniqueness => true,:presence => true
   validates :tags, :presence => true
   validates :author, :presence => true
+  after_save :update_time
+
   BASE_URL = "http://www.goodreads.com"
   TAG_KEY = "quote_tags"
 
@@ -15,6 +17,10 @@ class Quote < Text
   scope :one_tag, -> {where(:tags.with_size => 1)}
   scope :with_author, -> {where(:author.exists => true)}
   scope :without_author, -> {where(:author => nil)}
+
+  def update_time
+    self.set(:u_at,Time.current)
+  end
 
   def self.tag_by(tag_list,match_any = true)
     if match_any
@@ -96,6 +102,7 @@ class Quote < Text
         bindings[:view].raw value
       end
     end
+    field :u_at
   	field :tags do
       pretty_value do
         value.blank? ? '-' : value.join(" / ")

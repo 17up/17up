@@ -17,5 +17,6 @@ class window.Veggie.ProviderView extends Backbone.View
 		@$el.html @template(@model.toJSON())	
 		this
 	enterStep: ->
-		@model.fetch()
+		@model.fetch =>
+			$(".container",@$el).fadeIn()
 		this

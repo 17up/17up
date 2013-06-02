@@ -16,16 +16,22 @@ class window.Course extends Backbone.Model
 				@.set 
 					status: 2
 					editable: false
+					raw_content: content
+				callback() if callback
+	open: (callback) ->
+		$.post "/courses/open",_id:@.get("_id"),(data) =>
+			if data.status is 0	
+				@.set 
+					status: 1
+					check: false
 				callback() if callback
 	destroy: ->
 		super()
-		self = this
-		$.post '/courses/destroy',_id:self.get("_id")
+		$.post '/courses/destroy',_id:@.get("_id")
 	checkin: (callback)->
-		self = this
-		$.post "/courses/checkin",_id:self.get("_id"),(data) ->
+		$.post "/courses/checkin",_id:@.get("_id"),(data) =>
 			if data.status is 0	
-				self.set 
+				@.set 
 					has_checkin: true
 				$("nav .gem").text(data.data)
 				callback()

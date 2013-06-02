@@ -49,6 +49,11 @@ class Course
     end.join()
   end
 
+  def make_open
+    self.update_attribute(:status,1)
+    self.member.course_grades << CourseGrade.new(:course_id => self.id)
+  end
+
   def as_json
     ext = {
       "author" => member.name,

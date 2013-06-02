@@ -1,4 +1,4 @@
-#set_uid.form.alert-info.text_center
+#set_uid.form.text_center
 	.tip
 		ID 只能由 字母、数字、_构成
 	%form(action="/members/update" method="post" data-remote="true")

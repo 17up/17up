@@ -19,17 +19,17 @@ class window.Veggie.GuideView extends Backbone.View
 		$next.fadeIn()		
 		@remove()
 	start: ->
-		$("#courses").fadeIn()
+		$("#courses,#widgets").fadeIn()
 		@remove()
 	render: ->
-		self = this
 		@$el.html @template(@model.toJSON())
 		$form = $("#set_uid form",@$el)
 		$form.bind 'ajax:before',(d) ->
 			Utils.loading $("nav .brand")
-		$form.bind 'ajax:success', (d,data) ->
+		$form.bind 'ajax:success', (d,data) =>
 			if data.status is 0	
-				self.next()
+				@next()
+				$("#side_nav li:first-child").siblings().show()
 				$("nav .gem").text("10")
 				mixpanel.track("new member")
 			else

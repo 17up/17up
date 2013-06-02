@@ -9,8 +9,8 @@ class window.Veggie.DashboardView extends Veggie.View
 			model: model
 		$("#widgets",@$el).append(@song_view.render().el)
 	add_courses: ->
-		courses = new Veggie.Courses(@collection.get("courses"))
-		for c in courses.models
+		@courses = new Veggie.Courses(@collection.get("courses"))
+		for c in @courses.models
 			view = new Veggie.CourseView
 				model: c
 			$("#courses",@$el).append(view.render().el)
@@ -24,6 +24,11 @@ class window.Veggie.DashboardView extends Veggie.View
 		$("#widgets",@$el).append(person_view.render().el)
 	active: ->
 		super()		
+		if window.to_course_id
+			course = @courses.where
+				_id: window.to_course_id
+			course[0].trigger("study")
+			window.to_course_id = null
 		if @current_course and @current_course.get("imagine")
 			@init_imagine()
 	close: ->
@@ -69,6 +74,7 @@ class window.Veggie.DashboardView extends Veggie.View
 		this
 	extra: ->
 		if @collection.has("guides")
+			$("#side_nav li:first-child").siblings().hide()
 			Veggie.hide_nav()
 			guides = @collection.get("guides")
 			Guide.fetch(guides)

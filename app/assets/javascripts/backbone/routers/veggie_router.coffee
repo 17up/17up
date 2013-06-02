@@ -8,7 +8,6 @@ class Veggie.Router extends Backbone.Router
 		new Veggie.BannerView()
 		$("#side_nav").on "click","li", ->
 			href = $(@).attr 'rel'
-			$(@).addClass('active')
 			if href is 'dashboard'
 				href = ''
 			self.navigate(href,true)

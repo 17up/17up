@@ -7,7 +7,7 @@
 	%span.btn.save
 		%i.icon-ok
 		保存修改
-	- if @status is 3 or 2
+	- if @course.status is 3 or 2
 		%span.btn.next.green
 			%i.icon-chevron-down
 			编辑词汇

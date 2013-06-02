@@ -3,10 +3,9 @@ class window.Provider extends Backbone.Model
 		"_id": ''
 		"provider": ''
 	fetch: (callback) ->
-		self = this
-		provider = self.get("provider")
-		if self.get("_id") is ''
-			$.get "/members/provider?provider=" + provider, (data) ->
+		if @.get("_id") is ''
+			$.get "/members/provider?provider=" + @.get("provider"), (data) =>
 				if data.status is 0
-					self.set data.data
+					@.set data.data
 					callback() if callback
+		
