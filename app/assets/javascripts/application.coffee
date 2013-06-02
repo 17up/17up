@@ -4,7 +4,6 @@
 #= require hamlcoffee
 #= require underscore
 #= require backbone
-#= require backbone_rails_sync
 #= require websocket_rails/main
 #= require_tree ./lib
 #= require_tree ./templates

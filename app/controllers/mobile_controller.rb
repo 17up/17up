@@ -33,9 +33,4 @@ class MobileController < ApplicationController
 	end
   end
 
-  def lab
-  	set_seo_meta(nil)
-  	render :layout => 'lab'
-  end
-
 end

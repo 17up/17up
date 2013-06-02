@@ -56,13 +56,15 @@ class window.Utils
 		$container = $container || $("#flash_message")
 		$container.prepend JST['widget/flash'](msg:msg)
 		$alert = $(".alert:first-child",$container)
+		$("body").css 'overflow':'hidden'
 		if type isnt ''
 			$alert.addClass "alert-#{type}"
 		$alert.slideDown()
 		fuc = -> 
 			$alert.slideUp ->
 				$(@).remove()
-		setTimeout fuc,5000
+				$("body").css 'overflow':'auto'
+		setTimeout fuc,5000		
 		false
 	@wd_count: (string) ->
 		cn_regx = /[\u4E00-\u9FA5\uf900-\ufa2d]/ig

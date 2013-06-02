@@ -12,7 +12,6 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
   gem 'bourbon'
-  gem "rails-backbone"
   gem 'haml_coffee_assets'
   gem 'turbo-sprockets-rails3'
 end
