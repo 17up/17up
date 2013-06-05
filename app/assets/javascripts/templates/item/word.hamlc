@@ -1,6 +1,6 @@
 - if @title
-	- if @imagine
-		.action.to_base(title = "忘记了？偷看解释")
+	.word_card.hide
+		.action.to_imagine(title = "忘记了？偷看解释")
 			%span.icon-eye-open
 		.image
 			%span.upload_img(data-uploader="uword" title="点击上传")
@@ -22,8 +22,7 @@
 				- for s in @sentences
 					.sentence.form.alert-success
 						= s
-
-	- else
+	.word_card
 		.action.to_imagine(title = "记住了，闭目联想")
 			%span.icon-eye-close
 		.title.amienne

@@ -17,7 +17,6 @@ class window.Veggie.WordView extends Backbone.View
 		"click .upload_img": "upload_img"
 		"click .audio .record": "audio_record"
 		"click .audio .play": "audio_play"
-		"click .to_base": "to_base"
 		"click .to_imagine": "to_imagine"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
@@ -31,13 +30,11 @@ class window.Veggie.WordView extends Backbone.View
 	render: ->
 		@$el.html @template(@model.toJSON())	
 		this
-	to_base: ->
-		@model.set 
-			imagine: false
-		@sound.play()
 	to_imagine: ->
-		@model.set 
-			imagine: true
+		$wv = $(".word_card:visible",@$el)
+		$wh = $(".word_card:hidden",@$el)
+		$wv.hide()
+		$wh.show()						
 		Veggie.GuideView.addOne Guide.imagine("word")
 		@sound.play()
 	goFirst: ->
@@ -63,12 +60,7 @@ class window.Veggie.WordView extends Backbone.View
 		$ele = $(e.currentTarget)
 		if @sound
 			@sound.play() 
-		$input_id = $("footer #uploader .uword input[name='_id']")
-		if id = @model.get("_id")
-			$input_id.val(id)
-		else if @model.get("title")
-			@model.fetch =>
-				$input_id.val(@model.get("_id"))
+		$("footer #uploader .uword input[name='_id']").val @model.get("_id")
 		
 		if @model.get('num') is 0
 			Veggie.GuideView.addOne Guide.imagine("ihome")

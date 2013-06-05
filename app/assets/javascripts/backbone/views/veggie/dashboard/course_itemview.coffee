@@ -34,15 +34,10 @@ class window.Veggie.CourseView extends Backbone.View
 		unless @model.get("has_checkin")
 			Veggie.GuideView.addOne Guide.courses("checkin")		
 		if @collection.length is 0			
-			$words = $("b",@$el).addClass 'selected'
-			words = _.map $words,(w) ->
-				$(w).text()
-			words = _.uniq(words)
-			for w,i in words
-				word = new Word
-					title: $.trim(w)
-					num: i + 1
-				@collection.push(word) 
+			@collection.fetch
+				url: "/words/index?_id=" + @model.get("_id")
+				success: (data) =>
+					@select_words_from_collection()
 		else
 			@select_words_from_collection()
 		window.chatroom.enter_channel(@model.get("_id"))
@@ -51,9 +46,9 @@ class window.Veggie.CourseView extends Backbone.View
 			open: false
 		@$el.siblings().show()
 		@$el.parent().siblings().show()
-		$("#assets").html ""		
+		$("#assets").empty()		
 		@collection.reset()
-		$("#imagine").html ""
+		$("#imagine").empty()
 		window.chatroom.leave_channel()
 	save_step: (id) ->
 		cid = @model.get("_id")
@@ -68,6 +63,7 @@ class window.Veggie.CourseView extends Backbone.View
 		@$el.removeClass 'opacity'
 		Veggie.GuideView.addOne Guide.courses("back_content")
 		@select_words_from_collection()
+		$("#imagine").empty()
 		# w = $.trim($(".title",$word).text())
 		# Utils.highlight $('b:contains("' + w + '")')		
 	toggleSelect: (e) ->

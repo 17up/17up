@@ -33,6 +33,7 @@ Veggie::Application.routes.draw do
   end
 
   namespace :words do
+    get "index"
     post 'fetch'
     post 'upload_img_u'
     post 'upload_audio_u'

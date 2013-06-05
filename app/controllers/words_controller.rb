@@ -1,22 +1,28 @@
 class WordsController < ApplicationController
 	before_filter :authenticate_member!
 
+	# @course_id
+	def index
+		@course = Course.find(params[:_id])
+		data = @course.words.each_with_index.map do |w,i|
+			ext = {
+				:imagine => current_member.has_u_word(w).present?,
+				:num => i + 1,
+				:synsets => w.synset,
+				:sentences => w.sentence
+			}
+			w.as_json.merge!(ext)
+		end
+		render_json 0,"ok",data	
+	end
+
 	def fetch
 		title = params[:title]
 		word = Onion::Word.new(title).insert(:skip_exist => 1)
-		if @uw = current_member.has_u_word(word)		
-			data = @uw.as_json.merge(:imagine => true)
-		else
-			data = word.as_json
-		end
 		
 		# 联想好友们的发音，图片
 		#Onion::Word.wordnet(params[:title],:synset)
 		#Onion::Word.from_tweet(title)
-		data.merge!({
-			:synsets => word.synset,
-			:sentences => word.sentence
-			})
 		render_json 0,"ok",data	
 	end
 
