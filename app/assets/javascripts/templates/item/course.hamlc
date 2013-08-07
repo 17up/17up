@@ -4,6 +4,9 @@
 	.info
 		%span.icon-leaf
 		= @wl
+		%span.icon-user
+		%a{:href => @author.url}(target = "blank")
+			= @author.name
 		- if @tags
 			%i.icon-tags
 			= @tags

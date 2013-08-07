@@ -15,32 +15,30 @@ class window.Veggie.CourseView extends Backbone.View
 	checkin: ->
 		@model.checkin =>
 			Veggie.GuideView.addOne Guide.courses("content")
-			@select_words_from_collection()
 	select_words_from_collection: ->
+		@model.set 
+			open: true
+			imagine: false
 		words = @collection.where
 			imagine: false
 		titles = _.map words, (w) ->
 			w.get("title")
 		for w in titles
-			$('b:contains("' + w + '")').addClass 'selected'
+			$('b:contains("' + w + '")').addClass 'selected'	
 	study: ->
-		@model.set 
-			open: true
-			imagine: false
-		Veggie.hide_nav()
-		@$el.parent().siblings().hide()
-		@$el.siblings().hide()	
-		window.route.active_view.current_course = @model
-		unless @model.get("has_checkin")
-			Veggie.GuideView.addOne Guide.courses("checkin")		
-		if @collection.length is 0			
-			@collection.fetch
-				url: "/words/index?_id=" + @model.get("_id")
-				success: (data) =>
-					@select_words_from_collection()
-		else
-			@select_words_from_collection()
-		window.chatroom.enter_channel(@model.get("_id"))
+		Utils.loading @$el		
+		@collection.fetch
+			url: "/words/index?_id=" + @model.get("_id")
+			success: (data) =>
+				Utils.loaded @$el
+				Veggie.hide_nav()
+				@$el.parent().siblings().hide()
+				@$el.siblings().hide()									
+				@select_words_from_collection()	
+				window.route.active_view.current_course = @model
+				unless @model.get("has_checkin")
+					Veggie.GuideView.addOne Guide.courses("checkin")
+				window.chatroom.enter_channel(@model.get("_id"))
 	back_to_list: ->
 		@model.set 
 			open: false
@@ -56,9 +54,6 @@ class window.Veggie.CourseView extends Backbone.View
 	back_to_content: ->
 		$word = $(".step.active")
 		@save_step $word.attr("id")
-		@model.set 
-			open: true
-			imagine: false
 		window.route.active_view.deinit_imagine()
 		@$el.removeClass 'opacity'
 		Veggie.GuideView.addOne Guide.courses("back_content")

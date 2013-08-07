@@ -10,7 +10,6 @@ class window.Veggie.TeachCourseView extends Backbone.View
 		"click .delete": "delete"
 		"click .back": "back"
 		"mouseup .content": "handle_words"
-		"click .enter": "enter"
 	initialize: ->
 		@listenTo(@model, 'change', @render)
 		@listenTo(@model, 'destroy', @remove)
@@ -53,9 +52,6 @@ class window.Veggie.TeachCourseView extends Backbone.View
 		content = $.trim @$el.find(".content").html()
 		@model.ready content, =>
 			@$el.siblings().show()
-	enter: (e) ->
-		window.to_course_id = @model.get("_id")
-		window.route.navigate("/",true)
 	handle_words: ->
 		if window.getSelection
 			sel = window.getSelection()

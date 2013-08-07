@@ -37,8 +37,6 @@
 				No Sync Record
 		.action
 			- if @status is 1
-				%span.btn.enter.green(title = "进入课程")
-					%i.icon-bell-alt
 				%span.btn.disabled
 					已发布
 			- else

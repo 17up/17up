@@ -56,7 +56,10 @@ class Course
 
   def as_json
     ext = {
-      "author" => member.name,
+      "author" => {
+        "name" => member.name,
+        "url" => member.member_path
+      },
       "tags" => tags.join(","),
       "wl" => words_in_content.length
     }

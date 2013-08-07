@@ -23,12 +23,7 @@ class window.Veggie.DashboardView extends Veggie.View
 			model: model
 		$("#widgets",@$el).append(person_view.render().el)
 	active: ->
-		super()		
-		if window.to_course_id
-			course = @courses.where
-				_id: window.to_course_id
-			course[0].trigger("study")
-			window.to_course_id = null
+		super()
 		if @current_course and @current_course.get("imagine")
 			@init_imagine()
 	close: ->
